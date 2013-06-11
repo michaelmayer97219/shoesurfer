@@ -1,9 +1,24 @@
 $(document).ready(function() {
 
+    $('#footer').hide();
+
+
     picz( 50, $('#imgContain'))
     hideImgs();
     showImgs();
     //style footer to have 10px margins
+
+    $('.lock').hover(function(){
+        $('.overlay').animate(
+            {height: '40px',}, 
+            200);
+        $('.overlay').show();
+    }, function () {
+        $('.overlay').animate(
+            {height: '0px',}, 
+            200);
+        $('.overlay').hide(200);
+    })
 
     function hideImgs (callback) {
         $('.img').animate({'margin-left': '120%'},500, function(){callback})
@@ -25,14 +40,23 @@ $(document).ready(function() {
         $('#preFooter').width(w-20)
     }
 
-    $('.img').hover(function() {
-        $(this).children('.overlay').show();
-    }, function() {
-        $(this).children('.overlay').hide();
-    })    
+
+    $('.img').mouseenter(function() {
+        $(this).children('.overlay').animate(
+            {height: '40px',}, 
+            200);
+        $(this).find('.overlay').show();
+    }) 
+
+    $('.img').mouseleave(function() {
+        $(this).children('.overlay').animate(
+            {height: '0%'}, 
+            200);
+        $(this).find('.overlay').hide(200);
+    });    
 
     lol = 0 //tracker for mousing over .piece class
-
+    /*
     $('.piece').hover(function() {
         $('.piece').removeClass('arrow') 
         $(this).addClass('arrow')
@@ -57,7 +81,7 @@ $(document).ready(function() {
             }
         })
     })
-
+    */
 
 
     function sizeOptions () {
@@ -124,7 +148,7 @@ $(document).ready(function() {
     })
 
     function picHTML (src, text) {
-        return "<div class='img'><div class='overlay'><span>"+text+"</span></div><img src='"+src+"'/></div>"
+        return "<div class='img'><div class='overlay'><div class='label'>"+text+"</div><div class='thumb up' ></div><div class='thumb down' ></div></div><img src='"+src+"'/></div>"
     }
 
     function picz (num, element) {
@@ -143,8 +167,14 @@ $(document).ready(function() {
         iSpread($('#imgContain'), 200, 10)
     }
 
+    $('.img').each(function() {
+        price = '$'+Math.floor(Math.random()*100)
+        $(this).append("<div class='price'>"+price+"</div>")
+        console.log(price)
+    })
 
-    
+
+    /*
     
 
     strOriginalQuery = "http://ecs.amazonaws.com/onca/xml?AWSAccessKeyId=AKIAIDF25W65W3YRQXTQ&AssociateTag=pershofin-20&Keywords=harry%20potter%20&Operation=ItemSearch&SearchIndex=Books&Service=AWSECommerceService"
@@ -166,5 +196,5 @@ console.log(strOriginalQuery)
       console.log($data.find('description'))
     });
     console.log(xml)
-
+*/
 })
