@@ -2,6 +2,8 @@ $(document).ready(function() {
 
     $('#footer').hide();
 
+    xml = $('#xml').text()
+    console.log(xml)
 
     picz( 50, $('#imgContain'))
     hideImgs();
