@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
     $('#footer').hide();
-
+    $('#leftColumn').click(function() {
+        $(this).css('background-color', 'rgba(231,208,173, .8) ')
+        $(this).css('background-image', 'none')
+    })
     xml = $('#xml').text()
     console.log(xml)
 
@@ -9,16 +12,54 @@ $(document).ready(function() {
     hideImgs();
     showImgs();
     //style footer to have 10px margins
+    i = 0;
+    posrecord = [];
+    backimage = $('#leftColumn').css('background-image')
+    toggle = 0
+    topTrack = 0;
+    $(window).scroll(function() {
+        i++
+        top = $(window).scrollTop()
+        posrecord.push(top.scrollY)
+        tracker = ((posrecord[i-2])- posrecord[i-1])
+        console.log(tracker)
+        height = $('#leftColumn').height();
+        
+        newHeight = height + tracker;
+         if (posrecord[i-1] == 0) {
+            topTrack = topTrack+1 //will be odd until browser returns to zero
+            console.log('toptrack = '+topTrack)
+         }
+
+         if (topTrack%2 == 0) {
+            if (height >= 70 && height <= 100) {
+                if (newHeight < 70) {
+                    $('#lgo').css({'top': '30px', 'font-size':'30px'})
+                    $('#leftColumn').height(70)
+                }  else if (newHeight >100) {
+                    $('#lgo').css({'top': '40px', 'font-size':'40px'})
+                    $('#leftColumn').height(100)
+                } else {
+                    $('#leftColumn').height(newHeight)
+                    lgostyle = (((newHeight-70)/30)*10)+30
+                    console.log('logostyle = '+lgostyle)
+                    $('#lgo').css({'top': lgostyle, 'font-size': lgostyle})
+                }
+            }
+        }
+        $('#leftColumn').css('opacity', height/100)
+
+    })
 
     $('.lock').hover(function(){
-        $('.overlay').animate(
-            {height: '40px',}, 
-            200);
+       // $('.overlay').animate(
+         //   {height: '40px',}, 
+           // 200);
         $('.overlay').show();
     }, function () {
-        $('.overlay').animate(
-            {height: '0px',}, 
-            200);
+       // $('.overlay').animate(
+       //     {height: '0px',}, 
+       //     200);
         $('.overlay').hide(200);
     })
 
@@ -48,6 +89,7 @@ $(document).ready(function() {
             {height: '40px',}, 
             200);
         $(this).find('.overlay').show();
+        $(this).find('.price').show(150)
     }) 
 
     $('.img').mouseleave(function() {
@@ -55,6 +97,7 @@ $(document).ready(function() {
             {height: '0%'}, 
             200);
         $(this).find('.overlay').hide(200);
+        $(this).find('.price').hide(150)
     });    
 
     lol = 0 //tracker for mousing over .piece class
@@ -156,13 +199,15 @@ $(document).ready(function() {
     function picz (num, element) {
         for (i = 0; i<num;i++) {
 
-            n = Math.floor(Math.random()*6)
+            n = Math.floor(Math.random()*4)
            if (n == 0) {
-                element.append(picHTML("http://www.toms-shoes-outlet-onlines.com/images/Women-Toms-Classic-Shoes-Classic-Women-Black-Stripe.jpg", "Tom's $100"))
+                element.append(picHTML('/assets/sample1.jpg', 'Fucking Shoe!'))
             } else if (n ==1) {
-                element.append(picHTML('http://ww1.prweb.com/prfiles/2008/10/15/261416/fallanimal.jpg', "Something $120"))
+                element.append(picHTML('/assets/sample2.jpg', "That Shoe!"))
+            } else  if (n == 2) {
+                element.append(picHTML('/assets/sample3.jpg', 'Blah Shoes'))
             } else {
-                element.append(picHTML('http://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/SZQAAOxyY9VRNWDY/$T2eC16NHJHYE9nzpcwl9BRNWDYD+rQ~~60_1.JPG?set_id=8800005007', 'Blah $75'))
+                 element.append(picHTML('/assets/sample4.jpg', 'Wat Wat What'))
             }
             
         }

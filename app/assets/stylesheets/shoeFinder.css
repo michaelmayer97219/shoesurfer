@@ -26,19 +26,14 @@ img {
 	width: 100%;
 }
 
-#thang {
-	position: absolute;
-	width: 100%;
-	height: 20px;
-	top: 0px;
-	border-top: 10px solid white;
-	z-index: 1000000000000;
-}
 
 #container {
 	float: right;
 	display: inline-block;
 	width: 90%;
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-top: 100px;
 	xbackground-color: #f5f5f5;	
 }
 
@@ -47,9 +42,13 @@ img {
 	position: fixed;
 	display: inline-block;
 	padding: 0px;
-	top: 0;
-	width: 100px;
-	height: 100%;
+	xtop: 1.5%;
+	border-top: 10px solid white;
+	width: 98%;
+	margin-left: 1%;	
+	z-index: 10000;
+	
+	height: 100px;
 	xbackground-color: rgb(255,25,60);
 	background-image: url('retina_wood.png');
 	xborder: 1px solid #aaa;
@@ -57,94 +56,76 @@ img {
 	box-shadow: 0 0px 2px 1px rgba(255,200,200, .8) inset;
 }
 
-
-
-#rowContain {
-	height: 50%;
-	width: 100%;
-	margin-top: 100%;
-	xbackground-color: rgba(255,25,60, .5);
-}
-
-.row {
-	width: 100%;
+#lgo{
+	font-family: 'Lobster', cursive;
 	height: 100px;
-	xmargin-left: 5%;
-	xbackground-color: rgba(255,25,60, .6);
-	background-color: rgba(255,255,255,.6);
-	xbackground-color: #aaa;
-	xbackground-image: url('wood_1.png');
-	margin-top: 10px;
-	border-radius: 1px;
-	xbox-shadow: 0 0px 4px 1px rgb(0,0,0) inset;
-	position: relative;
+	width: 98%;
+	line-height: 100%;
+	font-size: 40px;
+	position: fixed;
+	top: 40px;
+	left: 30px;
+	z-index: 100000000000;
 }
 
-.row:hover {
-		background-color: rgba(255,255,255,.8);
+#goo {
+
 }
 
-.ttt {
-
-	top: 0px;
-	width: 100%;
-	height: 50%;
-	color: black;
-	text-align: center;
-	line-height: 50px;
-	font-size: 18px;
-	font-family: 'Abel', sans-serif;
-}
-
-.lock {
+#tag {
+	height: 50px;
 	position: absolute;
-	height: 50%;
-	width: 50%;
-	right: 0px;
-	bottom: 0px;
-	background-color: rgb(30,170,30);
+	right: 50%;
+	margin-right: 10px;
+	font-size: 25px;
+	color: #333;
+	text-shadow: 1px 10px 5px black inset;
+
+	top: 0;
+	margin-top: -5px;
+	font-family: arial;
+	font-style: italic;
 	font-family: appfont;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-    font-size: 22px;
-    line-height: 50px;
-    text-align: center;
 }
 
-.lock:before {
-	content: "\f13e"; 
+#tag:before {
+	content: '\F0B0';
 }
 
-.lock:hover {
-	background-color: rgb(200,50,50);
+#headerOptions {
+	height: 50px;
+	background-color: rgba(0, 0, 0,.6);
+	box-shadow: 1px 1px 5px black inset;
+	width: 45%;
+	float: right;
+	top: 0;
+	margin-top: -10px;
+	right: 1%;
+	margin-right: 40px;
+	position: absolute;
 }
+
 
 
 .img {
-
 	position: relative;
 	display: inline-block;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	margin-right: 10px;
 	margin-left: 120%;
-	xborder-radius: 3px;
-	xborder: 1px solid #ddd;
-	xborder-bottom: 1px solid #999;
-	xborder-right: 1px solid #ddd;
-	xborder-top: 1px solid #dedede;
-
 }
 
 .img:hover {
 	cursor: pointer;
-
 }
 
 .price {
-	border: 2px solid black;
+	display: none;
+	border: 2px solid #666;
+	xbackground-image: url('retina_wood.png');
 	padding: 3px;
+	xcolor: white;
 	top: 0;
 	right: 0;
 	position: absolute;
