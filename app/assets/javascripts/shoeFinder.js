@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     $('#footer').hide();
     $('#leftColumn').click(function() {
         $(this).css('background-color', 'rgba(231,208,173, .8) ')
@@ -34,16 +33,22 @@ $(document).ready(function() {
          if (topTrack%2 == 0) {
             if (height >= 70 && height <= 100) {
                 if (newHeight < 70) {
-                    $('#lgo').css({'top': '30px', 'font-size':'30px'})
+                    $('#lgo').css({'top': '30px'})
+                    $('#goo').css({'font-size':'30px', 'margin-top': '-5px'})
+                    $('.optn').css({height: '40px', 'padding-top': '0px'})
                     $('#leftColumn').height(70)
                 }  else if (newHeight >100) {
-                    $('#lgo').css({'top': '40px', 'font-size':'40px'})
+                    $('#lgo').css({'top': '40px'})
+                    $('#goo').css('font-size','40px')
+                    $('.optn').css({height: '50px',  'padding-top': '5px'})
                     $('#leftColumn').height(100)
                 } else {
                     $('#leftColumn').height(newHeight)
                     lgostyle = (((newHeight-70)/30)*10)+30
                     console.log('logostyle = '+lgostyle)
-                    $('#lgo').css({'top': lgostyle, 'font-size': lgostyle})
+                    $('#lgo').css({'top': lgostyle})
+                    $('#goo').css({'font-size': lgostyle})
+                    $('.optn').css('height',(lgostyle)+8)
                 }
             }
         }
@@ -101,32 +106,30 @@ $(document).ready(function() {
     });    
 
     lol = 0 //tracker for mousing over .piece class
-    /*
-    $('.piece').hover(function() {
-        $('.piece').removeClass('arrow') 
-        $(this).addClass('arrow')
-        $('#preFooter').show();
+    
+    $('.optn').hover(function() {
+        $('.optn').removeClass('arrow') 
+        $(this).addClass('arrow')   
 
-        
-        
     }, function() {
+         $('.optn').removeClass('arrow')
         $('body').mousemove(function() {
             posy = event.clientY
             posx = event.clientX
             fromLeft = $(window).width() - posx
             fromBottom = $(window).height() - posy
             console.log(fromLeft)
+
             if (fromBottom > 180) {
-                $('#preFooter').hide();
 
                 $('.piece').removeClass('arrow')
             } else if (fromBottom < 90 && fromLeft < 300 ) {
-                $('#preFooter').hide();
-                $('.piece').removeClass('arrow')
+        
+               
             }
         })
     })
-    */
+    
 
 
     function sizeOptions () {
@@ -173,10 +176,10 @@ $(document).ready(function() {
         newSize = (element.width()-(numPix*minMarg*3) )/(numPix)
         console.log(numPix+' pictures at '+newSize)
         element.children('.img').width(newSize)
-        element.children('.img').height(newSize)
+        element.children('.img').height(newSize*3/4)
     }
 
-    iSpread($('#imgContain'), 200, 10)
+    iSpread($('#imgContain'), 220, 10)
 
    // spread($('#imgContain'),10)
 
@@ -185,7 +188,7 @@ $(document).ready(function() {
     $(window).resize(function() {
         resizeFooter()
         if (x == 0) {
-        iSpread($('#imgContain'), 200, 10)
+        iSpread($('#imgContain'), 220, 10)
        // spread($('#imgContain'),10, 202)
         x = 1
       }
@@ -205,7 +208,7 @@ $(document).ready(function() {
             } else if (n ==1) {
                 element.append(picHTML('/assets/sample2.jpg', "That Shoe!"))
             } else  if (n == 2) {
-                element.append(picHTML('/assets/sample3.jpg', 'Blah Shoes'))
+                element.append(picHTML('/assets/sample3.png', 'Blah Shoes'))
             } else {
                  element.append(picHTML('/assets/sample4.jpg', 'Wat Wat What'))
             }
