@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+
 		require 'yaml'
 		require 'vacuum'
 		req = Vacuum.new
@@ -21,6 +22,7 @@ class HomeController < ApplicationController
 		}
 
 		@res = req.get(query: params)
+		return @res.inspect
   end
   
 end

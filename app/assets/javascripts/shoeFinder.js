@@ -1,11 +1,16 @@
 $(document).ready(function() {
+
     $('#footer').hide();
-    $('#leftColumn').click(function() {
-        $(this).css('background-color', 'rgba(231,208,173, .8) ')
-        $(this).css('background-image', 'none')
-    })
     xml = $('#xml').text()
-    console.log(xml)
+    //console.log(xml)
+
+
+
+    $('.optn').hover(function() {
+        $(this).children('.select').show();
+    }, function() {
+        $(this).children('.select').hide();
+    })
 
     picz( 50, $('#imgContain'))
     hideImgs();
@@ -165,7 +170,6 @@ $(document).ready(function() {
         remainder = element.width() - (maxCumMarg*numPix)
 
         newMarg = 10 + remainder/ (numPix*2)
-        console.log('new marg is'+newMarg+'numPix is'+numPix)
       //  newMarg = 10
         element.children('img').css('margin-left',newMarg)
         element.children('img').css('margin-right',newMarg)
@@ -174,7 +178,6 @@ $(document).ready(function() {
     function iSpread (element, minSize, minMarg) {
         numPix = Math.floor(element.width()/(minSize+(minMarg*3)))
         newSize = (element.width()-(numPix*minMarg*3) )/(numPix)
-        console.log(numPix+' pictures at '+newSize)
         element.children('.img').width(newSize)
         element.children('.img').height(newSize*3/4)
     }
@@ -220,31 +223,29 @@ $(document).ready(function() {
     $('.img').each(function() {
         price = '$'+Math.floor(Math.random()*100)
         $(this).append("<div class='price'>"+price+"</div>")
-        console.log(price)
     })
 
 
-    /*
+
+
     
 
     strOriginalQuery = "http://ecs.amazonaws.com/onca/xml?AWSAccessKeyId=AKIAIDF25W65W3YRQXTQ&AssociateTag=pershofin-20&Keywords=harry%20potter%20&Operation=ItemSearch&SearchIndex=Books&Service=AWSECommerceService"
-
-console.log(strOriginalQuery)
-
+   // console.log(strOriginalQuery)
     strSignedQuery = AWSQS.signQuery( strOriginalQuery, '8NDDltJgk/v4iJyUZeRQt+YcoH7/Er8pVPGZ98Xo' );
-
     console.log(strSignedQuery)
 
     xml = invokeRequest();
 
-  
-
-    $.get(xml, function(data) {
-      //alert("Data Loaded: " + data);
-      stuff = $.parseXML(data)
-      $data = $(stuff)
-      console.log($data.find('description'))
+    $('body').click(function() {
+        $.get(xml, function(data) {
+         //alert("Data Loaded: " + data);
+         stuff = $.parseXML(data)
+         $data = $(stuff)
+         console.log($data.find('description'))
     });
-    console.log(xml)
-*/
+       console.log(xml)
+    })
+
+
 })
