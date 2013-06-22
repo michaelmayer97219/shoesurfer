@@ -24,6 +24,7 @@ body {
 img {
 	height: 100%;
 	width: 100%;
+	z-index: -1000000000;
 }
 
 
@@ -159,7 +160,8 @@ img {
 }
 
 .img {
-	position: relative;
+	z-index: 1000;
+	position: relative; 	
 	display: inline-block;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -174,7 +176,7 @@ img {
 .price {
 	display: none;
 	border: 2px solid #666;
-	xbackground-image: url('retina_wood.png');
+background-color: white;
 	padding: 3px;
 	xcolor: white;
 	top: 0;
@@ -187,9 +189,9 @@ img {
 }
 
 .overlay {
-	height: 0%;
+	height: 40px;
 	width: 100%;
-	z-index: 1;
+	xz-index: 1;
 	background-color: rgba(240,240,240, .9);
 	position: absolute;
 	bottom: 0;

@@ -1,5 +1,14 @@
 $(document).ready(function() {
 
+        function picHTML (src, text) {
+        return "<div class='img'><div class='overlay'><div class='label'>"+text+"</div><div class='thumb up' ></div><div class='thumb down' ></div></div><img src='"+src+"'/></div>"
+    }
+
+    for (u=0; u< urls.length; u++) {
+        $('#imgContain').append(picHTML(urls[u], 'ksjhfkjsdh'))
+    }
+    iSpread($('#imgContain'), 220, 0)
+
     $('#footer').hide();
 
 
@@ -9,7 +18,7 @@ $(document).ready(function() {
         $(this).children('.select').hide();
     })
 
-    picz( 50, $('#imgContain'))
+    //picz( 50, $('#imgContain'))
     hideImgs();
     showImgs();
     //style footer to have 10px margins
@@ -18,18 +27,19 @@ $(document).ready(function() {
     backimage = $('#leftColumn').css('background-image')
     toggle = 0
     topTrack = 0;
+
     $(window).scroll(function() {
         i++
         top = $(window).scrollTop()
         posrecord.push(top.scrollY)
         tracker = ((posrecord[i-2])- posrecord[i-1])
-     //   console.log(tracker)
+        console.log(tracker)
         height = $('#leftColumn').height();
         
         newHeight = height + tracker;
          if (posrecord[i-1] == 0) {
             topTrack = topTrack+1 //will be odd until browser returns to zero
-           // console.log('toptrack = '+topTrack)
+            console.log('toptrack = '+topTrack)
          }
 
          if (topTrack%2 == 0) {
@@ -91,18 +101,11 @@ $(document).ready(function() {
     }
 
 
-    $('.img').mouseenter(function() {
-        $(this).children('.overlay').animate(
-            {height: '40px',}, 
-            200);
-        $(this).find('.overlay').show();
+    $('.img').hover(function() {
+        $(this).find('.overlay').show(200);
         $(this).find('.price').show(150)
-    }) 
+    }, function() {
 
-    $('.img').mouseleave(function() {
-        $(this).children('.overlay').animate(
-            {height: '0%'}, 
-            200);
         $(this).find('.overlay').hide(200);
         $(this).find('.price').hide(150)
     });    
@@ -200,16 +203,9 @@ $(document).ready(function() {
       x = 0
     })
 
-    function picHTML (src, text) {
-        return "<div class='img'><div class='overlay'><div class='label'>"+text+"</div><div class='thumb up' ></div><div class='thumb down' ></div></div><img src='"+src+"'/></div>"
-    }
 
-    for (i=0; i< urls.length; i++) {
-        $('#imgContain').append(picHTML(urls[i], 'ksjhfkjsdh'))
-    }
-    iSpread($('#imgContain'), 220, 0)
     
-    function picz (num, element) {
+    //function picz (num, element) {
     //    for (i = 0; i<num;i++) {
 
       //      n = Math.floor(Math.random()*4)
@@ -224,8 +220,8 @@ $(document).ready(function() {
          //   }
             
       //  }
-        iSpread($('#imgContain'), 200, 100)
-    }
+    //    iSpread($('#imgContain'), 200, 100)
+    //}
 
 
     $('.img').each(function() {

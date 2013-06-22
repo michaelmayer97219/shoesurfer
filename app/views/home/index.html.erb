@@ -1,13 +1,4 @@
 
-
-	<script>
-
-	function picHTML (src, text) {
-        return "<div class='img'><div class='overlay'><div class='label'>"+text+"</div><div class='thumb up' ></div><div class='thumb down' ></div></div><img src='"+src+"'/></div>"
-    }
-	</script>
-
-
 	<%	require 'yaml' %>
 	<%	require 'vacuum' %>
 	<% require 'nokogiri' %>
@@ -18,31 +9,30 @@
 	<%secret: '8NDDltJgk/v4iJyUZeRQt+YcoH7/Er8pVPGZ98Xo', %>
 	<%	              tag:    'pershofin-20') %>
 
-	<%	scopes = %w(Images large%>
+	<%	scopes = %w(Images ItemIds%>
 	<%	).join ',' %>
 
 	<%	params = {  %>
 	<%	  'Operation'     => 'SimilarityLookup',  %>
 	<%	  'IdType'        => 'ASIN', %>
 	<%	  'ResponseGroup' => scopes, %>
-	<%	  'ItemId'        => 'B00B5PLUQC, B00AR4JRNK' %>
+	<%	  'ItemId'        => 'B00B5PLUQC' %>
 	<%	}  %>
 
 	<%	@res = req.get(query: params)  %>
 	<%  xml_doc  = Nokogiri::XML(@res.body).remove_namespaces! %>
 	<% #config = XmlSimple.xml_in(xml_doc.to_s) %>
-	<%xml_doc%>
+	<% xml_doc.xpath("//ASIN").inner_text%>
 	
-	<%= javascript_tag do %>
-
+	<script type='text/javascript'>
 		urls = [];
 		<% xml_doc.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| %>
 			urls.push('<%= url.inner_text %>')
 		<% end %>
-  	<% end %>
 
 
-	
+  	</script>
+
 	<div id ='leftColumn'>
 	</div>
 	<div id='lgo'>
