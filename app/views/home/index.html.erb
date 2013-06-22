@@ -1,4 +1,42 @@
 
+
+	<script>
+
+	function picHTML (src, text) {
+        return "<div class='img'><div class='overlay'><div class='label'>"+text+"</div><div class='thumb up' ></div><div class='thumb down' ></div></div><img src='"+src+"'/></div>"
+    }
+	</script>
+
+
+	<%	require 'yaml' %>
+	<%	require 'vacuum' %>
+	<% require 'nokogiri' %>
+	<% require 'xmlsimple' %>
+	<%	req = Vacuum.new %>
+	<%	##req.configure(YAML.load_file('amazon.yml'))  %>
+	<%		req.configure(key:    'AKIAIDF25W65W3YRQXTQ',  %>
+	<%secret: '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', %>
+	<%	              tag:    'pershofin-20') %>
+
+	<%	scopes = %w(AlternateVersions Images ItemAttributes SalesRank Similarities %>
+	<%	).join ',' %>
+
+	<%	params = {  %>
+	<%	  'Operation'     => 'ItemLookup',  %>
+	<%	  'IdType'        => 'ASIN', %>
+	<%	  'ResponseGroup' => scopes, %>
+	<%	  'ItemId'        => 'B00B5PLUQC' %>
+	<%	}  %>
+
+	<%	@res = req.get(query: params)  %>
+	<%  xml_doc  = Nokogiri::XML(@res.body).remove_namespaces! %>
+	<% #config = XmlSimple.xml_in(xml_doc.to_s) %>
+	<%xml_doc%>
+	<% xml_doc.xpath("//LargeImage/URL").each do |url| %>
+		<%= image_tag(url.inner_text, :class => 'img') %>
+  	<% end %>
+
+
 	
 	<div id ='leftColumn'>
 	</div>
@@ -36,6 +74,6 @@
 	<div id='container'>
 		<div id='imgContain'></div>
 		<div id='xml' style='display:none'><%= @res.inspect %></div>
-
-
 	</div>
+
+

@@ -2,6 +2,8 @@ $(document).ready(function() {
 
     $('#footer').hide();
     xml = $('#xml').text()
+
+    $.ajax('/')
     //console.log(xml)
 
 
@@ -26,13 +28,13 @@ $(document).ready(function() {
         top = $(window).scrollTop()
         posrecord.push(top.scrollY)
         tracker = ((posrecord[i-2])- posrecord[i-1])
-        console.log(tracker)
+     //   console.log(tracker)
         height = $('#leftColumn').height();
         
         newHeight = height + tracker;
          if (posrecord[i-1] == 0) {
             topTrack = topTrack+1 //will be odd until browser returns to zero
-            console.log('toptrack = '+topTrack)
+           // console.log('toptrack = '+topTrack)
          }
 
          if (topTrack%2 == 0) {
@@ -50,7 +52,7 @@ $(document).ready(function() {
                 } else {
                     $('#leftColumn').height(newHeight)
                     lgostyle = (((newHeight-70)/30)*10)+30
-                    console.log('logostyle = '+lgostyle)
+                //    console.log('logostyle = '+lgostyle)
                     $('#lgo').css({'top': lgostyle})
                     $('#goo').css({'font-size': lgostyle})
                     $('.optn').css('height',(lgostyle)+8)
@@ -123,7 +125,7 @@ $(document).ready(function() {
             posx = event.clientX
             fromLeft = $(window).width() - posx
             fromBottom = $(window).height() - posy
-            console.log(fromLeft)
+           // console.log(fromLeft)
 
             if (fromBottom > 180) {
 
@@ -177,12 +179,17 @@ $(document).ready(function() {
 
     function iSpread (element, minSize, minMarg) {
         numPix = Math.floor(element.width()/(minSize+(minMarg*3)))
-        newSize = (element.width()-(numPix*minMarg*3) )/(numPix)
+        newSize = ((element.width()-(numPix*minMarg*3) )/(numPix)-10)
         element.children('.img').width(newSize)
         element.children('.img').height(newSize*3/4)
+        width = element.width()
+        marg = $('.img').css('margin-left')
+        console.log('of total width '+width+ ' pictures: '+numPix+' with width '+ newSize + 
+           ' and margin '+ marg)
+        console.log('diff is '+(width-(numPix*(marg+newSize))))
     }
 
-    iSpread($('#imgContain'), 220, 10)
+    iSpread($('#imgContain'), 220, 30)
 
    // spread($('#imgContain'),10)
 
@@ -191,7 +198,7 @@ $(document).ready(function() {
     $(window).resize(function() {
         resizeFooter()
         if (x == 0) {
-        iSpread($('#imgContain'), 220, 10)
+        iSpread($('#imgContain'), 220, 30)
        // spread($('#imgContain'),10, 202)
         x = 1
       }
@@ -217,7 +224,7 @@ $(document).ready(function() {
             }
             
         }
-        iSpread($('#imgContain'), 200, 10)
+        iSpread($('#imgContain'), 200, 100)
     }
 
     $('.img').each(function() {
@@ -229,7 +236,7 @@ $(document).ready(function() {
 
 
     
-
+/* 
     strOriginalQuery = "http://ecs.amazonaws.com/onca/xml?AWSAccessKeyId=AKIAIDF25W65W3YRQXTQ&AssociateTag=pershofin-20&Keywords=harry%20potter%20&Operation=ItemSearch&SearchIndex=Books&Service=AWSECommerceService"
    // console.log(strOriginalQuery)
     strSignedQuery = AWSQS.signQuery( strOriginalQuery, '8NDDltJgk/v4iJyUZeRQt+YcoH7/Er8pVPGZ98Xo' );
@@ -237,7 +244,7 @@ $(document).ready(function() {
 
     xml = invokeRequest();
 
-    $('body').click(function() {
+   $('body').click(function() {
         $.get(xml, function(data) {
          //alert("Data Loaded: " + data);
          stuff = $.parseXML(data)
@@ -247,5 +254,5 @@ $(document).ready(function() {
        console.log(xml)
     })
 
-
+    */
 })
