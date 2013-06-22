@@ -1,12 +1,6 @@
 $(document).ready(function() {
 
     $('#footer').hide();
-    xml = $('#xml').text()
-    alert(urls[0])
-
-    $.ajax('/')
-    //console.log(xml)
-
 
 
     $('.optn').hover(function() {
@@ -210,23 +204,29 @@ $(document).ready(function() {
         return "<div class='img'><div class='overlay'><div class='label'>"+text+"</div><div class='thumb up' ></div><div class='thumb down' ></div></div><img src='"+src+"'/></div>"
     }
 
+    for (i=0; i< urls.length; i++) {
+        $('#imgContain').append(picHTML(urls[i], 'ksjhfkjsdh'))
+    }
+    iSpread($('#imgContain'), 220, 0)
+    
     function picz (num, element) {
-        for (i = 0; i<num;i++) {
+    //    for (i = 0; i<num;i++) {
 
-            n = Math.floor(Math.random()*4)
-           if (n == 0) {
-                element.append(picHTML(urls[0], 'Fucking Shoe!'))
-            } else if (n ==1) {
-                element.append(picHTML(urls[1], "That Shoe!"))
-            } else  if (n == 2) {
-                element.append(picHTML('/assets/sample3.png', 'Blah Shoes'))
-            } else {
-                 element.append(picHTML('/assets/sample4.jpg', 'Wat Wat What'))
-            }
+      //      n = Math.floor(Math.random()*4)
+        //   if (n == 0) {
+      //          element.append(picHTML(urls[0], 'Fucking Shoe!'))
+        //    } else if (n ==1) {
+        //        element.append(picHTML(urls[5], "That Shoe!"))
+       //     } else  if (n == 2) {
+       //         element.append(picHTML('/assets/sample3.png', 'Blah Shoes'))
+       //     } else {
+         //        element.append(picHTML('/assets/sample4.jpg', 'Wat Wat What'))
+         //   }
             
-        }
+      //  }
         iSpread($('#imgContain'), 200, 100)
     }
+
 
     $('.img').each(function() {
         price = '$'+Math.floor(Math.random()*100)

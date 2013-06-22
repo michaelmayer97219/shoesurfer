@@ -18,14 +18,14 @@
 	<%secret: '8NDDltJgk/v4iJyUZeRQt+YcoH7/Er8pVPGZ98Xo', %>
 	<%	              tag:    'pershofin-20') %>
 
-	<%	scopes = %w(AlternateVersions Images ItemAttributes SalesRank Similarities %>
+	<%	scopes = %w(Images large%>
 	<%	).join ',' %>
 
 	<%	params = {  %>
-	<%	  'Operation'     => 'ItemLookup',  %>
+	<%	  'Operation'     => 'SimilarityLookup',  %>
 	<%	  'IdType'        => 'ASIN', %>
 	<%	  'ResponseGroup' => scopes, %>
-	<%	  'ItemId'        => 'B00B5PLUQC' %>
+	<%	  'ItemId'        => 'B00B5PLUQC, B00AR4JRNK' %>
 	<%	}  %>
 
 	<%	@res = req.get(query: params)  %>
@@ -36,13 +36,9 @@
 	<%= javascript_tag do %>
 
 		urls = [];
-		<% xml_doc.xpath("//LargeImage/URL").each do |url| %>
+		<% xml_doc.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| %>
 			urls.push('<%= url.inner_text %>')
 		<% end %>
-	$('body').click(function() {
-		console.log(urls[0])
-	})
-	
   	<% end %>
 
 
