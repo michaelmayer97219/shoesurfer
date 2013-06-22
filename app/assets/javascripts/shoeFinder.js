@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     $('#footer').hide();
     xml = $('#xml').text()
+    alert(urls[0])
 
     $.ajax('/')
     //console.log(xml)
@@ -214,9 +215,9 @@ $(document).ready(function() {
 
             n = Math.floor(Math.random()*4)
            if (n == 0) {
-                element.append(picHTML('/assets/sample1.jpg', 'Fucking Shoe!'))
+                element.append(picHTML(urls[0], 'Fucking Shoe!'))
             } else if (n ==1) {
-                element.append(picHTML('/assets/sample2.jpg', "That Shoe!"))
+                element.append(picHTML(urls[1], "That Shoe!"))
             } else  if (n == 2) {
                 element.append(picHTML('/assets/sample3.png', 'Blah Shoes'))
             } else {
