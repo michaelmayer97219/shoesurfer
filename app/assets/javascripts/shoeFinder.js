@@ -5,27 +5,27 @@ $(document).ready(function() {
     }
 
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'ksjhfkjsdh'))
+        $('#imgContain').append(picHTML(urls[u], 'Nine West'))
     }
 
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'ksjhfkjsdh'))
+        $('#imgContain').append(picHTML(urls[u], 'Ivanka Trump'))
     }
 
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'ksjhfkjsdh'))
+        $('#imgContain').append(picHTML(urls[u], 'Gucci'))
     }
 
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'ksjhfkjsdh'))
+        $('#imgContain').append(picHTML(urls[u], 'Coach'))
     }
 
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'ksjhfkjsdh'))
+        $('#imgContain').append(picHTML(urls[u], 'Shitty Chinese Shoe'))
     }
 
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'ksjhfkjsdh'))
+        $('#imgContain').append(picHTML(urls[u], 'IV'))
     }
     iSpread($('#imgContain'), 220, 0)
 
@@ -120,7 +120,7 @@ $(document).ready(function() {
         $('#preFooter').width(w-20)
     }
 
-
+/*
     $('.img').hover(function() {
         $(this).find('.overlay').show(200);
         $(this).find('.price').show(150)
@@ -129,6 +129,8 @@ $(document).ready(function() {
         $(this).find('.overlay').hide(200);
         $(this).find('.price').hide(150)
     });    
+
+*/
 
     lol = 0 //tracker for mousing over .piece class
     
@@ -197,9 +199,9 @@ $(document).ready(function() {
 
     function iSpread (element, minSize, minMarg) {
         numPix = Math.floor(element.width()/(minSize+(minMarg*3)))
-        newSize = ((element.width()-(numPix*minMarg*3) )/(numPix)-10)
+        newSize = ((element.width()-(numPix*minMarg*3) )/(numPix)-90)
         element.children('.img').width(newSize)
-        element.children('.img').height(newSize*3/4)
+        element.children('.img').height(newSize)
         width = element.width()
         marg = $('.img').css('margin-left')
         console.log('of total width '+width+ ' pictures: '+numPix+' with width '+ newSize + 
@@ -207,7 +209,7 @@ $(document).ready(function() {
         console.log('diff is '+(width-(numPix*(marg+newSize))))
     }
 
-    iSpread($('#imgContain'), 220, 30)
+    iSpread($('#imgContain'), 280, 0)
 
    // spread($('#imgContain'),10)
 
@@ -216,7 +218,7 @@ $(document).ready(function() {
     $(window).resize(function() {
         resizeFooter()
         if (x == 0) {
-        iSpread($('#imgContain'), 220, 30)
+     //   iSpread($('#imgContain'), 220, 30)
        // spread($('#imgContain'),10, 202)
         x = 1
       }
