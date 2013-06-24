@@ -21,11 +21,7 @@ body {
   font-style: normal;
 }
 
-img {
-	height: 100%;
-	width: 100%;
-	z-index: -1000000000;
-}
+
 
 
 #container {
@@ -169,6 +165,13 @@ img {
 	xxmargin-left: 30px;
 }
 
+.img img {
+	max-width: 100%;
+	max-height: 100%;
+	display: block;
+	margin: 0 auto;
+}
+
 .img:hover {
 	cursor: pointer;
 }
@@ -176,7 +179,7 @@ img {
 .price {
 	display: none;
 	border: 2px solid #666;
-background-color: white;
+	background-color: white;
 	padding: 3px;
 	xcolor: white;
 	top: 0;
