@@ -195,7 +195,7 @@ xfont-family: 'Abel', sans-serif;
 font-weight: 400;
 font-family: 'appfont';
 letter-spacing: 1px;
-font-size: 13px;
+font-size: 11px;
 }
 
 .overlay {
@@ -225,7 +225,7 @@ font-size: 13px;
 
 .label {
 line-height: 40px;
-font-size: 20px;
+font-size: 19px;
 padding-left: 5px;
 color: black;
 font-weight: 300;
@@ -239,21 +239,49 @@ background-color: white;
 	position: absolute;
 	top: 88%;
 	text-align: center;
-	color: #448
-
+	color: rgba(117, 128, 86, 0.36);
 }
 
+.shop {
+	font-family: appfont;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    
+   x border-bottom: 1px solid #448;
+	position: absolute;
+	left: 15px;
+	font-size: 28px;
+	color: rgb(223, 203, 216);
+}
+
+.shop:before {
+	content: "\f07A";
+}
+
+.shop:hover {
+	color: black;
+	cursor: pointer
+}
 .stumbler {
 	font-family: appfont;
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
-    margin-left: 5px;
+    
    x border-bottom: 1px solid #448;
+	position: absolute;
+	right: 15px;
+	font-size: 28px;
+}
+
+.stumbler:hover {
+	xbackground-color: #9bc;
+	color: #333;
 }
 
 .stumbler:before {
-	 content: "\f087"; 
+	 content: "\f14D"; 
     
 }
 
@@ -272,7 +300,13 @@ padding-left: 5px;
 border-bottom: 1px solid #eef;
 font-weight: 300;
 letter-spacing: 1px;
-xbackground-color: white;
+
+	display: none;
+	xbackground-color: white;
+}
+
+.more:hover {
+	display: block;
 }
 
 .thumb {
@@ -367,3 +401,4 @@ xbackground-color: white;
 	left: 50%;
 	margin-left: -12px;
 }
+

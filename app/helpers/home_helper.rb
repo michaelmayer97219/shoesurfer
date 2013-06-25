@@ -18,4 +18,5 @@ module HomeHelper
 	def nokogiri(object)
 		return Nokogiri::XML(object.body).remove_namespaces! 
 	end
+
 end

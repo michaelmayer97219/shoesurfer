@@ -1,4 +1,8 @@
-	
+	<script type='text/javascript'>
+		urls = [];
+		titles = [];
+		prices = [];
+  	</script>
 	<% dependencies %>
 
 	<%	params = {  %>
@@ -9,17 +13,28 @@
 
 	<%	@res = newVacuum(params) %>
 	<%  xml_doc  = nokogiri(@res)%>
-	<% xml_doc.xpath("//ASIN").inner_text%>
-
-	
+	<% xml_doc.xpath("//ASIN").each do |obj| %>
+		<% asin = obj.inner_text %>
+		<% returned = newVacuum({  %>
+		<%	  'Operation'     => 'SimilarityLookup',  %>
+		<%	  'IdType'        => 'ASIN', %>
+		<%	  'ResponseGroup' => 'Images, ItemIds, ItemAttributes', %>
+		<%	  'ItemId'        => asin}) %>
+	<% returned_xml = nokogiri(returned) %>
 	<script type='text/javascript'>
-		urls = [];
-		<% xml_doc.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| %>
+		<% returned_xml.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| %>
 			urls.push('<%= url.inner_text %>')
 		<% end %>
 
-
+		<% returned_xml.xpath("//title").each do |title| %>
+			titles.push('<%= title.inner_text %>')
+		<% end %>
+		<% returned_xml.xpath("//FormattedPrice").each do |price| %>
+			prices.push('<%= price.inner_text %>')
+		<% end %>
   	</script>
+	<% end %>
+
 
 	<div id ='leftColumn'>
 	</div>

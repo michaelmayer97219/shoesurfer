@@ -1,32 +1,17 @@
 $(document).ready(function() {
 
+
+
         function picHTML (src, text) {
-        return "<div class='img'><div class='tempstyler'></div><div class='stumbleHolder'><span class='stumbler'></span><span class='more'>More Like This</span></div><div class='overlay'><div class='label'>"+text+"</div></div><img src='"+src+"'/></div>"
+        return "<div class='img'><div class='tempstyler'></div><div class='stumbleHolder'><span class='shop'></span><span class='stumbler'></span><span class='more'>More Like This</span></div><div class='overlay'><div class='label'>"+text+"</div></div><img src='"+src+"'/></div>"
     }
 
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'Nine West'))
+        $('#imgContain').append(picHTML(urls[u], titles[u]))
+        console.log(urls[u])
     }
 
-    for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'Ivanka Trump'))
-    }
 
-    for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'Gucci'))
-    }
-
-    for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'Coach'))
-    }
-
-    for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'Shitty Chinese Shoe'))
-    }
-
-    for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], 'IV'))
-    }
     iSpread($('#imgContain'), 220, 0)
 
     $('#footer').hide();
