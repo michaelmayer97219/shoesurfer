@@ -2,12 +2,12 @@ $(document).ready(function() {
 
 
 
-        function picHTML (src, text) {
-        return "<div class='img'><div class='tempstyler'></div><div class='stumbleHolder'><span class='shop'></span><span class='stumbler'></span><span class='more'>More Like This</span></div><div class='overlay'><div class='label'>"+text+"</div></div><img src='"+src+"'/></div>"
+        function picHTML (src, text, price) {
+        return "<div class='img'><div class='price'>"+price+"</div><div class='tempstyler'></div><div class='stumbleHolder'><span class='shop'></span><span class='stumbler'></span><span class='more'>More Like This</span></div><div class='overlay'><div class='label'>"+text+"</div></div><img src='"+src+"'/></div>"
     }
 
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], titles[u]))
+        $('#imgContain').append(picHTML(urls[u], titles[u], prices[u]))
         console.log(urls[u])
     }
 
@@ -232,8 +232,8 @@ $(document).ready(function() {
 
 
     $('.img').each(function() {
-        price = '$'+Math.floor(Math.random()*100)
-        $(this).append("<div class='price'>"+price+"</div>")
+       // price = '$'+Math.floor(Math.random()*100)
+       // $(this).append("<div class='price'>"+prices[u]+"</div>")
     })
 
 

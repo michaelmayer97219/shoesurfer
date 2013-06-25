@@ -196,6 +196,7 @@ font-weight: 400;
 font-family: 'appfont';
 letter-spacing: 1px;
 font-size: 11px;
+z-index: 100;
 }
 
 .overlay {
@@ -225,13 +226,16 @@ font-size: 11px;
 
 .label {
 line-height: 40px;
-font-size: 19px;
+font-size: 14px;
+overflow: hidden;
 padding-left: 5px;
 color: black;
 font-weight: 300;
 letter-spacing: 1px;
 text-align: center;
 background-color: white;
+white-space: nowrap;
+text-overflow: ellipsis;
 }
 
 .stumbleHolder {

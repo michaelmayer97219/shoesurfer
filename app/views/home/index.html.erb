@@ -26,9 +26,10 @@
 			urls.push('<%= url.inner_text %>')
 		<% end %>
 
-		<% returned_xml.xpath("//title").each do |title| %>
+		<% returned_xml.xpath("//Title").each do |title| %>
 			titles.push('<%= title.inner_text %>')
 		<% end %>
+
 		<% returned_xml.xpath("//FormattedPrice").each do |price| %>
 			prices.push('<%= price.inner_text %>')
 		<% end %>
