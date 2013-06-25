@@ -1,28 +1,16 @@
-
-	<%	require 'yaml' %>
-	<%	require 'vacuum' %>
-	<% require 'nokogiri' %>
-	<% require 'xmlsimple' %>
-	<%	req = Vacuum.new %>
-	<%	##req.configure(YAML.load_file('amazon.yml'))  %>
-	<%		req.configure(key:    'AKIAIDF25W65W3YRQXTQ',  %>
-	<%secret: '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', %>
-	<%	              tag:    'pershofin-20') %>
-
-	<%	scopes = %w(Images ItemIds%>
-	<%	).join ',' %>
+	
+	<% dependencies %>
 
 	<%	params = {  %>
 	<%	  'Operation'     => 'SimilarityLookup',  %>
 	<%	  'IdType'        => 'ASIN', %>
-	<%	  'ResponseGroup' => scopes, %>
-	<%	  'ItemId'        => 'B00B5PLUQC' %>
-	<%	}  %>
+	<%	  'ResponseGroup' => 'Images, ItemIds', %>
+	<%	  'ItemId'        => 'B00B5PLUQC'}  %>
 
-	<%	@res = req.get(query: params)  %>
-	<%  xml_doc  = Nokogiri::XML(@res.body).remove_namespaces! %>
-	<% #config = XmlSimple.xml_in(xml_doc.to_s) %>
+	<%	@res = newVacuum(params) %>
+	<%  xml_doc  = nokogiri(@res)%>
 	<% xml_doc.xpath("//ASIN").inner_text%>
+
 	
 	<script type='text/javascript'>
 		urls = [];

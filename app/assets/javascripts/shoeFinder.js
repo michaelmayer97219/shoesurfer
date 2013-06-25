@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
         function picHTML (src, text) {
-        return "<div class='img'><div class='overlay'><div class='label'>"+text+"</div><div class='thumb up' ></div><div class='thumb down' ></div></div><img src='"+src+"'/></div>"
+        return "<div class='img'><div class='tempstyler'></div><div class='stumbleHolder'><span class='stumbler'></span><span class='more'>More Like This</span></div><div class='overlay'><div class='label'>"+text+"</div></div><img src='"+src+"'/></div>"
     }
 
     for (u=0; u< urls.length; u++) {
@@ -70,17 +70,17 @@ $(document).ready(function() {
                     $('.optn').css({height: '40px', 'padding-top': '0px'})
                     $('#leftColumn').height(70)
                 }  else if (newHeight >100) {
-                    $('#lgo').css({'top': '40px'})
-                    $('#goo').css('font-size','40px')
-                    $('.optn').css({height: '50px',  'padding-top': '5px'})
-                    $('#leftColumn').height(100)
-                } else {
-                    $('#leftColumn').height(newHeight)
-                    lgostyle = (((newHeight-70)/30)*10)+30
+                    $('#lgo').css({'top': '30px'})
+                    $('#goo').css({'font-size':'30px', 'margin-top': '-5px'})
+                    $('.optn').css({height: '40px', 'padding-top': '0px'})
+                    $('#leftColumn').height(70)
+                } else {    
+                //    $('#leftColumn').height(newHeight)
+                 //   lgostyle = (((newHeight-50)/30)*10)+30
                 //    console.log('logostyle = '+lgostyle)
-                    $('#lgo').css({'top': lgostyle})
-                    $('#goo').css({'font-size': lgostyle})
-                    $('.optn').css('height',(lgostyle)+8)
+                //    $('#lgo').css({'top': lgostyle})
+                //    $('#goo').css({'font-size': lgostyle})
+                //    $('.optn').css('height',(lgostyle)+8)
                 }
             }
         }
@@ -199,7 +199,7 @@ $(document).ready(function() {
 
     function iSpread (element, minSize, minMarg) {
         numPix = Math.floor(element.width()/(minSize+(minMarg*3)))
-        newSize = ((element.width()-(numPix*minMarg*3) )/(numPix)-90)
+        newSize = ((element.width()-(numPix*minMarg*3) )/(numPix)-80)
         element.children('.img').width(newSize)
         element.children('.img').height(newSize)
         width = element.width()
