@@ -26,9 +26,9 @@ body {
 	float: right;
 	display: inline-block;
 	width: 90%;
-	margin-left: 5%;
-	margin-right: 5%;
-	margin-top: 80px;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 80px;
 	background-color: transparent;	
 }
 
@@ -237,7 +237,18 @@ body {
 	position: absolute;
 	top: 88%;
 	text-align: center;
-	color: rgba(117, 128, 86, 0.36);
+
+}
+
+.shopper {
+	float: left;
+}
+
+.stub {
+	xfloat: right;
+	position: absolute;
+	left: 50%;
+	width: 50%;
 }
 
 .shop {
@@ -262,12 +273,11 @@ body {
 	cursor: pointer
 }
 .stumbler {
+	color: rgba(117, 128, 86, 0.36);
 	font-family: appfont;
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
-    
-   x border-bottom: 1px solid #448;
 	position: absolute;
 	right: 15px;
 	font-size: 28px;

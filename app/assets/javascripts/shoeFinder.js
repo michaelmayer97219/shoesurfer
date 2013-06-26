@@ -9,7 +9,7 @@ $(document).ready(function() {
                 "<div class='price'>"+price+"</div>",
                 "<div class='stumbleHolder'>",
                     "<div class='shopper'><span class='shop'></span></div>",
-                    "<div class-'stub'><span class='stumbler'></span></div>",
+                    "<div class='stub'><span class='stumbler'></span></div>",
                 "</div>",
                 "<div class='overlay'>",
                     "<div class='label'>"+text+"</div>",
@@ -30,15 +30,30 @@ $(document).ready(function() {
 
     }
 
+    alert($('.img').attr("style"))
+
     $('.img').hover(function() {
-        $(this).children('.overlay').css({'top': '-10px'})
+        $(this).css('background-color','white')
+        $('#container').css('background-color', '#f5f5f5')
+        $(this).children('.overlay').css({'top': '0px'})
         $(this).find('.label').css({'text-align': 'left'})
         $(this).children('.price').css({'text-align': 'left', 'top': '10%'})
+        $(this).find('.stumbleHolder').css({'top': '80%', 'height': '20%'})
+        $(this).find('.shopper').css({'height': '100%', 'width': '50%', 'background-color': 'rgb(223, 203, 216)'})
+        $(this).find('.stub').css({'height': '100%', 'width': '50%', 'background-color': ' rgba(117, 128, 86, 0.36);'})
+        $(this).find('.shop').css({'font-size': '35px', 'color': 'black', 'line-height': '250%', 'float': 'left'})
+        $(this).find('.stumbler').css({'font-size': '35px', 'color': 'black', 'line-height': '250%', 'left': '15px', 'width': '0px'})
+
     }, function() {
+        $('#container').css('background-color', 'white')
         $(this).children('.overlay').css({'top': '70%'})
         $(this).find('.label').css({'text-align': 'center'})
+        $(this).find('.stumbleHolder').css({'top': '88%', 'height': '0%'})
         $(this).children('.price').css({'text-align': 'center', 'top': '80%'})
-
+        $(this).find('.shopper').css({'height': '0%', 'width': '50%', 'background-color': 'transparent'})
+        $(this).find('.stub').css({'height': '0%', 'width': '50%', 'background-color': 'transparent'})
+        $(this).find('.shop').css({'font-size': '28px', 'color': 'rgb(223, 203, 216)', 'line-height': '100%', 'float': 'left'})
+        $(this).find('.stumbler').css({'font-size': '28px', 'color': 'rgba(117, 128, 86, 0.36)', 'line-height': '100%', 'width': '28px', 'right': '15px', 'left': 'auto'})
     });    
 
 
