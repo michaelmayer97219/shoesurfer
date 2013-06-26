@@ -2,14 +2,46 @@ $(document).ready(function() {
 
 
 
-        function picHTML (src, text, price) {
-        return "<div class='img'><div class='price'>"+price+"</div><div class='tempstyler'></div><div class='stumbleHolder'><span class='shop'></span><span class='stumbler'></span><span class='more'>More Like This</span></div><div class='overlay'><div class='label'>"+text+"</div></div><img src='"+src+"'/></div>"
+
+    function picHTML (src, text, price, page) {
+        return [
+            "<div class='img' onclick="+"window.location='"+page+"';"+" target='_new'>",
+                "<div class='price'>"+price+"</div>",
+                "<div class='stumbleHolder'>",
+                    "<div class='shopper'><span class='shop'></span></div>",
+                    "<div class-'stub'><span class='stumbler'></span></div>",
+                "</div>",
+                "<div class='overlay'>",
+                    "<div class='label'>"+text+"</div>",
+                "</div>",
+                "<img src='"+src+"'/>",
+            "</div>"
+        ].join('\n');
     }
 
+
+
     for (u=0; u< urls.length; u++) {
-        $('#imgContain').append(picHTML(urls[u], titles[u], prices[u]))
-        console.log(urls[u])
+        if (prices[u] != undefined) {
+            $('#imgContain').append(picHTML(urls[u], studios[u], prices[u], pages[u]))
+        } else {
+            console.log('error')
+        }
+
     }
+
+    $('.img').hover(function() {
+        $(this).children('.overlay').css({'top': '-10px'})
+        $(this).find('.label').css({'text-align': 'left'})
+        $(this).children('.price').css({'text-align': 'left', 'top': '10%'})
+    }, function() {
+        $(this).children('.overlay').css({'top': '70%'})
+        $(this).find('.label').css({'text-align': 'center'})
+        $(this).children('.price').css({'text-align': 'center', 'top': '80%'})
+
+    });    
+
+
 
 
     iSpread($('#imgContain'), 220, 0)
@@ -49,23 +81,19 @@ $(document).ready(function() {
 
          if (topTrack%2 == 0) {
             if (height >= 70 && height <= 100) {
-                if (newHeight < 70) {
+                if (newHeight < 40) {
                     $('#lgo').css({'top': '30px'})
                     $('#goo').css({'font-size':'30px', 'margin-top': '-5px'})
-                    $('.optn').css({height: '40px', 'padding-top': '0px'})
-                    $('#leftColumn').height(70)
+                    $('.optn').css({'height': '40px', 'padding-top': '0px'})
+                    $('#leftColumn').height(40)
+                    $('#leftColumn').css({'border-top': '0px solid black'})
                 }  else if (newHeight >100) {
                     $('#lgo').css({'top': '30px'})
                     $('#goo').css({'font-size':'30px', 'margin-top': '-5px'})
                     $('.optn').css({height: '40px', 'padding-top': '0px'})
                     $('#leftColumn').height(70)
                 } else {    
-                //    $('#leftColumn').height(newHeight)
-                 //   lgostyle = (((newHeight-50)/30)*10)+30
-                //    console.log('logostyle = '+lgostyle)
-                //    $('#lgo').css({'top': lgostyle})
-                //    $('#goo').css({'font-size': lgostyle})
-                //    $('.optn').css('height',(lgostyle)+8)
+
                 }
             }
         }
@@ -105,17 +133,8 @@ $(document).ready(function() {
         $('#preFooter').width(w-20)
     }
 
-/*
-    $('.img').hover(function() {
-        $(this).find('.overlay').show(200);
-        $(this).find('.price').show(150)
-    }, function() {
 
-        $(this).find('.overlay').hide(200);
-        $(this).find('.price').hide(150)
-    });    
 
-*/
 
     lol = 0 //tracker for mousing over .piece class
     

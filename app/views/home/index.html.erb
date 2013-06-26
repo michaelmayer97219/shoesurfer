@@ -2,31 +2,37 @@
 		urls = [];
 		titles = [];
 		prices = [];
+		studios = [];
+		pages = [];
   	</script>
+
+
 	<% dependencies %>
-
-	<%	params = {  %>
-	<%	  'Operation'     => 'SimilarityLookup',  %>
-	<%	  'IdType'        => 'ASIN', %>
-	<%	  'ResponseGroup' => 'Images, ItemIds', %>
-	<%	  'ItemId'        => 'B00B5PLUQC'}  %>
-
-	<%	@res = newVacuum(params) %>
-	<%  xml_doc  = nokogiri(@res)%>
+	<%  xml_doc  = simLookup('B00BXEWSVQ') %>
 	<% xml_doc.xpath("//ASIN").each do |obj| %>
 		<% asin = obj.inner_text %>
 		<% returned = newVacuum({  %>
 		<%	  'Operation'     => 'SimilarityLookup',  %>
 		<%	  'IdType'        => 'ASIN', %>
-		<%	  'ResponseGroup' => 'Images, ItemIds, ItemAttributes', %>
+		<%	  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities', %>
 		<%	  'ItemId'        => asin}) %>
 	<% returned_xml = nokogiri(returned) %>
+
 	<script type='text/javascript'>
+
+		<% returned_xml.xpath("//DetailPageURL").each do |page| %>
+			pages.push('<%= page.inner_text %>')
+		<% end %>
+
 		<% returned_xml.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| %>
 			urls.push('<%= url.inner_text %>')
 		<% end %>
 
-		<% returned_xml.xpath("//Title").each do |title| %>
+		<% returned_xml.xpath("//Studio").each do |studio| %>
+			studios.push('<%= studio.inner_text %>')
+		<% end %>
+
+		<% returned_xml.xpath("//title").each do |title| %>
 			titles.push('<%= title.inner_text %>')
 		<% end %>
 
@@ -72,7 +78,6 @@
 	</div>
 	<div id='container'>
 		<div id='imgContain'></div>
-		<div id='xml' style='display:none'><%= @res.inspect %></div>
 	</div>
 
 
