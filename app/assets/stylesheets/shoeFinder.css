@@ -293,6 +293,23 @@ body {
     
 }
 
+.thang:hover {
+	color: white;
+	background-color: #333;
+}
+
+.butt {
+padding-left: 10px;
+font-weight: 400;
+font-family: 'appfont';
+letter-spacing: 1px;
+color: #333;
+padding-bottom: 152px;
+font-size: 17px;
+display: none;
+}
+
+
 
 .thumb {
 	xdisplay: none;

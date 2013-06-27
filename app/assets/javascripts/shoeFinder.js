@@ -8,8 +8,8 @@ $(document).ready(function() {
             "<div class='img' onclick="+"window.location='"+page+"';"+" target='_new'>",
                 "<div class='price'>"+price+"</div>",
                 "<div class='stumbleHolder'>",
-                    "<div class='shopper'><span class='shop'></span></div>",
-                    "<div class='stub'><span class='stumbler'></span></div>",
+                    "<div class='shopper thang'><span class='shop'><span class='butt'>Details</span></span></div>",
+                    "<div class='stub thang'><span class='stumbler'><span class='butt'>Similar</span></span></div>",
                 "</div>",
                 "<div class='overlay'>",
                     "<div class='label'>"+text+"</div>",
@@ -39,10 +39,12 @@ $(document).ready(function() {
         $(this).find('.label').css({'text-align': 'left'})
         $(this).children('.price').css({'text-align': 'left', 'top': '10%'})
         $(this).find('.stumbleHolder').css({'top': '80%', 'height': '20%'})
-        $(this).find('.shopper').css({'height': '100%', 'width': '50%', 'background-color': 'rgb(223, 203, 216)'})
-        $(this).find('.stub').css({'height': '100%', 'width': '50%', 'background-color': ' rgba(117, 128, 86, 0.36);'})
-        $(this).find('.shop').css({'font-size': '35px', 'color': 'black', 'line-height': '250%', 'float': 'left'})
-        $(this).find('.stumbler').css({'font-size': '35px', 'color': 'black', 'line-height': '250%', 'left': '15px', 'width': '0px'})
+        $(this).find('.shopper').css({'height': '100%', 'width': '50%', 'background-color': 'white'})
+        $(this).find('.stub').css({'height': '100%', 'width': '50%', 'background-color': ' white'})
+        $(this).find('.shop').css({'font-size': '28px', 'color': '#aaa', 'line-height': '250%', 'float': 'left'})
+        $(this).find('.stumbler').css({'font-size': '28px', 'color': '#aaa', 'line-height': '250%', 'left': '15px', 'width': '0px'})
+        $(this).find('.butt').show()
+        $(this).find('img').css({'position': 'absolute', 'max-height': '70%', 'top': '10%', 'right': '10%'})
 
     }, function() {
         $('#container').css('background-color', 'white')
@@ -54,6 +56,8 @@ $(document).ready(function() {
         $(this).find('.stub').css({'height': '0%', 'width': '50%', 'background-color': 'transparent'})
         $(this).find('.shop').css({'font-size': '28px', 'color': 'rgb(223, 203, 216)', 'line-height': '100%', 'float': 'left'})
         $(this).find('.stumbler').css({'font-size': '28px', 'color': 'rgba(117, 128, 86, 0.36)', 'line-height': '100%', 'width': '28px', 'right': '15px', 'left': 'auto'})
+        $(this).find('.butt').hide();
+        $(this).find('img').css({'position': 'static', 'max-height':'60%', 'top': '0%'})
     });    
 
 
@@ -95,18 +99,18 @@ $(document).ready(function() {
          }
 
          if (topTrack%2 == 0) {
-            if (height >= 70 && height <= 100) {
+            if (height >= 40 && height <= 70) {
                 if (newHeight < 40) {
-                    $('#lgo').css({'top': '30px'})
+                    $('#lgo').css({'top': '0px'})
                     $('#goo').css({'font-size':'30px', 'margin-top': '-5px'})
                     $('.optn').css({'height': '40px', 'padding-top': '0px'})
                     $('#leftColumn').height(40)
-                    $('#leftColumn').css({'border-top': '0px solid black'})
-                }  else if (newHeight >100) {
-                    $('#lgo').css({'top': '30px'})
+                    $('#leftColumn').css({'margin-top': '0px'})
+                }  else if (newHeight >70) {
+                    $('#lgo').css({'top': '15px'})
                     $('#goo').css({'font-size':'30px', 'margin-top': '-5px'})
                     $('.optn').css({height: '40px', 'padding-top': '0px'})
-                    $('#leftColumn').height(70)
+                    $('#leftColumn').css({'height':'70px', 'margin-top': '10px'})
                 } else {    
 
                 }

@@ -6,17 +6,16 @@
 		pages = [];
   	</script>
 
-  	 <%# control shift comma for erb %>
+
+
 	<% dependencies %>
+
+
 	<%  xml_doc  = simLookup('B00BXEWSVQ') %>
 	<% xml_doc.xpath("//ASIN").each do |obj| %>
 		<% asin = obj.inner_text %>
-		<% returned = newVacuum({  %>
-		<%	  'Operation'     => 'SimilarityLookup',  %>
-		<%	  'IdType'        => 'ASIN', %>
-		<%	  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities', %>
-		<%	  'ItemId'        => asin}) %>
-	<% returned_xml = nokogiri(returned) %>
+	<% returned_xml = simLookup(asin) %>
+
 
 	<script type='text/javascript'>
 
@@ -41,6 +40,7 @@
 		<% end %>
   	</script>
 	<% end %>
+
 
 
 	<div id ='leftColumn'>

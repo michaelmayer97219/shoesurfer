@@ -33,48 +33,44 @@ module HomeHelper
 		params = {  
 		  'Operation'     => 'SimilarityLookup',  
 		  'IdType'        => 'ASIN', 
-		  'ResponseGroup' => 'Images, ItemIds, Item Attributes, Similarities', 
+		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities', 
 		  'ItemId'        => asin}  
 		result = newVacuum(params)
 		return nokogiri(result)
 	end
 
 	def returnInfo(xml) 
-		items = Hash.new
-		xml.each do |obj| 
-			hash = Hash.new
+		asins = Array.new
+		pages = Array.new
+		urls = Array.new
+		studios = Array.new
+		titles = Array.new
+		prices = Array.new
+		items = [asins, pages, urls, studios, titles, prices]
 
-			obj.xpath("//ASIN").each do |asin| 
-				key = asin
-			end 
+		xml.xpath("//ASIN").each do |as| 
+			asins.push(as.inner_text)
+		end 
 
-			obj.xpath("//DetailPageURL").each do |page| 
-				pg = page.inner_text
-			end 
+		xml.xpath("//DetailPageURL").each do |page| 
+			pages.push(page.inner_text)
+		end 
 
-			obj.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| 
-				im = url.inner_text
-			end 
+		xml.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| 
+			urls.push(url.inner_text)
+		end 
 
-			obj.xpath("//Studio").each do |studio| 
-				st = studio.inner_text
-			end 
+		xml.xpath("//Studio").each do |studio| 
+			studios.push(studio.inner_text)
+		end 
 
-			obj.xpath("//title").each do |title| 
-				tit = title.inner_text
-			end 
+		xml.xpath("//title").each do |title| 
+			titles.push(title.inner_text)
+		end 
 
-			obj.xpath("//FormattedPrice").each do |price| 
-				pr = price.inner_text
-			end 
-			items[key] = {
-				'price' => pr,
-				'page' => pg,
-				'image' => im,
-				'studio' => st,
-				'title' => tit,
-			}
-		end
+		xml.xpath("//FormattedPrice").each do |price| 
+			prices.push(price.inner_text)
+		end 
 		return items
 	end
 
