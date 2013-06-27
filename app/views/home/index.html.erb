@@ -9,9 +9,9 @@
 
 
 	<% dependencies %>
-
-
+	<%= genArrayOfSimilarities('B00BXEWSVQ') %>
 	<%  xml_doc  = simLookup('B00BXEWSVQ') %>
+
 	<% xml_doc.xpath("//ASIN").each do |obj| %>
 		<% asin = obj.inner_text %>
 	<% returned_xml = simLookup(asin) %>

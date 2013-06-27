@@ -47,8 +47,9 @@ module HomeHelper
 		titles = Array.new
 		prices = Array.new
 		items = [asins, pages, urls, studios, titles, prices]
+		newitems = []
 
-		xml.xpath("//ASIN").each do |as| 
+		xml.xpath("//Item/ASIN").each do |as| 
 			asins.push(as.inner_text)
 		end 
 
@@ -74,5 +75,30 @@ module HomeHelper
 		return items
 	end
 
+	def genArrayOfSimilarities(asin) 
+		holder = []
+		xml_doc  = simLookup(asin)
+
+	 	xml_doc.xpath("//ASIN").each do |obj| 
+	 		ass = obj.inner_text
+	 		inst = simLookup(ass)
+	 		holder.push(returnInfo(inst))
+	 	end
+
+	 	final = [[],[],[],[],[],[]]
+
+	 	holder.each do |array|
+	 		i = 0
+	 		array.each do |smallarray|
+	 			
+	 			smallarray.each do |obj|
+	 				final[i].push(obj)
+	 				
+	 			end
+	 			i = i+1
+	 		end
+	 	end
+	 	return final
+	 end
 end
 
