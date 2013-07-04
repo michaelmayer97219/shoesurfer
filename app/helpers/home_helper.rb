@@ -19,12 +19,39 @@ module HomeHelper
 		return Nokogiri::XML(object.body).remove_namespaces! 
 	end
 
-	def lookupByNode(node)
+	def nodeLookup(node)
+		params = {  
+		  'Operation'     => 'BrowseNodeLookup',
+		  'BrowseNodeId'    =>  node,
+		  'ResponseGroup' => ''}  
+		result = newVacuum(params)
+		return nokogiri(result)
+	end
+
+	def searchByNode(node, page, minPrice, maxPrice)
 		params = {  
 		  'Operation'     => 'ItemSearch',
-		  'SearchIndex'   => 'apparel',
+		  'SearchIndex'   => 'Shoes',
 		  'BrowseNode'    =>  node,
-		  'ResponseGroup' => 'Images, ItemIds,Item Attributes'}  
+		  'MaximumPrice'  =>  maxPrice,
+		  'MinimumPrice'  => minPrice,
+		  'keywords'    => 'shoe',
+		  'ItemPage'    =>  page,
+		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes'}  
+		result = newVacuum(params)
+		return nokogiri(result)
+	end
+
+	def searchByTerms(terms, page, minPrice, maxPrice)
+		params = {  
+		  'Operation'     => 'ItemSearch',
+		  'SearchIndex'   => 'Shoes',
+		  'Keywords'    =>  terms,
+		  'brand' => 'michael antonio',
+		  #'MaximumPrice'  =>  maxPrice,
+		  #'MinimumPrice'  => minPrice,
+		  'ItemPage'    =>  page,
+		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes'}  
 		result = newVacuum(params)
 		return nokogiri(result)
 	end
@@ -32,6 +59,7 @@ module HomeHelper
 	def simLookup(asin)
 		params = {  
 		  'Operation'     => 'SimilarityLookup',  
+		  'SearchIndex'   => 'Shoes',
 		  'IdType'        => 'ASIN', 
 		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities', 
 		  'ItemId'        => asin}  
@@ -100,5 +128,21 @@ module HomeHelper
 	 	end
 	 	return final
 	 end
+
+	 def imageContain(asin, page, url, studio, title, price)
+	 	return [
+            "<div class='img' onclick="+"window.location='"+page+"';"+" target='_new'>",
+                "<div class='price'>"+price+"</div>",
+                "<div class='stumbleHolder'>",
+                    "<div class='shopper thang'><span class='shop'><span class='butt'>Details</span></span></div>",
+                    "<div class='stub thang'><span class='stumbler'><span class='butt'>Similar</span></span></div>",
+                "</div>",
+                "<div class='overlay'>",
+                    "<div class='label'>"+title+"</div>",
+                "</div>",
+                "<img src='"+url+"'/>",
+            "</div>"
+        ].join('\n');
+    end
 end
 

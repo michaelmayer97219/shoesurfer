@@ -8,38 +8,31 @@
 
 
 
-	<% dependencies %>
-	<%= genArrayOfSimilarities('B00BXEWSVQ') %>
-	<%  xml_doc  = simLookup('B00BXEWSVQ') %>
-
-	<% xml_doc.xpath("//ASIN").each do |obj| %>
-		<% asin = obj.inner_text %>
-	<% returned_xml = simLookup(asin) %>
-
 
 	<script type='text/javascript'>
 
-		<% returned_xml.xpath("//DetailPageURL").each do |page| %>
+		<% @returned_xml[0].xpath("//DetailPageURL").each do |page| %>
 			pages.push('<%= page.inner_text %>')
+			console.log('<%= @returned_xml[0]%>')
 		<% end %>
 
-		<% returned_xml.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| %>
+		<% @returned_xml[1].xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| %>
 			urls.push('<%= url.inner_text %>')
 		<% end %>
 
-		<% returned_xml.xpath("//Studio").each do |studio| %>
+		<% @returned_xml[2].xpath("//Studio").each do |studio| %>
 			studios.push('<%= studio.inner_text %>')
 		<% end %>
 
-		<% returned_xml.xpath("//title").each do |title| %>
+		<% @returned_xml[3].xpath("//title").each do |title| %>
 			titles.push('<%= title.inner_text %>')
 		<% end %>
 
-		<% returned_xml.xpath("//FormattedPrice").each do |price| %>
+		<% @returned_xml[4].xpath("//FormattedPrice").each do |price| %>
 			prices.push('<%= price.inner_text %>')
 		<% end %>
   	</script>
-	<% end %>
+
 
 
 
@@ -77,7 +70,9 @@
 
 	</div>
 	<div id='container'>
-		<div id='imgContain'></div>
+		<div id='imgContain'>
+
+		</div>
 	</div>
 
 

@@ -30,7 +30,6 @@ $(document).ready(function() {
 
     }
 
-    alert($('.img').attr("style"))
 
     $('.img').hover(function() {
         $(this).css('background-color','white')
@@ -44,7 +43,7 @@ $(document).ready(function() {
         $(this).find('.shop').css({'font-size': '28px', 'color': '#aaa', 'line-height': '250%', 'float': 'left'})
         $(this).find('.stumbler').css({'font-size': '28px', 'color': '#aaa', 'line-height': '250%', 'left': '15px', 'width': '0px'})
         $(this).find('.butt').show()
-        $(this).find('img').css({'position': 'absolute', 'max-height': '70%', 'top': '10%', 'right': '10%'})
+        $(this).find('img').css({'position': 'absolute', 'max-height': '70%','max-width': '90%', 'top': '10%', 'right': '10%'})
 
     }, function() {
         $('#container').css('background-color', 'white')
@@ -63,7 +62,7 @@ $(document).ready(function() {
 
 
 
-    iSpread($('#imgContain'), 220, 0)
+ //   iSpread($('#imgContain'), 220, 0)
 
     $('#footer').hide();
 
@@ -219,7 +218,7 @@ $(document).ready(function() {
         element.children('img').css('margin-left',newMarg)
         element.children('img').css('margin-right',newMarg)
     }
-
+/*
     function iSpread (element, minSize, minMarg) {
         numPix = Math.floor(element.width()/(minSize+(minMarg*3)))
         newSize = ((element.width()-(numPix*minMarg*3) )/(numPix)-80)
@@ -233,7 +232,7 @@ $(document).ready(function() {
     }
 
     iSpread($('#imgContain'), 280, 0)
-
+*/
    // spread($('#imgContain'),10)
 
     x = 0 //variable to stop resize funtion from tripping
