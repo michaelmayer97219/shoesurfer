@@ -42,6 +42,162 @@ module HomeHelper
 		return nokogiri(result)
 	end
 
+	def productsByNode(node, page, minPrice, maxPrice)
+		  	
+		dependencies
+		asins = []
+		pages = []
+	  	thing = []
+	  	@prices = []
+	  	alts = []
+	  	blah = 0
+	  	xx = 1
+  		tempThing = searchByNode(node, page, minPrice, maxPrice)	
+
+  		tempThing.xpath("//FormattedPrice").each do |price|
+			@prices.push(price.inner_text)
+		end
+
+		tempThing.xpath("//ASIN").each do |asin|
+			asins.push(asin.inner_text)
+		end
+
+		tempThing.xpath("//DetailPageURL").each do |page|
+			pages.push(page.inner_text)
+		end
+
+		tempThing.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url|
+			temp = []
+			temp.push(url.inner_text)
+			temp.push(xx)
+			thing.push(temp)
+			xx = xx+1
+		end
+
+		(xx).times do |i|
+			temptemp = []
+			tempThing.xpath("//Item["+i.to_s+"]/ImageSets/ImageSet[@Category='variant']/MediumImage/URL").each do |title|
+				temp = []
+	  			temp.push(title.inner_text)
+	  			temp.push(i)
+	  			temptemp.push(temp)
+	  		end
+	  		alts.push(temptemp)
+  		end
+
+
+	  	result = []
+	  	thing.length.times do |i|
+
+	  			cont = []
+
+	  			cont.push(thing[i][0])
+	  			if alts[i+1][3].nil? == false
+		  			cont.push(alts[i+1][0][0])
+		  			cont.push(alts[i+1][1][0])
+		  			cont.push(alts[i+1][2][0])
+		  			cont.push(alts[i+1][3][0])
+	  			else 
+		   			cont.push(thing[i][0])
+		  			cont.push(thing[i][0])
+		  			cont.push(thing[i][0])
+		  			cont.push(thing[i][0])
+	  			end
+	  			cont.push(@prices[i])
+	  			cont.push(pages[i])
+	  			cont.push(asins[i])
+	  			result.push(cont)
+
+
+	  end
+	  return result
+	end
+
+	def nodeByASIN(asin)
+		params = {  
+		  'Operation'     => 'ItemLookup',
+		  'ItemId'        => asin,
+		  'ResponseGroup' => 'BrowseNodes'}  
+		result = newVacuum(params)
+		noko =  nokogiri(result)
+		res = [] 
+		noko.xpath("//BrowseNodeId").each do |ass|
+			res.push(ass.inner_text)
+		end
+		return res 
+	end
+
+	def productsByASIN(asin)
+		  	
+		dependencies
+		asins = []
+		pages = []
+	  	thing = []
+	  	@prices = []
+	  	alts = []
+	  	blah = 0
+	  	xx = 1
+  		tempThing = simLookup(asin)	
+
+  		tempThing.xpath("//FormattedPrice").each do |price|
+			@prices.push(price.inner_text)
+		end
+
+  		tempThing.xpath("//ASIN").each do |asin|
+			asins.push(asin.inner_text)
+		end
+
+		tempThing.xpath("//DetailPageURL").each do |page|
+			pages.push(page.inner_text)
+		end
+
+		tempThing.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url|
+			temp = []
+			temp.push(url.inner_text)
+			temp.push(xx)
+			thing.push(temp)
+			xx = xx+1
+		end
+
+		(xx).times do |i|
+			temptemp = []
+			tempThing.xpath("//Item["+i.to_s+"]/ImageSets/ImageSet[@Category='variant']/MediumImage/URL").each do |title|
+				temp = []
+	  			temp.push(title.inner_text)
+	  			temp.push(i)
+	  			temptemp.push(temp)
+	  		end
+	  		alts.push(temptemp)
+  		end
+
+
+	  	result = []
+	  	thing.length.times do |i|
+
+	  			cont = []
+
+	  			cont.push(thing[i][0])
+	  			if alts[i+1][3].nil? == false
+		  			cont.push(alts[i+1][0][0])
+		  			cont.push(alts[i+1][1][0])
+		  			cont.push(alts[i+1][2][0])
+		  			cont.push(alts[i+1][3][0])
+	  			else 
+		   			cont.push(thing[i][0])
+		  			cont.push(thing[i][0])
+		  			cont.push(thing[i][0])
+		  			cont.push(thing[i][0])
+	  			end
+	  			cont.push(@prices[i])
+	  			cont.push(pages[i])
+	  			cont.push(asins[i])
+	  			result.push(cont)
+
+
+	  end
+	  return result
+	end
+
 	def searchByTerms(terms, page, minPrice, maxPrice)
 		params = {  
 		  'Operation'     => 'ItemSearch',
