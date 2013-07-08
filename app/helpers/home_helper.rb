@@ -131,6 +131,8 @@ module HomeHelper
 		  	
 		dependencies
 		asins = []
+		itemShort = []
+		itemLong = [] 
 		pages = []
 	  	thing = []
 	  	@prices = []
@@ -141,6 +143,14 @@ module HomeHelper
 
   		tempThing.xpath("//FormattedPrice").each do |price|
 			@prices.push(price.inner_text)
+		end
+
+		tempThing.xpath("//Studio").each do |short|
+			itemShort.push(short.inner_text)
+		end
+
+		tempThing.xpath("//Title").each do |long|
+			itemLong.push(long.inner_text)
 		end
 
   		tempThing.xpath("//ASIN").each do |asin|
@@ -192,6 +202,8 @@ module HomeHelper
 	  			cont.push(@prices[i])
 	  			cont.push(pages[i])
 	  			cont.push(asins[i])
+	  			cont.push(itemShort[i])
+	  			cont.push(itemLong[i])
 	  			result.push(cont)
 
 
