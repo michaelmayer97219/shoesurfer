@@ -1,13 +1,8 @@
 class HomeController < ApplicationController
 	include HomeHelper
   def index
-  	dependencies
-	xml_doc  = simLookup('B0084BS8BA')
-	@returned_xml = []
-	 xml_doc.xpath("//ASIN").each do |obj|
-		 asin = obj.inner_text 
-	 @returned_xml.push(simLookup(asin))
-	end
+
+
 
   end
 
@@ -27,15 +22,13 @@ class HomeController < ApplicationController
   	#productsByASIN(params[:asin]).each do |product|
   	#	@result.push(product)
   	#end
+  	@moarResults = []
   	@result = productsByASIN(params[:id])
-  	node = nodeByASIN(params[:id])
-  	rand = 1 + rand(2) #to prevent repetitive views 
-  	if node.length > 1
-  	x = rand(2)
-  else 
-  	x = 0
-  end
-  	@resultsByNode = productsByNode(node[x], rand, 2000, 10000)
+  	#node = nodeByASIN(params[:id])
+  	@result.each do |array|
+  		asin = array[7]
+  		#@moarResults.push(productsByASIN(asin)) #THIS IS A COMMENT
+  	end
   end
 
 end

@@ -1,6 +1,11 @@
 $(document).ready(function() {
 
-
+    $.ajax({
+        url : "/home/sim/B0076FIG62"
+        success: function(data){
+           alert('success')
+         }
+    });
 
 
     function picHTML (src, text, price, page) {
@@ -19,7 +24,7 @@ $(document).ready(function() {
         ].join('\n');
     }
 
-
+/*
 
     for (u=0; u< urls.length; u++) {
         if (prices[u] != undefined) {
@@ -30,7 +35,7 @@ $(document).ready(function() {
 
     }
 
-
+*/
     $('.img').hover(function() {
         $(this).css('background-color','white')
         $('#container').css('background-color', '#f5f5f5')

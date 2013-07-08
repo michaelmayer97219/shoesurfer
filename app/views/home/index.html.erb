@@ -1,37 +1,4 @@
-	<script type='text/javascript'>
-		urls = [];
-		titles = [];
-		prices = [];
-		studios = [];
-		pages = [];
-  	</script>
 
-
-
-
-	<script type='text/javascript'>
-
-		<% @returned_xml[0].xpath("//DetailPageURL").each do |page| %>
-			pages.push('<%= page.inner_text %>')
-			console.log('<%= @returned_xml[0]%>')
-		<% end %>
-
-		<% @returned_xml[1].xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| %>
-			urls.push('<%= url.inner_text %>')
-		<% end %>
-
-		<% @returned_xml[2].xpath("//Studio").each do |studio| %>
-			studios.push('<%= studio.inner_text %>')
-		<% end %>
-
-		<% @returned_xml[3].xpath("//title").each do |title| %>
-			titles.push('<%= title.inner_text %>')
-		<% end %>
-
-		<% @returned_xml[4].xpath("//FormattedPrice").each do |price| %>
-			prices.push('<%= price.inner_text %>')
-		<% end %>
-  	</script>
 
 
 
@@ -71,7 +38,7 @@
 	</div>
 	<div id='container'>
 		<div id='imgContain'>
-
+			<%= render '/home/sim/B0076FIG62' %>
 		</div>
 	</div>
 
