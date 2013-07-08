@@ -161,7 +161,8 @@ module HomeHelper
 
 		(xx).times do |i|
 			temptemp = []
-			tempThing.xpath("//Item["+i.to_s+"]/ImageSets/ImageSet[@Category='variant']/MediumImage/URL").each do |title|
+			#tempThing.xpath("//Item["+i.to_s+"]/ImageSets/ImageSet[@Category='variant']/MediumImage/URL").each do |title|
+			tempThing.xpath("//Item["+i.to_s+"]/ImageSets/ImageSet[@Category='variant']/LargeImage/URL").each do |title|
 				temp = []
 	  			temp.push(title.inner_text)
 	  			temp.push(i)

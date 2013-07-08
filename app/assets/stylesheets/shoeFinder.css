@@ -23,356 +23,113 @@ body {
 }
 
 #container {
-	float: right;
-	display: inline-block;
-	width: 90%;
-	padding-left: 5%;
-	padding-right: 5%;
+
+	width: 80%;
+	height: 100%;
+	margin-left: 10%;
 	padding-top: 80px;
 	background-color: transparent;	
 }
 
-#leftColumn {
-	xmargin: 1%;
-	position: fixed;
-	display: inline-block;
-	padding: 0px;
-	xtop: 1.5%;
-	box-shadow: 0px 0px 3px 3px #555;
-	border-top: 10px solid #f5f5f5;
-	width: 98%;
-	margin-left: 1%;	
-	z-index: 10000;
-	
-	height: 70px;
-	xbackground-color: rgb(255,25,60);
-	background-image: url('retina_wood.png');
-	xborder: 1px solid #aaa;
-	border-radius: 1px;
-	box-shadow: 0 0px 2px 1px rgba(255,200,200, .8) inset;
-}
 
 #lgo{
 	font-family: 'Lobster', cursive;
-	height: 100px;
-	width: 98%;
-	line-height: 100%;
+	height: 70px;
+	width: 100%;
 	font-size: 40px;
 	position: fixed;
-	top: 30px;
-	left: 30px;
-	z-index: 100000000000;
-
+	top: 0px;
+	background-color: white;
+	z-index: 100;
 }
 
 #goo {
+	height: 100%;
+	width: 30%;
 	text-shadow: 1px 1px #ccc;
-	font-size: 30px;
-	margin-top: -5px;
+	font-size: 35px;
+	display: inline;
+	position: absolute;
+	left: 10%;
+	top: 9px;
 }
 
 #goo:hover {
 	cursor: pointer;
 }
 
-#tag {
-	height: 50px;
-	position: absolute;
-	right: 50%;
-	margin-right: 10px;
-	font-size: 25px;
-	color: #333;
-	text-shadow: 1px 10px 5px black inset;
-
-	top: 0;
-	margin-top: -5px;
-	font-family: arial;
-	font-style: italic;
-	font-family: appfont;
-}
-
-#tag:before {
-	xcontent: '\F0B0';
-}
 
 #headerOptions {
-	height: 50px;
-	xbackground-color: rgba(0, 0, 0,.6);
-	width: 37%;
-	float: right;
-	top: 0;
-	margin-top: -10px;
-	right: 1%;
-	margin-right: 5px;
-	position: absolute;
+
+right: 10%;
+position: absolute;
 }
 
 .optn {
-	border-radius: 2px;
-	top: 0;
-	padding-top: 0px;
-	height: 40px;
-	margin-top: -10px;
-	display: inline-block;
-	background-color: rgba(0, 0, 0,.2);
-	width: 22%;
-	box-shadow: 0px 0px 5px black inset;
-	font-size: 25px;
-	text-align: center;
-	text-shadow: 1px 1px #bbb;
+
+display: inline-block;
+font-size: 23px;
+text-align: center;
+text-shadow: 1px 1px #bbb;
+position: relative;
+margin-left: 14px;
+}
+
+#size {
+	color: rgb(150, 75, 150);
+}
+
+#price {
+	color: rgb(109, 116, 109);
+}
+
+#style {
+	color: rgb(55, 170, 55);
+}
+
+#brand {
+	color: rgb(14, 211, 14);
+}
+
+.row {
+	width: 100%;
+	height: 40%;
 	position: relative;
 }
 
-.optn:hover {
-	box-shadow: 0px 0px 5px black;
-	cursor: pointer;
-	background-color: rgba(255,255,255,.2);
-}
-
-.select {
-	display: none;
-	box-shadow: 0px 0px 5px black;
-	position: absolute;
-	xright: 30%;
-	xmargin-right: 40px;
-	top: 70px;
-	left: -40%; 
-	width: 200px;
-	height: 100px;
-	background-image: url('retina_wood.png');
-	Xborder: 1px solid #333;
-	border-radius: 3px;
-}
-
-.tinter {
-	position: absolute;
-	width: 100%;
+.imgs {
 	height: 100%;
-	background-color: rgba(255,255,255,.2);
-
-}
-
-#sizeselect {
-
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	margin: 0 auto;
 }
 
 .img {
-	background-color: white;
-	z-index: 100;
-	height: 260px;
-	width: 260px;
-	position: relative; 	
+	width: 10%;
+	height: 40%;
+	margin-left: 5%;
 	display: inline-block;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-right: 50px;
-	margin-left: 30px;
-	xpadding: 5px;
-	padding-top: 25px;
-	xborder: 1px solid #ccc;
-	xborder-top: 1px solid #eee;
+	position: relative;
+}
+
+.big {
+	height: 100%;
+	width: 30%;
 }
 
 .img img {
 	max-width: 100%;
-	max-height: 60%;
-	display: block;
+	max-height: 100%;
+	position: absolute;
+	bottom: 0px;
 	margin: 0 auto;
 }
 
-.img:hover {
-	cursor: pointer;
-}
-
-.price {
-	top: 80%;
-	width: 90%;
-	margin-left: 5%;
-	text-align: center;
-	position: absolute;
-	xfont-family: 'Abel', sans-serif;
-	font-weight: 400;
-	font-family: 'appfont';
-	letter-spacing: 1px;
-	font-size: 11px;
-	z-index: 100;
-}
-
-.overlay {
-	top: 70%;
-	height: 40px;
-	width: 90%;
-	margin-left: 5%;
-	xz-index: 1;
-	position: absolute;
-	bottom: 0;
-	xdisplay: none;
-	font-family: 'Abel', sans-serif;
-}
-
-.overlay span {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	color: white;
-	font-family: 'appfont';
-	letter-spacing: 3px;
-	font-size: 20px;
-	text-align: center;
-	xmargin-top: 30%;
-}
-
-.label {
-	line-height: 40px;
-	font-size: 18px;
-	overflow: hidden;
-	color: black;
-	font-weight: 300;
-	letter-spacing: 1px;
-	text-align: center;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stumbleHolder {
-	width: 100%;
-	position: absolute;
-	top: 88%;
-	text-align: center;
-
-}
-
-.shopper {
-	float: left;
-}
-
-.stub {
-	xfloat: right;
-	position: absolute;
-	left: 50%;
-	width: 50%;
-}
-
-.shop {
-	font-family: appfont;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-    
-   x border-bottom: 1px solid #448;
-	position: absolute;
-	left: 15px;
-	font-size: 28px;
-	color: rgb(223, 203, 216);
-}
-
-.shop:before {
-	content: "\f07A";
-}
-
-.shop:hover {
-	color: black;
+.optn:hover {
 	cursor: pointer
 }
-.stumbler {
-	color: rgba(117, 128, 86, 0.36);
-	font-family: appfont;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-	position: absolute;
-	right: 15px;
-	font-size: 28px;
-}
 
-.stumbler:hover {
-	xbackground-color: #9bc;
-	color: #333;
-}
-
-.stumbler:before {
-	 content: "\f14D"; 
-    
-}
-
-.thang:hover {
-	color: white;
-	background-color: #333;
-}
-
-.butt {
-padding-left: 10px;
-font-weight: 400;
-font-family: 'appfont';
-letter-spacing: 1px;
-color: #333;
-padding-bottom: 152px;
-font-size: 17px;
-display: none;
-}
-
-
-
-.thumb {
-	xdisplay: none;
-	background-color: rgba(0,0,0,.8);
-	font-family: appfont;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-/*--adjust as necessary--*/
-    xbackground-color: rgb(255,30,60);
-    xcolor: #111;
-    font-size: 24px;
-    line-height: 24px;
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    xwidth: 30px;
-    padding: 8px;
-}
-
-.thumb:hover {
-    xbackground-color: #111;
-    xcolor: 	rgb(255,60,90);
-}
-
-.up {
-	background-color: rgb(30,170,30);
-	margin-right: 38px;
-}
-
-.up:hover {
-	background-color: rgb(50,190,50);
-}
-
-.down {
-	display: none;
-	background-color: rgb(200,50,50);
-}
-
-.down:hover {
-	background-color: rgb(170,30,30);
-}
-
-.up:before {
-	 content: "\f087"; 
-    
-}
-
-.down:before {
-	
-	 content: "\f088"; 
-    
-}
-
-
-#imgContain {
-	xmargin-right: 20px;
-	xmargin-left: 25px;
-	padding-top: 20px;
-	padding-bottom: 100px;
-}
 
 .arrow_box {
 	position: relative;

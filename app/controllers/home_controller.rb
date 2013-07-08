@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 	include HomeHelper
   def index
 
-
+  	@var = productsByASIN(params[:id])
 
   end
 
@@ -25,9 +25,11 @@ class HomeController < ApplicationController
   	@moarResults = []
   	@result = productsByASIN(params[:id])
   	#node = nodeByASIN(params[:id])
-  	@result.each do |array|
-  		asin = array[7]
+  	#@result.each do |array|
+  		#asin = array[7]
   		#@moarResults.push(productsByASIN(asin)) #THIS IS A COMMENT
+  	respond_to do |format|
+  		format.js { render :json => @result}
   	end
   end
 
