@@ -56,6 +56,12 @@ body {
 	cursor: pointer;
 }
 
+#betaTag {
+	display: inline;
+	font-family: 'appfont';
+	font-size: 13px;
+	color: #999;
+}
 
 #headerOptions {
 
@@ -201,7 +207,10 @@ body {
 	margin-left: 11%;
 	display: inline-block;
 	height: 200px;
+}
 
+.subCat:hover {
+	cursor: pointer;
 }
 
 .subCatImg {
@@ -222,6 +231,7 @@ body {
 	position: absolute;
 	bottom: 0px;
 	text-align: center;
+	font-family: 'appfont';
 }
 
 .row {

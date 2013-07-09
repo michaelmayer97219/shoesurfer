@@ -34,6 +34,21 @@ class HomeController < ApplicationController
   	end
   end
 
+  def apparel
+    @result = productsByTerms('Apparel', params[:id])
+    respond_to do |format|
+      format.js { render :json => @result}
+    end
+  end
+
+  def shoes
+    @result = productsByTerms('Shoes', params[:id])
+    respond_to do |format|
+      format.js { render :json => @result}
+    end
+  end
+
+
 end
 
 

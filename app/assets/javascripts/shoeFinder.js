@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    $('#goo').click(function() {
+        location.reload()
+            })
+
 
     function picHTML (array) {
         return [
@@ -29,8 +33,56 @@ $(document).ready(function() {
 
 numTimes = 0
 alreadyShown = []
-function simCall (asin) {
 
+function catCall (terms) {
+    $.ajax({
+          url : "home/apparel/"+terms,
+          dataType : 'html',
+          cache : false,
+          success : function(data){
+            dat = $.parseJSON(data)
+            for(i = 0; i < dat.length; i++) {
+
+                array = dat[i]
+                if ( $.inArray(array[7], alreadyShown) == -1) {
+                    $('#container').append(picHTML(array))
+                    alreadyShown.push(array[7])
+                } else {
+
+                }
+                
+            }
+
+             settingsForContent()
+
+            $('.action').bind('click', function() {
+                    attr = $(this).attr('id')
+                    $('#container').empty()
+                    simCall(attr)
+                    alreadyShown = []
+            })
+         },
+          error : function(XMLHttpRequest, textStatus, errorThrown) {
+            alert('Error!');
+       }
+
+   });
+}
+
+$('.subCat').click(function() {
+    call = $(this).attr('id')
+    alert(call)
+    $('#categories').hide(500)
+    $('.actionCall, .firstOptions').hide(500)
+    $('body').css('background-color', 'white')
+    $('#container').css('margin-left', '100%')
+    setTimeout(function() {
+        catCall(call)
+        $('#container').animate({'margin-left':'5%'},100)
+    }, 500)
+})
+
+function simCall (asin) {
     $.ajax({
           url : "home/sim/"+asin,
           dataType : 'html',
@@ -71,11 +123,6 @@ function simCall (asin) {
        }
 
    });
-
-
-
-
-
 }
 
 
@@ -95,9 +142,9 @@ function simCall (asin) {
                     setTimeout($(this).find('.prodDes').show(100),100)
                 })
                 $('.img').hover(function() {
-                    $(this).css({'height': '100%', 'width': '40%','opacity': 1})
-                    $(this).siblings('.img').css({'height': '40%', 'width': '10%', 'opacity': 0.1})
-                    $(this).siblings('.img').animate({'opacity': 1},500)
+                    $(this).css({'height': '100%', 'width': '40%','opacity': .5})
+                    $(this).siblings('.img').css({'height': '40%', 'width': '10%', 'opacity': .2})
+                    $('.img').animate({'opacity': 1} ,500)
                         centerImgInContainer($('.img'), 2)
                 }, function() {
                     //$(this).css({'height': '40%', 'width': '10%'})
@@ -157,7 +204,15 @@ function simCall (asin) {
                 $('#menCat').hide(700)
                 centerImgInContainer($('#categories'),2)
             }
-        }, 400)
+        }, 200)
+    })
+
+    $('.subCat').each(function() {
+        $(this).hover(function() {
+            $(this).siblings().css('opacity', .5)
+        }, function () {
+            $(this).siblings().css('opacity', 1)
+        })
     })
 
 

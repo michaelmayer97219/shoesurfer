@@ -1,6 +1,9 @@
 
 	<div id='lgo'>
-		<div id='goo'><span>S</span><span>t</span><span>y</span><span>l</span><span>e</span><span></span><span>R</span><span>o</span><span>u</span><span>l</span><span>e</span><span>t</span><span>t</span><span>e</span></div>
+		<div id='goo'>
+			<span>S</span><span>t</span><span>y</span><span>l</span><span>e</span><span></span><span>R</span><span>o</span><span>u</span><span>l</span><span>e</span><span>t</span><span>t</span><span>e</span>
+			<div id='betaTag'>beta</div>
+		</div>
 		<div id='headerOptions'>
 			<div class='optn'>
 				<span id='size'>Size</span>
@@ -49,86 +52,109 @@
 	<div id='categories'>
 
 		<div id='woCat' class='catCont'>
-			<div class='subCat'>
+			<div id='womens top' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@women.inner_text %>" />
+					<%= image_tag('wTop.jpg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Tops</div>
 			</div>
-			<div class='subCat'>
+			<div id='womens dress' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@women.inner_text %>" />
+					<%= image_tag('wDress.jpg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Dresses</div>
 			</div>
-			<div class='subCat'>
+			<div id='womens pants' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@women.inner_text %>" />
+					<%= image_tag('wJeans.jpg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Pants</div>
 			</div>
-			<div class='subCat'>
+			<div id='womens shorts' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@women.inner_text %>" />
+					<%= image_tag('wShorts.jpg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Shorts</div>
 			</div>
-			<div class='subCat'>
+			<div id='womens skirts' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@women.inner_text %>" />
+					<%= image_tag('wSkirt.jpg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Skirts</div>
 			</div>
-			<div class='subCat'>
+			<div id='womens Jacket' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@women.inner_text %>" />
+					<%= image_tag('wJacket.jpg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Jackets</div>
 			</div>
-			<div class='subCat'>
+			<div id='womens swim' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@women.inner_text %>" />
+					<%= image_tag('wSwim.jpg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Tops</div>
 			</div>
-
+			<div id='womens shoes' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('wShoes.jpg') %>
+				</div>
+				<div class='subCatLabel'>Shoes</div>
+			</div>
+			<div id='womens accessories' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('wAcc.jpg') %>
+				</div>
+				<div class='subCatLabel'>Accessories</div>
+			</div>
 		</div>
 		<div id='menCat' class='catCont'>
-			<div class='subCat'>
+			<div  id='mens shirt'  class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@men.inner_text %>" />
+					<%= image_tag('menShirt.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Shirts</div>
 			</div>
-			<div class='subCat'>
+			<div id='mens pants'  class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@men.inner_text %>" />
+					<%= image_tag('menPants.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Pants</div>
 			</div>
-			<div class='subCat'>
+			<div id='mens shorts' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@men.inner_text %>" />
+					<%= image_tag('menShorts.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Shorts</div>
 			</div>
-			<div class='subCat'>
+			<div id='mens swim' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@men.inner_text %>" />
+					<%= image_tag('menSwim.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Swim</div>
 			</div>
-			<div class='subCat'>
+			<div id='mens jacket' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@men.inner_text %>" />
+					<%= image_tag('menJacket.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Jackets</div>
 			</div>
-			<div class='subCat'>
+			<div id='mens shoes' class='subCat'>
 				<div class='subCatImg'>
-					<img src="<%=@men.inner_text %>" />
+					<%= image_tag('menShoes.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Category</div>
+				<div class='subCatLabel'>Shoes</div>
+			</div>
+			<div id='mens shades' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('menShades.jpeg') %>
+				</div>
+				<div class='subCatLabel'>Shades</div>
+			</div>
+			<div id='mens accessories' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('menAcc.jpeg') %>
+				</div>
+				<div class='subCatLabel'>Accessories</div>
 			</div>
 
 
