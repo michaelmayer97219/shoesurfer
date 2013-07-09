@@ -3,7 +3,8 @@ class HomeController < ApplicationController
   def index
 
   	@var = productsByASIN(params[:id])
-
+    @women = singleItemByAsin('B00C9UNUNI')
+    @men = singleItemByAsin('B0059MSZOC')
   end
 
   def node

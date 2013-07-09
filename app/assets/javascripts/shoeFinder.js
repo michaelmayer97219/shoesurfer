@@ -56,6 +56,33 @@ function simCall (asin) {
                 numTimes ++       
                 }
              }
+
+             settingsForContent()
+
+            $('.action').bind('click', function() {
+                    attr = $(this).attr('id')
+                    $('#container').empty()
+                    simCall(attr)
+                    alreadyShown = []
+            })
+         },
+          error : function(XMLHttpRequest, textStatus, errorThrown) {
+            alert('Error!');
+       }
+
+   });
+
+
+
+
+
+}
+
+
+//simCall('B004ISKHI0')
+
+    function settingsForContent () {
+                    updateLoadingPos()
                 centerImgInContainer ()
                 $('.row').hover(function () {
                     $(this).find('.action').show()
@@ -71,7 +98,7 @@ function simCall (asin) {
                     $(this).css({'height': '100%', 'width': '40%','opacity': 1})
                     $(this).siblings('.img').css({'height': '40%', 'width': '10%', 'opacity': 0.1})
                     $(this).siblings('.img').animate({'opacity': 1},500)
-                        centerImgInContainer()
+                        centerImgInContainer($('.img'), 2)
                 }, function() {
                     //$(this).css({'height': '40%', 'width': '10%'})
                     //$(this).siblings('img').css({'height': '40%'})
@@ -92,33 +119,13 @@ function simCall (asin) {
                     }
                 })
 
-                $('.action').bind('click', function() {
-                        attr = $(this).attr('id')
-                        $('#container').empty()
-                        simCall(attr)
-                        alreadyShown = []
-                })
-         },
-          error : function(XMLHttpRequest, textStatus, errorThrown) {
-            alert('Error!');
-       }
-
-   });
-
-
-
-
-
-}
-
-
-simCall('B008MHSGBI')
-
-
+    }
 
 
 
     numb = 0
+
+
     $('#goo').children('span').each(function() {
         length = $('#goo').children('span').size()
 
@@ -132,23 +139,83 @@ simCall('B008MHSGBI')
         numb = numb + 1
     })
 
+    $('.firstImageHolder').click(function() {
+        $('.firstOptions').hide(300)
+        $('.actionCall').first().hide(300)
+        el = $(this)
+        setTimeout(function() {
+            text = el.find('.startLabel').text()
+            $('#statusBar').show(300)
+            $('#statusBar span').text(text)
+            $('.or').hide()
+            $('#categories').animate({'top': '100px', 'margin-top': '3%'},500)
+            if (text == 'Men') {
+                $('#woCat').hide(700)
+                $('#menCat').css('border', '0px solid black')
+                centerImgInContainer($('#categories'),2)
+            } else {
+                $('#menCat').hide(700)
+                centerImgInContainer($('#categories'),2)
+            }
+        }, 400)
+    })
 
 
+    function centerImgInContainer (node, x) {
 
-    function centerImgInContainer () {
-
-        $('.img').each(function() {
+        $(node).each(function() {
             containWidth = $(this).width() 
             imgWidth = $(this).children().width()
             diff = containWidth - imgWidth
-            $(this).children().css('margin-left', diff/2)
+            $(this).children().css('margin-left', diff/x)
             //$(this).css('background-color', 'black')
         })
 
 
     }
 
+    centerImgInContainer($('.firstImageHolder'), 8)
 
+    function updateLoadingPos () {
+        h = $(document).height()
+        wh = $(window).height()
+        h = h - wh*1.1
+        $('#loading').css('top', h)
+    }
+
+    //updateLoadingPos()
+
+    function loadingColors() {
+
+        $('#loading').each(function () {
+            text = $(this).text()
+            length = text.length
+            $(this).empty()
+
+            diff = 100/length
+            
+            for (i = 0; i < length; i++) {
+                $(this).append("<span style='color:"+newRandomColor(150, 50)+ "' >"+text[i]+"</span>")
+            }
+        })
+    }
+
+
+    loadingColors()
+    flip = 0
+    setInterval(function() {
+        if ( flip == 0 ){
+            loadingColors()
+        }
+    }, 100)
+    
+
+    function newRandomColor (floor, breadth) {
+        r = Math.floor(Math.random()*breadth)+floor
+        g = Math.floor(Math.random()*breadth)+floor
+        b = floor - Math.floor(Math.random()*breadth)
+        return 'rgb('+255+','+g+','+b+')'
+    }
 
     $('.optn').hover(function() {
         $('.optn').removeClass('arrow') 
@@ -171,6 +238,15 @@ simCall('B008MHSGBI')
                
             }
         })
+    })
+
+    $('.firstImageHolder').hover(function() {
+        $(this).siblings().css('opacity',.6)
+        $(this).find('.startLabel').css({'right': '0px', 'top':'45%', 'font-size': '35px'})
+    }, function() {
+        $(this).siblings().css('opacity',1)
+        $(this).find('.startLabel').css({'right': 'auto', 'top':'auto', 'font-size': '22px'})
+
     })
     
 

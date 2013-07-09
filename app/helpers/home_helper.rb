@@ -28,6 +28,16 @@ module HomeHelper
 		return nokogiri(result)
 	end
 
+	def singleItemByAsin(asin)
+		dependencies
+		params = {  
+		  'Operation'     => 'ItemLookup',
+		  'ItemId'    =>  asin,
+		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities, VariationImages'}  
+		result = newVacuum(params)
+		return nokogiri(result).xpath("//ImageSet[@Category='primary']/LargeImage/URL")
+	end
+
 	def searchByNode(node, page, minPrice, maxPrice)
 		params = {  
 		  'Operation'     => 'ItemSearch',
