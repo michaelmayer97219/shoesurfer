@@ -20,7 +20,7 @@ $(document).ready(function() {
                 "<div class='prodPrice'>"+array[5]+"</div>",
                 
                 "</div>",
-                "<div class='action' id='"+array[7]+"'>Discover</div>",
+                "<div class='action' id='"+array[7]+"'>Discover Items Like This</div>",
 
             "</div>",
 
@@ -86,7 +86,7 @@ function simCall (asin) {
                     diff = 100/length
                     
                     for (i = 0; i < length; i++) {
-                        newTint = Math.round(diff*i)
+                        newTint = Math.round(diff*i)+30
                         newColor = 'rgb('+newTint+','+newTint+','+newTint+')'
                         $(this).append("<span style='color:"+newColor+ "' >"+text[i]+"</span>")
                     }
@@ -112,7 +112,7 @@ function simCall (asin) {
 }
 
 
-simCall('B005B91IRY')
+simCall('B008MHSGBI')
 
 
 

@@ -149,7 +149,7 @@ module HomeHelper
 			itemShort.push(short.inner_text)
 		end
 
-		tempThing.xpath("//Title").each do |long|
+		tempThing.xpath("//ItemAttributes/Title").each do |long|
 			itemLong.push(long.inner_text)
 		end
 
@@ -262,7 +262,7 @@ module HomeHelper
 			studios.push(studio.inner_text)
 		end 
 
-		xml.xpath("//title").each do |title| 
+		xml.xpath("//Title").each do |title| 
 			titles.push(title.inner_text)
 		end 
 

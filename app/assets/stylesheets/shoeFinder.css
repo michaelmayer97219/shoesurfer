@@ -91,17 +91,18 @@ margin-left: 14px;
 }
 
 .row {
-	width: 100%;
+	width: 80%;
 	margin-left: 10%;
 	margin-right: auto;
 	margin-top: 5%;
 	height: 50%;
 	position: relative;
+	border-bottom: 1px solid #ccc;
 }
 
 .imgs {
 	height: 54%;
-	width: 60%;
+	width: 85%;
 	position: absolute;
 	top: 10%;
 	margin: 0 auto;
@@ -112,13 +113,13 @@ margin-left: 14px;
 .above {
 	height: 10%;
 	position: absolute;
-	width: 60%;
+	width: 85%;
 	top: 0px;
 }
 
 .below {
 	height: 30%;
-	width: 60%;
+	width: 85%;
 	position: absolute;
 	bottom: 0px;
 }
@@ -131,7 +132,10 @@ margin-left: 14px;
 	font-size: 20px;
 	margin: auto;
 	top: 0px;
-
+background-color: rgba(245, 255, 0, 0.15);
+border-radius: 3px;
+padding-left: 5px;
+padding-right: 5px;
 }
 
 .prodDesBig {
@@ -141,6 +145,10 @@ margin-left: 14px;
 	margin: auto;
 	top: 0px;
 	display: none;
+	background-color: rgba(245, 255, 0, 0.15);
+border-radius: 3px;
+padding-left: 5px;
+padding-right: 5px;
 }
 
 .alternates {
@@ -162,12 +170,17 @@ margin-left: 14px;
 
 .action {
 	position: absolute;
-	right: 25%;
+	right: 0%;
 	top: 65%;
 	display: none;
-	color: blue;
+	color: rgb(100, 100, 255);
 	text-decoration: underline;
 	font-size: 16px;
+}
+
+.action:hover {
+	cursor: pointer;
+	color: blue;
 }
 
 .img {
