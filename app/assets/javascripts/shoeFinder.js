@@ -31,6 +31,47 @@ $(document).ready(function() {
         ].join('\n');
     }
 
+    function apparelPicHTML (array) {
+
+        imgs = []
+        imgHTML = ''
+        for (i = 0; i < 5; i++) {
+            if ( $.inArray(array[i], imgs) == -1) {
+              imgs.push(array[i])  
+            }
+        }
+        length = imgs.length
+        if (imgs.length > 3) {
+            for (i=0; i< length;i++) {
+
+            }
+        }
+
+        return [
+            "<div class='aRow'>",
+                "<div class='aAbove'>",
+                "<span class='aProdDes'>"+array[8]+"</span>",
+                "<span class='aProdDesBig'>"+array[9]+"</span>",
+                "</div>",
+                "<div class='aImgs'> ",
+                    "<div class='aImg'><img src=' "+array[1]+" ' /></div>",
+                    "<div class='aImg'><img src=' "+array[2]+" ' /></div>",
+                    "<div class='aImg aBig'><img src=' "+array[0]+" ' /></div>",
+                    "<div class='aImg'><img src=' "+array[3]+" ' /></div>",
+                    "<div class='aImg'><img src=' "+array[4]+" ' /></div>",
+                "</div>",
+                "<div class='aBelow'>",
+                "<div class='aAlternates'>.....</div>",
+                "<div class='aProdPrice'>"+array[5]+"</div>",
+                
+                "</div>",
+                "<div class='aAction' id='"+array[7]+"'>Discover Items Like This</div>",
+
+            "</div>",
+
+        ].join('\n');
+    }
+
 numTimes = 0
 alreadyShown = []
 
@@ -45,7 +86,7 @@ function catCall (terms) {
 
                 array = dat[i]
                 if ( $.inArray(array[7], alreadyShown) == -1) {
-                    $('#container').append(picHTML(array))
+                    $('#container').append(apparelPicHTML(array))
                     alreadyShown.push(array[7])
                 } else {
 
@@ -54,12 +95,18 @@ function catCall (terms) {
             }
 
              settingsForContent()
-
-            $('.action').bind('click', function() {
+             $('.prodNav').css('color', 'blue')
+            $('.action, .aAction').bind('click', function() {
                     attr = $(this).attr('id')
                     $('#container').empty()
                     simCall(attr)
                     alreadyShown = []
+                    name = $(this).siblings('.aAbove').children('.aProdDesBig').text()
+                    $('.prodNav').hide(50)
+                    $('.prodNav').empty()
+                    $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
+                    $('.prodNav').show(300)
+                                        
             })
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -71,7 +118,6 @@ function catCall (terms) {
 
 $('.subCat').click(function() {
     call = $(this).attr('id')
-    alert(call)
     $('#categories').hide(500)
     $('.actionCall, .firstOptions').hide(500)
     $('body').css('background-color', 'white')
@@ -79,6 +125,7 @@ $('.subCat').click(function() {
     setTimeout(function() {
         catCall(call)
         $('#container').animate({'margin-left':'5%'},100)
+        $('#statusBar').append("<span class='subCatNav navLabel'> &gt;"+" "+call+"</span>")
     }, 500)
 })
 
@@ -93,7 +140,7 @@ function simCall (asin) {
 
                 array = dat[i]
                 if ( $.inArray(array[7], alreadyShown) == -1) {
-                    $('#container').append(picHTML(array))
+                    $('#container').append(apparelPicHTML(array))
                     alreadyShown.push(array[7])
                 } else {
 
@@ -111,11 +158,16 @@ function simCall (asin) {
 
              settingsForContent()
 
-            $('.action').bind('click', function() {
+            $('.action, .aAction').bind('click', function() {
                     attr = $(this).attr('id')
                     $('#container').empty()
                     simCall(attr)
                     alreadyShown = []
+                    name = $(this).siblings('.aAbove').children('.aProdDesBig').text()
+                    $('.prodNav').empty()
+                    $('.prodNav').hide(50)
+                    $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
+                    $('.prodNav').show(300)
             })
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -131,36 +183,36 @@ function simCall (asin) {
     function settingsForContent () {
                     updateLoadingPos()
                 centerImgInContainer ()
-                $('.row').hover(function () {
-                    $(this).find('.action').show()
-                    $(this).find('.prodDes').hide(100);
+                $('.row, .aRow').hover(function () {
+                    $(this).find('.action, .aAction').show()
+                    $(this).find('.prodDes, .aProdDes').hide(100);
 
-                    setTimeout($(this).find('.prodDesBig').show(100),100)
+                    setTimeout($(this).find('.prodDesBig, .aProdDesBig').show(100),100)
                 }, function() {
-                    $(this).find('.action').hide()
-                    $(this).find('.prodDesBig').hide(100);
-                    setTimeout($(this).find('.prodDes').show(100),100)
+                    $(this).find('.action, .aAction').hide()
+                    $(this).find('.prodDesBig, .aProdDesBig').hide(100);
+                    setTimeout($(this).find('.prodDes, .aProdDes').show(100),100)
                 })
-                $('.img').hover(function() {
+                $('.img, .aImg').hover(function() {
                     $(this).css({'height': '100%', 'width': '40%','opacity': .5})
-                    $(this).siblings('.img').css({'height': '40%', 'width': '10%', 'opacity': .2})
-                    $('.img').animate({'opacity': 1} ,500)
-                        centerImgInContainer($('.img'), 2)
+                    $(this).siblings('.img, .aImg').css({'height': '40%', 'width': '10%', 'opacity': .2})
+                    $('.img, .aImg').animate({'opacity': 1} ,500)
+                        centerImgInContainer($('.img, .aImg'), 2)
                 }, function() {
                     //$(this).css({'height': '40%', 'width': '10%'})
                     //$(this).siblings('img').css({'height': '40%'})
                     //$(this).siblings().first().css({'max-height': '100%'})
                 })
 
-                $('.prodDesBig, .prodDes').each(function () {
+                $('.prodDesBig, .prodDes, .aProdDes, .aProdDesBig').each(function () {
                     text = $(this).text()
                     length = text.length
                     $(this).empty()
 
-                    diff = 100/length
+                    diff = 50/length
                     
                     for (i = 0; i < length; i++) {
-                        newTint = Math.round(diff*i)+30
+                        newTint = 255 - Math.round(diff*i)
                         newColor = 'rgb('+newTint+','+newTint+','+newTint+')'
                         $(this).append("<span style='color:"+newColor+ "' >"+text[i]+"</span>")
                     }
@@ -193,7 +245,7 @@ function simCall (asin) {
         setTimeout(function() {
             text = el.find('.startLabel').text()
             $('#statusBar').show(300)
-            $('#statusBar span').text(text)
+            $('#statusBar').html("<span class='homeLabel navLabel'>Home</span><span class='sexLabel navLabel'>  &gt; "+text+"</span>")
             $('.or').hide()
             $('#categories').animate({'top': '100px', 'margin-top': '3%'},500)
             if (text == 'Men') {

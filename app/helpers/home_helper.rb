@@ -137,24 +137,22 @@ module HomeHelper
 	  			cont = []
 
 	  			cont.push(thing[i][0])
-	  			if alts[i+1][3].nil? == false
-		  			cont.push(alts[i+1][0][0])
-		  			cont.push(alts[i+1][1][0])
-		  			cont.push(alts[i+1][2][0])
-		  			cont.push(alts[i+1][3][0])
-	  			else 
-		   			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-	  			end
+
+	  			4.times do |n|
+		  			if alts[i+1][n].nil? == false
+			  			cont.push(alts[i+1][n][0])
+
+		  			else 
+			   			cont.push(thing[i][0])
+
+		  			end
+		  		end
 	  			cont.push(@prices[i])
 	  			cont.push(pages[i])
 	  			cont.push(asins[i])
 	  			cont.push(itemShort[i])
 	  			cont.push(itemLong[i])
 	  			result.push(cont)
-
 
 	  end
 	  return result

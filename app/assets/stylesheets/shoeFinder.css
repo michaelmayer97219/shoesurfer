@@ -102,19 +102,26 @@ body {
 	height: 0px;
 	position: fixed;
 	top: 70px;
-	left: 0px;
+	padding-left: 10%;
+	left: 0%;
 	background-color: rgba(255,255,255, .9);
-	height: 30px;
+	height: 28px;
 	display: none;
 	z-index: 100;
+	color: #777;
 }
 
 #statusBar span {
 	font-family: 'appfont';
-	font-size: 20px;
-	margin-left: 10%;
-	line-height: 30px;
+	font-size: 19px;
+	line-height: 28px;
 
+}
+
+.navLabel:hover {
+	color: #222;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .actionCall {
@@ -182,7 +189,7 @@ body {
 	padding-top: 3%;
 	padding-bottom: 3%;
 	width: 90%;
-	height: 80%;
+
 	margin-left: 5%;
 	position: absolute;
 	top: 100%;
@@ -236,7 +243,7 @@ body {
 
 .row {
 	width: 80%;
-	margin-left: 10%;
+	margin-left: 5%;
 	margin-right: auto;
 	margin-top: 5%;
 	height: 50%;
@@ -276,7 +283,7 @@ body {
 	font-size: 20px;
 	margin: auto;
 	top: 0px;
-background-color: rgba(245, 255, 0, 0.15);
+background-color: rgb(255, 111, 139);
 border-radius: 3px;
 padding-left: 5px;
 padding-right: 5px;
@@ -289,7 +296,7 @@ padding-right: 5px;
 	margin: auto;
 	top: 0px;
 	display: none;
-	background-color: rgba(245, 255, 0, 0.15);
+	background-color: rgb(255, 111, 139);
 border-radius: 3px;
 padding-left: 5px;
 padding-right: 5px;
@@ -356,6 +363,127 @@ padding-right: 5px;
 	cursor: pointer
 }
 
+
+.aRow {
+	float: left;
+	width: 32%;
+	margin-left: 5%;
+	margin-right: auto;
+	margin-top: 5%;
+	height: 50%;
+	position: relative;
+	padding: 3%;
+	border: 1px solid rgba(204, 204, 204, 0.21);
+	background-color: white;
+}
+
+.aImgs {
+	height: 54%;
+	width: 85%;
+	position: absolute;
+	top: 10%;
+	margin: 0 auto;
+	padding-top: 3%;
+	padding-bottom: 3%;
+}
+
+.aAbove {
+	height: 10%;
+	position: absolute;
+	width: 85%;
+	top: 3%;
+}
+
+.aBelow {
+	height: 30%;
+	width: 85%;
+	position: absolute;
+	bottom: 0px;
+}
+
+
+
+.aProdDes {
+	font-family: 'Lobster', cursive;
+	position: absolute;
+	font-size: 20px;
+	margin: auto;
+	top: 0px;
+background-color: rgb(255, 111, 139);
+border-radius: 3px;
+padding-left: 5px;
+padding-right: 5px;
+}
+
+.aProdDesBig {
+	font-family: 'Lobster', cursive;
+	position: absolute;
+	font-size: 20px;
+	margin: auto;
+	top: 0px;
+	display: none;
+	background-color: rgb(255, 111, 139);
+border-radius: 3px;
+padding-left: 5px;
+padding-right: 5px;
+}
+
+.aAlternates {
+	position: absolute;
+	font-size: 30px;
+	top: 0px;
+	margin: auto;
+	text-align: center;
+	width: 100%;
+	font-size: 35px;
+}
+
+.aProdPrice {
+	position: absolute;
+	width: 100%;
+	top: 50px;
+	text-align: center;
+}
+
+.aAction {
+	position: absolute;
+	right: 4%;
+	top: 92%;
+	display: none;
+	color: rgb(100, 100, 255);
+	text-decoration: underline;
+	font-size: 16px;
+}
+
+.aAction:hover {
+	cursor: pointer;
+	color: blue;
+}
+
+.aImg {
+	width: 8%;
+	height: 40%;
+	margin-left: 1%;
+	display: inline-block;
+	position: relative;
+	z-index: 99;
+	background-color: white;
+	opacity: 1;
+}
+
+.aBig {
+	height: 100%;
+	width: 40%;
+}
+
+.aImg img {
+	max-width: 100%;
+	max-height: 100%;
+	position: absolute;
+	bottom: 0px;
+	margin: 0 auto;
+	z-index: 90;
+}
 
 .arrow_box {
 	position: relative;
