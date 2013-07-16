@@ -1,8 +1,29 @@
 $(document).ready(function() {
 
+
+    function backToBeginning () { 
+        $('#container').hide()
+        $('#categories').show(300)
+        $('#categories').css({'top': '100%', 'margin-top': '80px'})
+        $('.actionCall').show(300)
+        $('#statusBar').hide()
+        $('.firstOptions').show(300) 
+        $(window).scrollTop(0)
+        $('body').css('background-color', '#efefef')
+        $('#categories').children().each(function () {
+            $(this).show()
+            $(this).css({'width': '49%', 'margin': '0px'})
+        })
+
+    }
+
+    $('.homeLabel').click(function() {
+        backToBeginning()
+    })
+
     $('#goo').click(function() {
-        location.reload()
-            })
+        backToBeginning()
+    })
 
 
     function picHTML (array) {
@@ -77,7 +98,7 @@ alreadyShown = []
 
 function catCall (terms) {
     $.ajax({
-          url : "home/apparel/"+terms,
+          url : "home/shoes/"+terms,
           dataType : 'html',
           cache : false,
           success : function(data){
@@ -86,7 +107,7 @@ function catCall (terms) {
 
                 array = dat[i]
                 if ( $.inArray(array[7], alreadyShown) == -1) {
-                    $('#container').append(apparelPicHTML(array))
+                    $('#container').append(picHTML(array))
                     alreadyShown.push(array[7])
                 } else {
 
@@ -118,20 +139,21 @@ function catCall (terms) {
 
 $('.subCat').click(function() {
     call = $(this).attr('id')
+    parent = $(this).parent()
     $('#categories').hide(500)
     $('.actionCall, .firstOptions').hide(500)
     $('body').css('background-color', 'white')
     $('#container').css('margin-left', '100%')
     setTimeout(function() {
         catCall(call)
-        $('#container').animate({'margin-left':'5%'},100)
+        $('#container').animate({'margin-left':'0%'},1000)
         $('#statusBar').append("<span class='subCatNav navLabel'> &gt;"+" "+call+"</span>")
     }, 500)
 })
 
-function simCall (asin) {
+function simCall (prod) {
     $.ajax({
-          url : "home/sim/"+asin,
+          url : "home/sim/"+prod,
           dataType : 'html',
           cache : false,
           success : function(data){
@@ -140,7 +162,7 @@ function simCall (asin) {
 
                 array = dat[i]
                 if ( $.inArray(array[7], alreadyShown) == -1) {
-                    $('#container').append(apparelPicHTML(array))
+                    $('#container').append(picHTML(array))
                     alreadyShown.push(array[7])
                 } else {
 
@@ -181,7 +203,8 @@ function simCall (asin) {
 //simCall('B004ISKHI0')
 
     function settingsForContent () {
-                    updateLoadingPos()
+                $('#container').show()
+                updateLoadingPos()
                 centerImgInContainer ()
                 $('.row, .aRow').hover(function () {
                     $(this).find('.action, .aAction').show()
@@ -204,7 +227,7 @@ function simCall (asin) {
                     //$(this).siblings().first().css({'max-height': '100%'})
                 })
 
-                $('.prodDesBig, .prodDes, .aProdDes, .aProdDesBig').each(function () {
+              /*  $('.prodDesBig, .prodDes, .aProdDes, .aProdDesBig').each(function () {
                     text = $(this).text()
                     length = text.length
                     $(this).empty()
@@ -217,6 +240,7 @@ function simCall (asin) {
                         $(this).append("<span style='color:"+newColor+ "' >"+text[i]+"</span>")
                     }
                 })
+                */
 
     }
 
@@ -228,24 +252,23 @@ function simCall (asin) {
     $('#goo').children('span').each(function() {
         length = $('#goo').children('span').size()
 
-        diff = 150/length
+        diff = 75/length
         r = 255 - Math.round(diff*numb)
-        g = 100 + Math.round((155/length)*numb)
-        b = 150 - Math.round(diff*numb)
+        g = 150 + Math.round((100/length)*numb)
+        b = 200 - Math.round(diff*numb)
 
         newColor = 'rgba('+255+','+g+','+b+')'
         $(this).css('color', newColor)
         numb = numb + 1
     })
 
-    $('.firstImageHolder').click(function() {
+    function sex (which) {
         $('.firstOptions').hide(300)
         $('.actionCall').first().hide(300)
-        el = $(this)
         setTimeout(function() {
-            text = el.find('.startLabel').text()
+            text = which
             $('#statusBar').show(300)
-            $('#statusBar').html("<span class='homeLabel navLabel'>Home</span><span class='sexLabel navLabel'>  &gt; "+text+"</span>")
+            $('#statusBar').html("<span class='homeLabel navLabel'>Home</span><span id='"+text+"' class='sexLabel navLabel'>  &gt; "+text+"</span>")
             $('.or').hide()
             $('#categories').animate({'top': '100px', 'margin-top': '3%'},500)
             if (text == 'Men') {
@@ -256,8 +279,21 @@ function simCall (asin) {
                 $('#menCat').hide(700)
                 centerImgInContainer($('#categories'),2)
             }
-        }, 200)
+        }, 0)
+    }
+
+    $('.firstImageHolder').click(function() {
+      text = $(this).find('.startLabel').text()
+      sex(text)
+       $('.sexLabel').click(function() {
+        text = $(this).attr('id')
+        alert(text)
+        sex(text)
+        })
     })
+
+
+
 
     $('.subCat').each(function() {
         $(this).hover(function() {
@@ -356,5 +392,6 @@ function simCall (asin) {
 
     })
     
+
 
 })

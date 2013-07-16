@@ -243,36 +243,44 @@ body {
 
 .row {
 	width: 80%;
-	margin-left: 5%;
+	margin-left: 10%;
 	margin-right: auto;
-	margin-top: 5%;
+	margin-top: 1%;
+	padding-bottom: 3%;
 	height: 50%;
 	position: relative;
 	border-bottom: 1px solid #ccc;
 }
 
 .imgs {
-	height: 54%;
+	height: 77%;
 	width: 85%;
 	position: absolute;
-	top: 10%;
+	top: 0%;
 	margin: 0 auto;
-	padding-top: 3%;
-	padding-bottom: 3%;
+	/* padding-top: 3%; */
+	/* padding-bottom: 3%; */
 }
 
 .above {
-	height: 10%;
+	height: 15%;
 	position: absolute;
-	width: 85%;
-	top: 0px;
+	width: 77%;
+	top: 86%;
+	z-index: 99;
+	/* text-align: center; */
+	/* font-family: 'appfont'; */
+	color: #;
 }
 
 .below {
-	height: 30%;
-	width: 85%;
+	height: 17%;
+	width: 77%;
+	margin-right: -4%;
 	position: absolute;
-	bottom: 0px;
+	bottom: 0%;
+	color: #333;
+	background-color: #F5F5F5;
 }
 
 
@@ -280,13 +288,24 @@ body {
 .prodDes {
 	font-family: 'Lobster', cursive;
 	position: absolute;
+	color: #5E5E5E;
 	font-size: 20px;
-	margin: auto;
+	/* margin-left: 20%; */
 	top: 0px;
-background-color: rgb(255, 111, 139);
-border-radius: 3px;
-padding-left: 5px;
-padding-right: 5px;
+
+	/* background-color: rgb(255, 111, 139); */
+
+	border-radius: 3px;
+
+	/* padding-left: 5px; */
+
+	/* padding-right: 5px; */
+	text-align: center;
+	width: 100%;
+	font-family: 'appfont';
+	font-size: 1.2em;
+	letter-spacing: 0.07em;
+	font-weight: 200;
 }
 
 .prodDesBig {
@@ -296,10 +315,17 @@ padding-right: 5px;
 	margin: auto;
 	top: 0px;
 	display: none;
-	background-color: rgb(255, 111, 139);
+	/* background-color: rgb(255, 111, 139); */
 border-radius: 3px;
 padding-left: 5px;
 padding-right: 5px;
+	width: 100%;
+	text-align: center;
+	font-family: 'appfont';
+	letter-spacing: .05em;
+	font-size: 1.2em;
+	color: #5E5E5E;
+	font-weight: 100;
 }
 
 .alternates {
@@ -310,13 +336,19 @@ padding-right: 5px;
 	text-align: center;
 	width: 100%;
 	font-size: 35px;
+	display: none;
 }
 
 .prodPrice {
 	position: absolute;
 	width: 100%;
-	top: 50px;
+	top: 55%;
 	text-align: center;
+	font-family: 'appfont';
+	letter-spacing: 0.15em;
+	font-size: 1em;
+	color: #5E5E5E;
+	font-weight: 200;
 }
 
 .action {
@@ -324,14 +356,28 @@ padding-right: 5px;
 	right: 0%;
 	top: 65%;
 	display: none;
-	color: rgb(100, 100, 255);
-	text-decoration: underline;
+	/* color: rgb(100, 100, 255); */
+	/* text-decoration: underline; */
 	font-size: 16px;
+	padding: 1%;
+	background-color: #4d90fe; 
+	border-radius: 3px;
+	/* background-image: -webkit-gradient(linear,left top,left bottom,from(#4d90fe),to(#4787ed)); */ background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed); background-image: -moz-linear-gradient(top,#4d90fe,#4787ed); background-image: -ms-linear-gradient(top,#4d90fe,#4787ed); background-image: -o-linear-gradient(top,#4d90fe,#4787ed); background-image: linear-gradient(top,#4d90fe,#4787ed); filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#4d90fe',EndColorStr='#4787ed'); 
+	border: 1px solid #3079ed; 
+	color: #fff!important; margin: 0 0;
+	font-family: 'appfont';
+	font-size: .9em;
+	font-weight: 200;
 }
 
 .action:hover {
 	cursor: pointer;
-	color: blue;
+	box-shadow: 1px 1px px blue inset;
+	/* color: blue; */
+	border: 1px solid #2457AA;
+	/* color: #340; */
+	/* color: #eee; */
+	color: #555;
 }
 
 .img {
@@ -351,8 +397,8 @@ padding-right: 5px;
 }
 
 .img img {
-	max-width: 100%;
-	max-height: 100%;
+	max-width: 95%;
+	max-height: 85%;
 	position: absolute;
 	bottom: 0px;
 	margin: 0 auto;
@@ -367,7 +413,7 @@ padding-right: 5px;
 .aRow {
 	float: left;
 	width: 32%;
-	margin-left: 5%;
+	margin-left: 10%;
 	margin-right: auto;
 	margin-top: 5%;
 	height: 50%;
@@ -409,10 +455,10 @@ padding-right: 5px;
 	font-size: 20px;
 	margin: auto;
 	top: 0px;
-background-color: rgb(255, 111, 139);
-border-radius: 3px;
-padding-left: 5px;
-padding-right: 5px;
+	background-color: rgb(255, 111, 139);
+	border-radius: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .aProdDesBig {
@@ -423,9 +469,9 @@ padding-right: 5px;
 	top: 0px;
 	display: none;
 	background-color: rgb(255, 111, 139);
-border-radius: 3px;
-padding-left: 5px;
-padding-right: 5px;
+	border-radius: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .aAlternates {
@@ -527,4 +573,3 @@ padding-right: 5px;
 	font-family: 'Lobster',cursive;
 
 }
-
