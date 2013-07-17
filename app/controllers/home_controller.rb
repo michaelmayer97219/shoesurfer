@@ -19,6 +19,7 @@ class HomeController < ApplicationController
   end
 
   def sim
+    expires_in 1.seconds
     #@result = []
   	#productsByASIN(params[:asin]).each do |product|
   	#	@result.push(product)
@@ -42,9 +43,11 @@ class HomeController < ApplicationController
   end
 
   def shoes
+    expires_in 1.seconds
     @result = productsByTerms('Shoes', params[:id])
     respond_to do |format|
-      format.js { render :json => @result}
+
+          format.js { render :json => @result}
     end
   end
 

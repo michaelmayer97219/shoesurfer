@@ -9,7 +9,7 @@ Shoefinder2::Application.routes.draw do
   get 'home/node/:id', to: 'home#node', as: 'id'
   get 'home/sim/:id', to: 'home#sim', as: 'asin'
   get 'home/apparel/:id', to: 'home#apparel', as: 'asin'
-  get 'home/shoes/:id', to: 'home#shoes', as: 'asin'
+  get 'home/shoes/:id', to: 'home#shoes', as: 'id'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

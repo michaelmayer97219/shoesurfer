@@ -102,7 +102,7 @@ module HomeHelper
 			itemLong.push(long.inner_text)
 		end
 
-  		tempThing.xpath("//ASIN").each do |asin|
+  		tempThing.xpath("//Item/ASIN").each do |asin|
 			asins.push(asin.inner_text)
 		end
 
@@ -174,7 +174,7 @@ module HomeHelper
 			@prices.push(price.inner_text)
 		end
 
-		tempThing.xpath("//ASIN").each do |asin|
+		tempThing.xpath("//Item/ASIN").each do |asin|
 			asins.push(asin.inner_text)
 		end
 
@@ -269,7 +269,7 @@ module HomeHelper
 			itemLong.push(long.inner_text)
 		end
 
-  		tempThing.xpath("//ASIN").each do |asin|
+  		tempThing.xpath("//Item/ASIN").each do |asin|
 			asins.push(asin.inner_text)
 		end
 
@@ -378,46 +378,5 @@ module HomeHelper
 		return items
 	end
 
-	def genArrayOfSimilarities(asin) 
-		holder = []
-		xml_doc  = simLookup(asin)
-
-	 	xml_doc.xpath("//ASIN").each do |obj| 
-	 		ass = obj.inner_text
-	 		inst = simLookup(ass)
-	 		holder.push(returnInfo(inst))
-	 	end
-
-	 	final = [[],[],[],[],[],[]]
-
-	 	holder.each do |array|
-	 		i = 0
-	 		array.each do |smallarray|
-	 			
-	 			smallarray.each do |obj|
-	 				final[i].push(obj)
-	 				
-	 			end
-	 			i = i+1
-	 		end
-	 	end
-	 	return final
-	 end
-
-	 def imageContain(asin, page, url, studio, title, price)
-	 	return [
-            "<div class='img' onclick="+"window.location='"+page+"';"+" target='_new'>",
-                "<div class='price'>"+price+"</div>",
-                "<div class='stumbleHolder'>",
-                    "<div class='shopper thang'><span class='shop'><span class='butt'>Details</span></span></div>",
-                    "<div class='stub thang'><span class='stumbler'><span class='butt'>Similar</span></span></div>",
-                "</div>",
-                "<div class='overlay'>",
-                    "<div class='label'>"+title+"</div>",
-                "</div>",
-                "<img src='"+url+"'/>",
-            "</div>"
-        ].join('\n');
-    end
 end
 

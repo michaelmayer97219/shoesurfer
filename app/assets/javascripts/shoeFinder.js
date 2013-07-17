@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    $('#headerOptions').hide()
+
 
     function backToBeginning () { 
         $('#container').hide()
@@ -117,18 +119,7 @@ function catCall (terms) {
 
              settingsForContent()
              $('.prodNav').css('color', 'blue')
-            $('.action, .aAction').bind('click', function() {
-                    attr = $(this).attr('id')
-                    $('#container').empty()
-                    simCall(attr)
-                    alreadyShown = []
-                    name = $(this).siblings('.aAbove').children('.aProdDesBig').text()
-                    $('.prodNav').hide(50)
-                    $('.prodNav').empty()
-                    $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
-                    $('.prodNav').show(300)
-                                        
-            })
+
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
             alert('Error!');
@@ -157,12 +148,17 @@ function simCall (prod) {
           dataType : 'html',
           cache : false,
           success : function(data){
+            console.log(data)
             dat = $.parseJSON(data)
             for(i = 0; i < dat.length; i++) {
 
                 array = dat[i]
                 if ( $.inArray(array[7], alreadyShown) == -1) {
                     $('#container').append(picHTML(array))
+                    $('.row').last().click(function() {
+                        id = $(this).find('.action').attr('id')
+                        console.log(id)
+                    })
                     alreadyShown.push(array[7])
                 } else {
 
@@ -180,7 +176,7 @@ function simCall (prod) {
 
              settingsForContent()
 
-            $('.action, .aAction').bind('click', function() {
+         /*   $('.action, .aAction').bind('click', function() {
                     attr = $(this).attr('id')
                     $('#container').empty()
                     simCall(attr)
@@ -191,6 +187,7 @@ function simCall (prod) {
                     $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
                     $('.prodNav').show(300)
             })
+*/
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
             alert('Error!');
@@ -203,6 +200,24 @@ function simCall (prod) {
 //simCall('B004ISKHI0')
 
     function settingsForContent () {
+
+                $('.action').each(function() {
+                    $(this).click(function() {
+                    attr = $(this).attr('id')
+
+                    console.log(attr)
+                    $('#container').empty()
+                    simCall(attr)
+                    alreadyShown = []
+                    name = $(this).siblings('.above').children('.prodDesBig').text()
+                    $('.prodNav').hide(50)
+                    $('.prodNav').empty()
+                    $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
+                    $('.prodNav').show(300)
+                                        
+
+                })
+            })
                 $('#container').show()
                 updateLoadingPos()
                 centerImgInContainer ()
