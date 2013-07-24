@@ -1,6 +1,30 @@
 $(document).ready(function() {
 
 
+
+    watcher = 0
+    function watchForBottom(type, parameter) {
+        $(window).scroll(function() {
+            scrollPos = $(this).scrollTop()
+            bottomPos = $(document).height() - scrollPos - $(window).height()
+            console.log(bottomPos)
+            if (bottomPos == 0 && watcher == 0) {
+                alert('we did it!')
+                watcher = 1
+                if (type == 'sim') {
+                    simCall(parameter)
+                } else if (type == cat) {
+                    catCall(parameter)
+                }
+
+            
+            }
+        })
+        watcher = 0
+    }
+    
+
+
     function containerOut () {
         $('#container').animate({'margin-left': '-100%'}, 300, function() {
             $(this).empty()
@@ -144,15 +168,16 @@ $(document).ready(function() {
 
 numTimes = 0
 alreadyShown = []
+page = 1
 
-function catCall (terms) {
+function catCall (terms, page) {
+
     $.ajax({
           url : "home/shoes/"+terms,
           dataType : 'html',
           cache : false,
           success : function(data){
             handleSuccess(data)
-             $('.prodNav').css('color', 'blue')
 
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -171,7 +196,7 @@ $('.subCat').click(function() {
     $('body').css('background-color', 'white')
     $('#container').css('margin-left', '100%')
     setTimeout(function() {
-        catCall(call)
+        catCall(call, page)
         $('#container').animate({'margin-left':'0%'},1000)
         $('#statusBar').append("<span class='subCatNav navLabel'> &gt;"+" "+call+"</span>")
     }, 500)
@@ -230,6 +255,8 @@ function simCall (prod) {
 //simCall('B004ISKHI0')
 
     function settingsForContent (existing, neu) {
+
+        watchForBottom('sim', 'B005BW8DT2')
 
         $('.img').click(function() {
             link = $(this).siblings('a').attr('href')
