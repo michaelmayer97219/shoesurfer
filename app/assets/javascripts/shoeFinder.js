@@ -1,10 +1,87 @@
 $(document).ready(function() {
 
+
+    function containerOut () {
+        $('#container').animate({'margin-left': '-100%'}, 300, function() {
+            $(this).empty()
+            $('#loading').show(100)
+        })
+    }
+
+    function containerIn (existing, neu) {
+        if (existing == 0) {
+            $('#container').css('margin-left', '100%')
+            $('#container').animate({'margin-left': '0%'}, 150)
+            $(window).scrollTop(0)
+            $('#loading').hide(100)
+        }
+            
+        settingsForContent(existing, neu)
+        
+    }
+
+
+
+    arrayOfBadThings = ['sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs']
+
+    function cleanData (wrongSex, text) {
+        isBad = 0
+        wrongSex = wrongSex.toUpperCase()
+        text = text.toUpperCase()
+        if (text.indexOf(wrongSex) !== -1) {
+            isBad =  1
+        } 
+
+        for (n=0; n < arrayOfBadThings.length; n++) {
+            if (text.indexOf(arrayOfBadThings[n]) !== -1) {
+                isBad = 1
+            }
+        }
+
+        return isBad
+    }
+
+    function handleSuccess(data) {
+        numRows = $('.row').length
+        dat = $.parseJSON(data)
+        for(i = 0; i < dat.length; i++) {
+                array = dat[i]
+                if ( $.inArray(array[7], alreadyShown) == -1 && cleanData('women',array[9]) == 0) {
+                    $('#container').append(picHTML(array))
+                    $('.row').last().click(function() {
+                        id = $(this).find('.action').attr('id')
+                    })
+                    alreadyShown.push(array[7])
+                }
+                
+            }
+        newRows = $('.row').length - numRows
+        containerIn(numRows, newRows)
+    }
+
+
+    function nodeResultsFromASIN(asin) {
+        $.ajax({
+          url : "home/node/"+ asin,
+          dataType : 'html',
+          cache : false,
+          success : function(data){
+            handleSuccess(data)
+            },
+          error : function(XMLHttpRequest, textStatus, errorThrown) {
+            alert('Error!');
+        }
+
+        });
+
+    }
+
+
     $('#headerOptions').hide()
 
 
     function backToBeginning () { 
-        $('#container').hide()
+        $('#container').hide().empty()
         $('#categories').show(300)
         $('#categories').css({'top': '100%', 'margin-top': '80px'})
         $('.actionCall').show(300)
@@ -29,6 +106,14 @@ $(document).ready(function() {
 
 
     function picHTML (array) {
+
+        for (inter = 0; inter<array.length; inter++) {
+            if (array[inter] ==  null || array[inter] == '$0.00') {
+                array[inter] = ''
+            }
+        }
+        
+
         return [
             "<div class='row'>",
                 "<div class='above'>",
@@ -36,11 +121,12 @@ $(document).ready(function() {
                 "<span class='prodDesBig'>"+array[9]+"</span>",
                 "</div>",
                 "<div class='imgs'> ",
-                    "<div class='img'><img src=' "+array[1]+" ' /></div>",
+                    "<div class='img'><img src=' "+array[1]+" ' /></a></div>",
                     "<div class='img'><img src=' "+array[2]+" ' /></div>",
                     "<div class='img big'><img src=' "+array[0]+" ' /></div>",
                     "<div class='img'><img src=' "+array[3]+" ' /></div>",
                     "<div class='img'><img src=' "+array[4]+" ' /></div>",
+                    "<a href='"+array[6]+"' target='_blank'></a>",
                 "</div>",
                 "<div class='below'>",
                 "<div class='alternates'>.....</div>",
@@ -54,46 +140,7 @@ $(document).ready(function() {
         ].join('\n');
     }
 
-    function apparelPicHTML (array) {
 
-        imgs = []
-        imgHTML = ''
-        for (i = 0; i < 5; i++) {
-            if ( $.inArray(array[i], imgs) == -1) {
-              imgs.push(array[i])  
-            }
-        }
-        length = imgs.length
-        if (imgs.length > 3) {
-            for (i=0; i< length;i++) {
-
-            }
-        }
-
-        return [
-            "<div class='aRow'>",
-                "<div class='aAbove'>",
-                "<span class='aProdDes'>"+array[8]+"</span>",
-                "<span class='aProdDesBig'>"+array[9]+"</span>",
-                "</div>",
-                "<div class='aImgs'> ",
-                    "<div class='aImg'><img src=' "+array[1]+" ' /></div>",
-                    "<div class='aImg'><img src=' "+array[2]+" ' /></div>",
-                    "<div class='aImg aBig'><img src=' "+array[0]+" ' /></div>",
-                    "<div class='aImg'><img src=' "+array[3]+" ' /></div>",
-                    "<div class='aImg'><img src=' "+array[4]+" ' /></div>",
-                "</div>",
-                "<div class='aBelow'>",
-                "<div class='aAlternates'>.....</div>",
-                "<div class='aProdPrice'>"+array[5]+"</div>",
-                
-                "</div>",
-                "<div class='aAction' id='"+array[7]+"'>Discover Items Like This</div>",
-
-            "</div>",
-
-        ].join('\n');
-    }
 
 numTimes = 0
 alreadyShown = []
@@ -104,20 +151,7 @@ function catCall (terms) {
           dataType : 'html',
           cache : false,
           success : function(data){
-            dat = $.parseJSON(data)
-            for(i = 0; i < dat.length; i++) {
-
-                array = dat[i]
-                if ( $.inArray(array[7], alreadyShown) == -1) {
-                    $('#container').append(picHTML(array))
-                    alreadyShown.push(array[7])
-                } else {
-
-                }
-                
-            }
-
-             settingsForContent()
+            handleSuccess(data)
              $('.prodNav').css('color', 'blue')
 
          },
@@ -129,6 +163,7 @@ function catCall (terms) {
 }
 
 $('.subCat').click(function() {
+    containerOut()
     call = $(this).attr('id')
     parent = $(this).parent()
     $('#categories').hide(500)
@@ -142,39 +177,26 @@ $('.subCat').click(function() {
     }, 500)
 })
 
+function nodeResultsFromExisting(option) {
+            if (option == 0) {
+                asin = $('.row').find('.action').last().attr('id') 
+            } else { asin = option}
+            nodeResultsFromASIN(asin) 
+          }
+
 function simCall (prod) {
     $.ajax({
           url : "home/sim/"+prod,
           dataType : 'html',
           cache : false,
-          success : function(data){
-            console.log(data)
-            dat = $.parseJSON(data)
-            for(i = 0; i < dat.length; i++) {
-
-                array = dat[i]
-                if ( $.inArray(array[7], alreadyShown) == -1) {
-                    $('#container').append(picHTML(array))
-                    $('.row').last().click(function() {
-                        id = $(this).find('.action').attr('id')
-                        console.log(id)
-                    })
-                    alreadyShown.push(array[7])
-                } else {
-
-                }
-                
+          success : function(d){
+            if (d.length > 0){
+                handleSuccess(d)
+                nodeResultsFromExisting(0)
+            } else {
+                nodeResultsFromExisting(prod)
             }
 
-            for(i = 0; i < dat.length; i++) {
-                if (numTimes < 3) {
-                array = dat[i]
-                simCall(array[7])      
-                numTimes ++       
-                }
-             }
-
-             settingsForContent()
 
          /*   $('.action, .aAction').bind('click', function() {
                     attr = $(this).attr('id')
@@ -187,7 +209,15 @@ function simCall (prod) {
                     $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
                     $('.prodNav').show(300)
             })
-*/
+
+
+
+            }
+
+            else {
+                nodeResultsFromASIN(prod)
+            }
+            */
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
             alert('Error!');
@@ -199,64 +229,54 @@ function simCall (prod) {
 
 //simCall('B004ISKHI0')
 
-    function settingsForContent () {
+    function settingsForContent (existing, neu) {
 
-                $('.action').each(function() {
-                    $(this).click(function() {
-                    attr = $(this).attr('id')
+        $('.img').click(function() {
+            link = $(this).siblings('a').attr('href')
+            window.open(link, '_blank')
+        })
 
-                    console.log(attr)
-                    $('#container').empty()
-                    simCall(attr)
-                    alreadyShown = []
-                    name = $(this).siblings('.above').children('.prodDesBig').text()
-                    $('.prodNav').hide(50)
-                    $('.prodNav').empty()
-                    $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
-                    $('.prodNav').show(300)
-                                        
 
-                })
+        for(i=0; i<neu; i++) {
+            newAction = $('.action').eq(i+existing)
+            newAction.click(function() {
+                attr = $(this).attr('id')
+                containerOut()
+                simCall(attr)
+                alreadyShown = []
+                name = $(this).siblings('.above').children('.prodDesBig').text()
+                $('.prodNav').hide(50)
+                $('.prodNav').empty()
+                $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
+                $('.prodNav').show(300)
             })
-                $('#container').show()
-                updateLoadingPos()
-                centerImgInContainer ()
-                $('.row, .aRow').hover(function () {
-                    $(this).find('.action, .aAction').show()
-                    $(this).find('.prodDes, .aProdDes').hide(100);
+        }
 
-                    setTimeout($(this).find('.prodDesBig, .aProdDesBig').show(100),100)
-                }, function() {
-                    $(this).find('.action, .aAction').hide()
-                    $(this).find('.prodDesBig, .aProdDesBig').hide(100);
-                    setTimeout($(this).find('.prodDes, .aProdDes').show(100),100)
-                })
-                $('.img, .aImg').hover(function() {
-                    $(this).css({'height': '100%', 'width': '40%','opacity': .5})
-                    $(this).siblings('.img, .aImg').css({'height': '40%', 'width': '10%', 'opacity': .2})
-                    $('.img, .aImg').animate({'opacity': 1} ,500)
-                        centerImgInContainer($('.img, .aImg'), 2)
-                }, function() {
-                    //$(this).css({'height': '40%', 'width': '10%'})
-                    //$(this).siblings('img').css({'height': '40%'})
-                    //$(this).siblings().first().css({'max-height': '100%'})
-                })
+        $('#container').show()
+        updateLoadingPos()
+        centerImgInContainer ()
 
-              /*  $('.prodDesBig, .prodDes, .aProdDes, .aProdDesBig').each(function () {
-                    text = $(this).text()
-                    length = text.length
-                    $(this).empty()
+        $('.row, .aRow').hover(function () {
+            $(this).find('.action, .aAction').show()
+            $(this).find('.prodDes, .aProdDes').hide(100);
 
-                    diff = 50/length
-                    
-                    for (i = 0; i < length; i++) {
-                        newTint = 255 - Math.round(diff*i)
-                        newColor = 'rgb('+newTint+','+newTint+','+newTint+')'
-                        $(this).append("<span style='color:"+newColor+ "' >"+text[i]+"</span>")
-                    }
-                })
-                */
+            setTimeout($(this).find('.prodDesBig, .aProdDesBig').show(100),100)
+        }, function() {
+            $(this).find('.action, .aAction').hide()
+            $(this).find('.prodDesBig, .aProdDesBig').hide(100);
+            setTimeout($(this).find('.prodDes, .aProdDes').show(100),100)
+        })
 
+        $('.img, .aImg').hover(function() {
+            $(this).css({'height': '100%', 'width': '40%','opacity': .5})
+            $(this).siblings('.img, .aImg').css({'height': '40%', 'width': '10%', 'opacity': .2})
+            $('.img, .aImg').animate({'opacity': 1} ,500)
+                centerImgInContainer($('.img, .aImg'), 2)
+        }, function() {
+            //$(this).css({'height': '40%', 'width': '10%'})
+            //$(this).siblings('img').css({'height': '40%'})
+            //$(this).siblings().first().css({'max-height': '100%'})
+        })
     }
 
 
@@ -353,7 +373,7 @@ function simCall (prod) {
             diff = 100/length
             
             for (i = 0; i < length; i++) {
-                $(this).append("<span style='color:"+newRandomColor(150, 50)+ "' >"+text[i]+"</span>")
+                $(this).append("<span style='color:"+newRandomColor(length)+ "' >"+text[i]+"</span>")
             }
         })
     }
@@ -368,11 +388,12 @@ function simCall (prod) {
     }, 100)
     
 
-    function newRandomColor (floor, breadth) {
-        r = Math.floor(Math.random()*breadth)+floor
-        g = Math.floor(Math.random()*breadth)+floor
-        b = floor - Math.floor(Math.random()*breadth)
-        return 'rgb('+255+','+g+','+b+')'
+    function newRandomColor (length) {
+        diff = 75/length
+        r = 255 - Math.round(diff*numb)
+        g = 150 + Math.round((100/length)*numb)
+        b = 200 - Math.round(diff*numb)
+        return 'rgb('+r+','+g+','+b+')'
     }
 
     $('.optn').hover(function() {
@@ -386,8 +407,6 @@ function simCall (prod) {
             posx = event.clientX
             fromLeft = $(window).width() - posx
             fromBottom = $(window).height() - posy
-           // console.log(fromLeft)
-
             if (fromBottom > 180) {
 
                 $('.piece').removeClass('arrow')
@@ -410,3 +429,56 @@ function simCall (prod) {
 
 
 })
+
+
+
+
+
+
+
+
+
+
+    /*
+    function apparelPicHTML (array) {
+
+        imgs = []
+        imgHTML = ''
+        for (i = 0; i < 5; i++) {
+            if ( $.inArray(array[i], imgs) == -1) {
+              imgs.push(array[i])  
+            }
+        }
+        length = imgs.length
+        if (imgs.length > 3) {
+            for (i=0; i< length;i++) {
+
+            }
+        }
+
+        return [
+            "<div class='aRow'>",
+                "<div class='aAbove'>",
+                "<span class='aProdDes'>"+array[8]+"</span>",
+                "<span class='aProdDesBig'>"+array[9]+"</span>",
+                "</div>",
+                "<div class='aImgs'> ",
+                    "<div class='aImg'><img src=' "+array[1]+" ' /></div>",
+                    "<div class='aImg'><img src=' "+array[2]+" ' /></div>",
+                    "<div class='aImg aBig'><img src=' "+array[0]+" ' /></div>",
+                    "<div class='aImg'><img src=' "+array[3]+" ' /></div>",
+                    "<div class='aImg'><img src=' "+array[4]+" ' /></div>",
+                "</div>",
+                "<div class='aBelow'>",
+                "<div class='aAlternates'>.....</div>",
+                "<div class='aProdPrice'>"+array[5]+"</div>",
+                
+                "</div>",
+                "<div class='aAction' id='"+array[7]+"'>Discover Items Like This</div>",
+
+            "</div>",
+
+        ].join('\n');
+    }
+
+    */

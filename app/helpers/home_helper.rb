@@ -33,13 +33,32 @@ module HomeHelper
 		  'Operation'     => 'SimilarityLookup',  
 		  'SearchIndex'   => 'Shoes',
 		  'IdType'        => 'ASIN', 
+		  'Availability'  => 'Available',
 		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities', 
 		  'ItemId'        => asin}  
 		result = newVacuum(params)
 		return nokogiri(result)
 	end
 
+	def cartCreate(asin) 
+		params = {  
+		  'Operation'     => 'CartCreate',  
+		  'Item.1.ASIN'   => asin, 
+		  'Item.1.Quantity' => 1,
+		  'ResponseGroup' => 'Cart', 
+		}  
+		result = newVacuum(params)
+		return nokogiri(result)
+	end
 
+	def cartSim(isNotFirst, asin)
+		dependencies
+		if isNotFirst == 0
+			result = [cartCreate(asin).inner_text]
+		end
+
+		return result
+	end
 
 
 	def singleItemByAsin(asin)
@@ -71,14 +90,13 @@ module HomeHelper
 		  'Operation'     => 'ItemSearch',
 		  'SearchIndex'   => index,
 		  'Keywords'    =>  terms,
+		  'Availability'  => 'Available',
 		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities'}  
 		result = newVacuum(params)
 		return nokogiri(result)
 	end
 
-	def productsByTerms(index, terms) 
-
-		dependencies
+	def handleCall (tempThing)
 		asins = []
 		itemShort = []
 		itemLong = [] 
@@ -88,7 +106,6 @@ module HomeHelper
 	  	alts = []
 	  	blah = 0
 	  	xx = 1
-  		tempThing = termSearch(index, terms)	
 
   		tempThing.xpath("//FormattedPrice").each do |price|
 			@prices.push(price.inner_text)
@@ -158,75 +175,34 @@ module HomeHelper
 	  return result
 	end
 
-	def productsByNode(node, page, minPrice, maxPrice)
-		  	
+	def productsByTerms(index, terms) 
+
 		dependencies
-		asins = []
-		pages = []
-	  	thing = []
-	  	@prices = []
-	  	alts = []
-	  	blah = 0
-	  	xx = 1
+
+  		tempThing = termSearch(index, terms)		
+
+  		return handleCall(tempThing)
+  		
+	end
+
+	def fromIdToNodeResults(asin)
+		@result = []
+		dependencies
+		params = {  
+		  'Operation'     => 'ItemLookup',
+		  'ItemId'    =>  asin,
+		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities, BrowseNodes'}  
+		result = newVacuum(params)
+		nokogiri(result).xpath("//BrowseNodeId").each do |res|
+			@result.push(res.inner_text)
+		end
+		return productsByNode(@result[0], 1, 2000, 50000)
+	end
+
+	def productsByNode(node, page, minPrice, maxPrice)
+		dependencies
   		tempThing = searchByNode(node, page, minPrice, maxPrice)	
-
-  		tempThing.xpath("//FormattedPrice").each do |price|
-			@prices.push(price.inner_text)
-		end
-
-		tempThing.xpath("//Item/ASIN").each do |asin|
-			asins.push(asin.inner_text)
-		end
-
-		tempThing.xpath("//DetailPageURL").each do |page|
-			pages.push(page.inner_text)
-		end
-
-		tempThing.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url|
-			temp = []
-			temp.push(url.inner_text)
-			temp.push(xx)
-			thing.push(temp)
-			xx = xx+1
-		end
-
-		(xx).times do |i|
-			temptemp = []
-			tempThing.xpath("//Item["+i.to_s+"]/ImageSets/ImageSet[@Category='variant']/MediumImage/URL").each do |title|
-				temp = []
-	  			temp.push(title.inner_text)
-	  			temp.push(i)
-	  			temptemp.push(temp)
-	  		end
-	  		alts.push(temptemp)
-  		end
-
-
-	  	result = []
-	  	thing.length.times do |i|
-
-	  			cont = []
-
-	  			cont.push(thing[i][0])
-	  			if alts[i+1][3].nil? == false
-		  			cont.push(alts[i+1][0][0])
-		  			cont.push(alts[i+1][1][0])
-		  			cont.push(alts[i+1][2][0])
-		  			cont.push(alts[i+1][3][0])
-	  			else 
-		   			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-	  			end
-	  			cont.push(@prices[i])
-	  			cont.push(pages[i])
-	  			cont.push(asins[i])
-	  			result.push(cont)
-
-
-	  end
-	  return result
+  		return handleCall(tempThing)
 	end
 
 	def nodeByASIN(asin)
@@ -246,85 +222,9 @@ module HomeHelper
 	def productsByASIN(asin)
 		  	
 		dependencies
-		asins = []
-		itemShort = []
-		itemLong = [] 
-		pages = []
-	  	thing = []
-	  	@prices = []
-	  	alts = []
-	  	blah = 0
-	  	xx = 1
   		tempThing = simLookup(asin)	
 
-  		tempThing.xpath("//FormattedPrice").each do |price|
-			@prices.push(price.inner_text)
-		end
-
-		tempThing.xpath("//Studio").each do |short|
-			itemShort.push(short.inner_text)
-		end
-
-		tempThing.xpath("//ItemAttributes/Title").each do |long|
-			itemLong.push(long.inner_text)
-		end
-
-  		tempThing.xpath("//Item/ASIN").each do |asin|
-			asins.push(asin.inner_text)
-		end
-
-		tempThing.xpath("//DetailPageURL").each do |page|
-			pages.push(page.inner_text)
-		end
-
-		tempThing.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url|
-			temp = []
-			temp.push(url.inner_text)
-			temp.push(xx)
-			thing.push(temp)
-			xx = xx+1
-		end
-
-		(xx).times do |i|
-			temptemp = []
-			#tempThing.xpath("//Item["+i.to_s+"]/ImageSets/ImageSet[@Category='variant']/MediumImage/URL").each do |title|
-			tempThing.xpath("//Item["+i.to_s+"]/ImageSets/ImageSet[@Category='variant']/LargeImage/URL").each do |title|
-				temp = []
-	  			temp.push(title.inner_text)
-	  			temp.push(i)
-	  			temptemp.push(temp)
-	  		end
-	  		alts.push(temptemp)
-  		end
-
-
-	  	result = []
-	  	thing.length.times do |i|
-
-	  			cont = []
-
-	  			cont.push(thing[i][0])
-	  			if alts[i+1][3].nil? == false
-		  			cont.push(alts[i+1][0][0])
-		  			cont.push(alts[i+1][1][0])
-		  			cont.push(alts[i+1][2][0])
-		  			cont.push(alts[i+1][3][0])
-	  			else 
-		   			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-		  			cont.push(thing[i][0])
-	  			end
-	  			cont.push(@prices[i])
-	  			cont.push(pages[i])
-	  			cont.push(asins[i])
-	  			cont.push(itemShort[i])
-	  			cont.push(itemLong[i])
-	  			result.push(cont)
-
-
-	  end
-	  return result
+	  return handleCall(tempThing)
 	end
 
 	def searchByTerms(terms, page, minPrice, maxPrice)
@@ -342,41 +242,6 @@ module HomeHelper
 	end
 
 
-	def returnInfo(xml) 
-		asins = Array.new
-		pages = Array.new
-		urls = Array.new
-		studios = Array.new
-		titles = Array.new
-		prices = Array.new
-		items = [asins, pages, urls, studios, titles, prices]
-		newitems = []
-
-		xml.xpath("//Item/ASIN").each do |as| 
-			asins.push(as.inner_text)
-		end 
-
-		xml.xpath("//DetailPageURL").each do |page| 
-			pages.push(page.inner_text)
-		end 
-
-		xml.xpath("//ImageSet[@Category='primary']/LargeImage/URL").each do |url| 
-			urls.push(url.inner_text)
-		end 
-
-		xml.xpath("//Studio").each do |studio| 
-			studios.push(studio.inner_text)
-		end 
-
-		xml.xpath("//Title").each do |title| 
-			titles.push(title.inner_text)
-		end 
-
-		xml.xpath("//FormattedPrice").each do |price| 
-			prices.push(price.inner_text)
-		end 
-		return items
-	end
 
 end
 

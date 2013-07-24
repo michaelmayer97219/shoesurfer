@@ -262,6 +262,14 @@ body {
 	/* padding-bottom: 3%; */
 }
 
+.imgs a {
+	xwidth: 100%;
+	xheight: 100%;
+	xposition: absolute;
+	xleft: 0px;
+	xz-index: 100;
+}
+
 .above {
 	height: 15%;
 	position: absolute;
@@ -403,6 +411,10 @@ padding-right: 5px;
 	bottom: 0px;
 	margin: 0 auto;
 	z-index: 90;
+}
+
+.img img:hover {
+	cursor: pointer;
 }
 
 .optn:hover {
@@ -565,7 +577,8 @@ padding-right: 5px;
 
 #loading {
 	display: none;
-	position: relative;
+	position: absolute;
+	top: 40%;
 	width: 100%;
 	text-align: center;
 	height: 60px;

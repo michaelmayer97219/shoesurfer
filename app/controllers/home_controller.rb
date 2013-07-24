@@ -8,14 +8,12 @@ class HomeController < ApplicationController
   end
 
   def node
-
-  	@result = []
-  	2.times do |i|
-  		productsByNode(params[:id], i, 20000, 80000).each do |product|
-  			@result.push(product)
-  			params[:id]
-  		end
-  	end
+  	#@result = []
+  	#@result = productsByNode(params[:id], 1, 20000, 80000)
+    @result = fromIdToNodeResults(params[:id])
+    respond_to do |format|
+      format.js { render :json => @result}
+    end
   end
 
   def sim
@@ -45,6 +43,15 @@ class HomeController < ApplicationController
   def shoes
     expires_in 1.seconds
     @result = productsByTerms('Shoes', params[:id])
+    respond_to do |format|
+
+          format.js { render :json => @result}
+    end
+  end
+
+  def cart
+    @result = cartSim(0, params[:id])
+
     respond_to do |format|
 
           format.js { render :json => @result}
