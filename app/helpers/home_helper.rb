@@ -85,11 +85,12 @@ module HomeHelper
 		return nokogiri(result)
 	end
 
-	def termSearch(index, terms)
+	def termSearch(index, terms, page)
 		params = {  
 		  'Operation'     => 'ItemSearch',
 		  'SearchIndex'   => index,
 		  'Keywords'    =>  terms,
+		  'ItemPage'      => page,
 		  'Availability'  => 'Available',
 		  'ResponseGroup' => 'Images, ItemIds, ItemAttributes, Similarities'}  
 		result = newVacuum(params)
@@ -175,11 +176,11 @@ module HomeHelper
 	  return result
 	end
 
-	def productsByTerms(index, terms) 
+	def productsByTerms(index, terms, page) 
 
 		dependencies
 
-  		tempThing = termSearch(index, terms)		
+  		tempThing = termSearch(index, terms, page)		
 
   		return handleCall(tempThing)
   		

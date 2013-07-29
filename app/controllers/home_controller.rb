@@ -10,7 +10,7 @@ class HomeController < ApplicationController
   def node
   	#@result = []
   	#@result = productsByNode(params[:id], 1, 20000, 80000)
-    @result = fromIdToNodeResults(params[:id])
+    @result = fromIdToNodeResults('B00C9UNUNI')
     respond_to do |format|
       format.js { render :json => @result}
     end
@@ -42,7 +42,8 @@ class HomeController < ApplicationController
 
   def shoes
     expires_in 1.seconds
-    @result = productsByTerms('Shoes', params[:id])
+    paras = params[:id].split('/')
+    @result = productsByTerms('Shoes', paras[0], paras[1])
     respond_to do |format|
 
           format.js { render :json => @result}

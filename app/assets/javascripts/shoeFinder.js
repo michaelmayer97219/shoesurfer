@@ -7,14 +7,13 @@ $(document).ready(function() {
         $(window).scroll(function() {
             scrollPos = $(this).scrollTop()
             bottomPos = $(document).height() - scrollPos - $(window).height()
-            console.log(bottomPos)
             if (bottomPos == 0 && watcher == 0) {
                 alert('we did it!')
                 watcher = 1
                 if (type == 'sim') {
                     simCall(parameter)
-                } else if (type == cat) {
-                    catCall(parameter)
+                } else if (type == 'cat') {
+                    catCall(parameter, 2)
                 }
 
             
@@ -32,13 +31,15 @@ $(document).ready(function() {
         })
     }
 
-    function containerIn (existing, neu) {
+    function containerIn (existing, neu, callType, parameter) {
         if (existing == 0) {
             $('#container').css('margin-left', '100%')
             $('#container').animate({'margin-left': '0%'}, 150)
             $(window).scrollTop(0)
             $('#loading').hide(100)
         }
+
+        watchForBottom(callType, parameter)
             
         settingsForContent(existing, neu)
         
@@ -65,7 +66,7 @@ $(document).ready(function() {
         return isBad
     }
 
-    function handleSuccess(data) {
+    function handleSuccess(data, callType, parameter) {
         numRows = $('.row').length
         dat = $.parseJSON(data)
         for(i = 0; i < dat.length; i++) {
@@ -80,7 +81,7 @@ $(document).ready(function() {
                 
             }
         newRows = $('.row').length - numRows
-        containerIn(numRows, newRows)
+        containerIn(numRows, newRows, callType, parameter)
     }
 
 
@@ -90,7 +91,7 @@ $(document).ready(function() {
           dataType : 'html',
           cache : false,
           success : function(data){
-            handleSuccess(data)
+            handleSuccess(data, node, asin)
             },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
             alert('Error!');
@@ -145,11 +146,11 @@ $(document).ready(function() {
                 "<span class='prodDesBig'>"+array[9]+"</span>",
                 "</div>",
                 "<div class='imgs'> ",
-                    "<div class='img'><img src=' "+array[1]+" ' /></a></div>",
-                    "<div class='img'><img src=' "+array[2]+" ' /></div>",
-                    "<div class='img big'><img src=' "+array[0]+" ' /></div>",
-                    "<div class='img'><img src=' "+array[3]+" ' /></div>",
+                    "<div class='img big'><img src=' "+array[0]+" ' /></a></div>",
                     "<div class='img'><img src=' "+array[4]+" ' /></div>",
+                    "<div class='img'><img src=' "+array[3]+" ' /></div>",
+                    "<div class='img'><img src=' "+array[2]+" ' /></div>",
+                    "<div class='img'><img src=' "+array[1]+" ' /></div>",
                     "<a href='"+array[6]+"' target='_blank'></a>",
                 "</div>",
                 "<div class='below'>",
@@ -173,11 +174,11 @@ page = 1
 function catCall (terms, page) {
 
     $.ajax({
-          url : "home/shoes/"+terms,
+          url : "home/shoes/"+terms+'/'+page,
           dataType : 'html',
           cache : false,
           success : function(data){
-            handleSuccess(data)
+            handleSuccess(data, 'cat', page)
 
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -185,6 +186,7 @@ function catCall (terms, page) {
        }
 
    });
+    page = page + 1
 }
 
 $('.subCat').click(function() {
@@ -196,7 +198,7 @@ $('.subCat').click(function() {
     $('body').css('background-color', 'white')
     $('#container').css('margin-left', '100%')
     setTimeout(function() {
-        catCall(call, page)
+        catCall(call, 2)
         $('#container').animate({'margin-left':'0%'},1000)
         $('#statusBar').append("<span class='subCatNav navLabel'> &gt;"+" "+call+"</span>")
     }, 500)
@@ -216,7 +218,7 @@ function simCall (prod) {
           cache : false,
           success : function(d){
             if (d.length > 0){
-                handleSuccess(d)
+                (d, 'sim')
                 nodeResultsFromExisting(0)
             } else {
                 nodeResultsFromExisting(prod)
@@ -256,7 +258,7 @@ function simCall (prod) {
 
     function settingsForContent (existing, neu) {
 
-        watchForBottom('sim', 'B005BW8DT2')
+        
 
         $('.img').click(function() {
             link = $(this).siblings('a').attr('href')
