@@ -51,12 +51,8 @@ class HomeController < ApplicationController
   end
 
   def cart
-    @result = cartSim(0, params[:id])
-
-    respond_to do |format|
-
-          format.js { render :json => @result}
-    end
+    
+  
   end
 
 

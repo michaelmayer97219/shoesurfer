@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
-
+    scrollType = 'cat' //global variable for infinite scroll. To be changed on each call.
+    scrollParam = 'shoes' //above is type of call, this is substance of call
 
     watcher = 0
     function watchForBottom(type, parameter) {
@@ -8,12 +9,13 @@ $(document).ready(function() {
             scrollPos = $(this).scrollTop()
             bottomPos = $(document).height() - scrollPos - $(window).height()
             if (bottomPos == 0 && watcher == 0) {
-                alert('we did it!')
                 watcher = 1
-                if (type == 'sim') {
-                    simCall(parameter)
-                } else if (type == 'cat') {
-                    catCall(parameter, 2)
+                if (scrollType == 'sim') {
+                    simCall(scrollParam)
+                } else if (scrollType == 'cat') {
+                    catCall(scrollParam, 1)
+                } else if (scrollType == 'node') {
+                    nodeResultsFromASIN(scrollParam, 1)
                 }
 
             
@@ -39,6 +41,13 @@ $(document).ready(function() {
             $('#loading').hide(100)
         }
 
+        if (callType === 'sim') {
+            scrollParam = $(".action:eq("+existing+")").attr('id')
+            if (scrollParam == undefined) {
+                scrollParam = $(".action:eq("+(existing-1)+")").attr('id')
+            }
+        }
+
         watchForBottom(callType, parameter)
             
         settingsForContent(existing, neu)
@@ -47,7 +56,7 @@ $(document).ready(function() {
 
 
 
-    arrayOfBadThings = ['sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs']
+    arrayOfBadThings = ['jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses']
 
     function cleanData (wrongSex, text) {
         isBad = 0
@@ -58,7 +67,7 @@ $(document).ready(function() {
         } 
 
         for (n=0; n < arrayOfBadThings.length; n++) {
-            if (text.indexOf(arrayOfBadThings[n]) !== -1) {
+            if (text.indexOf(arrayOfBadThings[n].toUpperCase()) !== -1) {
                 isBad = 1
             }
         }
@@ -71,7 +80,8 @@ $(document).ready(function() {
         dat = $.parseJSON(data)
         for(i = 0; i < dat.length; i++) {
                 array = dat[i]
-                if ( $.inArray(array[7], alreadyShown) == -1 && cleanData('women',array[9]) == 0) {
+                isRight = cleanData('women',array[9])
+                if ( $.inArray(array[7], alreadyShown) == -1 && isRight == 0) {
                     $('#container').append(picHTML(array))
                     $('.row').last().click(function() {
                         id = $(this).find('.action').attr('id')
@@ -91,7 +101,8 @@ $(document).ready(function() {
           dataType : 'html',
           cache : false,
           success : function(data){
-            handleSuccess(data, node, asin)
+            existing = 0
+            handleSuccess(data, 'node', asin)
             },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
             alert('Error!');
@@ -169,16 +180,16 @@ $(document).ready(function() {
 
 numTimes = 0
 alreadyShown = []
-page = 1
+catpage = 1
 
 function catCall (terms, page) {
 
     $.ajax({
-          url : "home/shoes/"+terms+'/'+page,
+          url : "home/shoes/"+terms+'/'+catpage,
           dataType : 'html',
           cache : false,
           success : function(data){
-            handleSuccess(data, 'cat', page)
+            handleSuccess(data, 'cat', terms)
 
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -186,7 +197,9 @@ function catCall (terms, page) {
        }
 
    });
-    page = page + 1
+    catpage = catpage + 1
+    scrollParam = terms
+    scrollType = 'cat'
 }
 
 $('.subCat').click(function() {
@@ -217,6 +230,7 @@ function simCall (prod) {
           dataType : 'html',
           cache : false,
           success : function(d){
+            handleSuccess(d, 'sim', prod)
             if (d.length > 0){
                 (d, 'sim')
                 nodeResultsFromExisting(0)
@@ -251,6 +265,10 @@ function simCall (prod) {
        }
 
    });
+
+    scrollParam = $('.action:eq(2)').attr('id')
+    console.log('scrollparam: ' + scrollParam)
+    scrollType = 'sim'
 }
 
 
