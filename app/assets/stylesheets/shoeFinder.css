@@ -32,7 +32,7 @@ body {
 
 #lgo{
 	font-family: 'Lobster', cursive;
-	height: 70px;
+	height: 55px;
 	width: 100%;
 	font-size: 40px;
 	position: fixed;
@@ -45,11 +45,12 @@ body {
 	height: 100%;
 	width: 30%;
 	text-shadow: 1px 1px #ccc;
-	font-size: 35px;
+	font-size: 30px;
+	line-height: 55px;
 	display: inline;
 	position: absolute;
 	left: 10%;
-	top: 9px;
+	
 }
 
 #goo:hover {
@@ -63,36 +64,30 @@ body {
 	color: #999;
 }
 
-#headerOptions {
-
-	right: 10%;
+#search {
 	position: absolute;
+	right: 10%;
+	height: 22px;
+	top: 30%;
+	width: 20%;
+	border: 1px solid #E4E4E4;
+	border-radius: 7px;
+	background-color: #f3f3f3;
 }
 
-.optn {
-
-	display: inline-block;
-	font-size: 23px;
-	text-align: center;
-	text-shadow: 1px 1px #bbb;
-	position: relative;
-	margin-left: 14px;
+#search input {
+	position: absolute;
+	height: 80%;
+	width: 80%;
+	top: 10%;
+	margin-left: 5%;
+	box-shadow: none;
+	background-color: transparent;
+	border: none;
 }
 
-#size {
-	color: rgb(255, 100, 150);
-}
-
-#price {
-	color: rgb(255, 142, 109);
-}
-
-#style {
-	color: rgb(255, 199, 55);
-}
-
-#brand {
-	color: rgb(255, 241, 14);
+#search input:focus {
+	outline: none;
 }
 
 #statusBar {

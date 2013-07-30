@@ -1,5 +1,17 @@
 $(document).ready(function() {
 
+    //searchbox highlight styling
+
+    $('#search input').on('focus', function() {
+        $(this).parent().css('background-color', 'white')
+        $('#lgo').css('background-color', '#f3f3f3')
+    })
+
+    $('#search input').on('blur', function() {
+        $(this).parent().css('background-color', '#f3f3f3')
+        $('#lgo').css('background-color', 'rgba(255,255,255, .95)')
+    })
+
     scrollType = 'cat' //global variable for infinite scroll. To be changed on each call.
     scrollParam = 'shoes' //above is type of call, this is substance of call
 
