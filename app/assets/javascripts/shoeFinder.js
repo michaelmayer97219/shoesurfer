@@ -18,7 +18,7 @@ $(document).ready(function() {
     })
 
     $('#search input').on('blur', function() {
-        searchHighlight
+        searchUnhighlight()
     })
 
     // submission for searchbox
@@ -88,7 +88,7 @@ $(document).ready(function() {
 
 
     //lowtech filtering
-    arrayOfBadThings = ['wallet','purse', 'sock', 'laces','goggle', 'jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses']
+    arrayOfBadThings = ['pant', 'ethernet', 'HDMI','short sleeve', 'wallet','purse', 'sock', 'laces','goggle', 'jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses']
 
     function cleanData (wrongSex, text) {
         isBad = 0
