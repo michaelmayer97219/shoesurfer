@@ -2,14 +2,34 @@ $(document).ready(function() {
 
     //searchbox highlight styling
 
+    function searchHighlight() {
+        $('#search input').parent().css('background-color', 'white')
+        $('#lgo').css('background-color', 'rgba(243,243,243, .95)')
+    }
+
+    function searchUnhighlight() {
+        $('#search input').parent().css('background-color', 'rgba(243,243,243, .95)')
+        $('#lgo').css('background-color', 'rgba(255,255,255, .95)')
+        $('#searchIns').hide(100)
+    }
+
     $('#search input').on('focus', function() {
-        $(this).parent().css('background-color', 'white')
-        $('#lgo').css('background-color', '#f3f3f3')
+        searchHighlight()  
     })
 
     $('#search input').on('blur', function() {
-        $(this).parent().css('background-color', '#f3f3f3')
-        $('#lgo').css('background-color', 'rgba(255,255,255, .95)')
+        searchHighlight
+    })
+
+    // submission for searchbox
+
+    $(document).on('keypress', function(e) {
+        if (e.which === 13) {
+            query = $('#search input').val()+' shoes'
+            toFirstCall(query, 1)
+        } else {
+            $('#searchIns').show(100)
+        }
     })
 
     scrollType = 'cat' //global variable for infinite scroll. To be changed on each call.
@@ -67,8 +87,8 @@ $(document).ready(function() {
     }
 
 
-
-    arrayOfBadThings = ['jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses']
+    //lowtech filtering
+    arrayOfBadThings = ['wallet','purse', 'sock', 'laces','goggle', 'jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses']
 
     function cleanData (wrongSex, text) {
         isBad = 0
@@ -129,6 +149,7 @@ $(document).ready(function() {
 
 
     function backToBeginning () { 
+        watcher = 0
         $('#container').hide().empty()
         $('#categories').show(300)
         $('#categories').css({'top': '100%', 'margin-top': '80px'})
@@ -214,10 +235,9 @@ function catCall (terms, page) {
     scrollType = 'cat'
 }
 
-$('.subCat').click(function() {
+function toFirstCall(call, parent) {
+    catpage = 1
     containerOut()
-    call = $(this).attr('id')
-    parent = $(this).parent()
     $('#categories').hide(500)
     $('.actionCall, .firstOptions').hide(500)
     $('body').css('background-color', 'white')
@@ -227,6 +247,12 @@ $('.subCat').click(function() {
         $('#container').animate({'margin-left':'0%'},1000)
         $('#statusBar').append("<span class='subCatNav navLabel'> &gt;"+" "+call+"</span>")
     }, 500)
+}
+
+$('.subCat').click(function() {    
+    call = $(this).attr('id')
+    parent = $(this).parent()
+    toFirstCall(call, parent)
 })
 
 function nodeResultsFromExisting(option) {
@@ -288,7 +314,8 @@ function simCall (prod) {
 
     function settingsForContent (existing, neu) {
 
-        
+        searchUnhighlight()
+        $('#search input').val('').blur()
 
         $('.img').click(function() {
             link = $(this).siblings('a').attr('href')
