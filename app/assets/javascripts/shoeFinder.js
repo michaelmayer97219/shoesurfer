@@ -4,12 +4,12 @@ $(document).ready(function() {
 
     function searchHighlight() {
         $('#search input').parent().css('background-color', 'white')
-        $('#lgo').css('background-color', 'rgba(243,243,243, .95)')
+        $('#lgo, #statusBar').css('background-color', 'rgba(243,243,243, .95)')
     }
 
     function searchUnhighlight() {
         $('#search input').parent().css('background-color', 'rgba(243,243,243, .95)')
-        $('#lgo').css('background-color', 'rgba(255,255,255, .95)')
+        $('#lgo, #statusBar').css('background-color', 'rgba(255,255,255, .95)')
         $('#searchIns').hide(100)
     }
 
@@ -41,6 +41,7 @@ $(document).ready(function() {
             scrollPos = $(this).scrollTop()
             bottomPos = $(document).height() - scrollPos - $(window).height()
             if (bottomPos == 0 && watcher == 0) {
+                $('#loadingBottom').show(200)
                 watcher = 1
                 if (scrollType == 'sim') {
                     simCall(scrollParam)
@@ -108,6 +109,7 @@ $(document).ready(function() {
     }
 
     function handleSuccess(data, callType, parameter) {
+        $('#loadingBottom').hide(500)
         numRows = $('.row').length
         dat = $.parseJSON(data)
         for(i = 0; i < dat.length; i++) {
@@ -122,6 +124,9 @@ $(document).ready(function() {
                 }
                 
             }
+            $('#padding').hide()
+            $('#padding').css('top', $(document).height())
+            $('#padding').show()
         newRows = $('.row').length - numRows
         containerIn(numRows, newRows, callType, parameter)
     }
@@ -149,7 +154,7 @@ $(document).ready(function() {
 
 
     function backToBeginning () { 
-        watcher = 0
+        watcher = 1
         $('#container').hide().empty()
         $('#categories').show(300)
         $('#categories').css({'top': '100%', 'margin-top': '80px'})
@@ -268,6 +273,7 @@ function simCall (prod) {
           dataType : 'html',
           cache : false,
           success : function(d){
+            watcher = 0
             handleSuccess(d, 'sim', prod)
             if (d.length > 0){
                 (d, 'sim')
@@ -465,7 +471,7 @@ function simCall (prod) {
     }
 
 
-    loadingColors()
+    xloadingColors()
     flip = 0
     setInterval(function() {
         if ( flip == 0 ){

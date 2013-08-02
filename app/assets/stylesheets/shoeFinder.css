@@ -29,12 +29,18 @@ body {
 	background-color: transparent;	
 }
 
+#padding {
+	height: 80px;
+	width: 100%;
+	position: absolute;
+	xbackground-color: black;
+}
 
 #lgo{
 	font-family: 'Lobster', cursive;
-	height: 55px;
+	height: 65px;
 	width: 100%;
-	font-size: 40px;
+	font-size: 45px;
 	position: fixed;
 	top: 0px;
 	background-color: rgba(255,255,255,.96);
@@ -45,8 +51,8 @@ body {
 	height: 100%;
 	width: 30%;
 	text-shadow: 1px 1px #ccc;
-	font-size: 30px;
-	line-height: 55px;
+	font-size: 34px;
+	line-height: 65px;
 	display: inline;
 	position: absolute;
 	left: 10%;
@@ -67,7 +73,7 @@ body {
 #search {
 	position: absolute;
 	right: 10%;
-	height: 22px;
+	height: 25px;
 	top: 30%;
 	width: 20%;
 	border: 1px solid #E4E4E4;
@@ -84,6 +90,7 @@ body {
 	box-shadow: none;
 	background-color: transparent;
 	border: none;
+	font-size: 12px;
 }
 
 #search input:focus {
@@ -109,11 +116,11 @@ body {
 	width: 100%;
 	height: 0px;
 	position: fixed;
-	top: 70px;
+	top: 55px;
 	padding-left: 10%;
 	left: 0%;
 	background-color: rgba(255,255,255, .9);
-	height: 28px;
+	height: 24px;
 	display: none;
 	z-index: 100;
 	color: #777;
@@ -121,8 +128,8 @@ body {
 
 #statusBar span {
 	font-family: 'appfont';
-	font-size: 19px;
-	line-height: 28px;
+	font-size: 17px;
+	line-height: 24px;
 
 }
 
@@ -593,4 +600,19 @@ padding-right: 5px;
 	font-size: 35px;
 	font-family: 'Lobster',cursive;
 
+}
+
+#loadingBottom {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	font-family: 'appfont';
+	font-size: 15px;
+	color: #555;
+	text-align: center;
+	display: none;
+	background-color: rgba(255,255,255,0.95);
+	z-index: 100;
 }
