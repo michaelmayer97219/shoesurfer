@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    //global sex setting
+
+    globalSex = ''
+
     //searchbox highlight styling
 
     function searchHighlight() {
@@ -89,22 +93,32 @@ $(document).ready(function() {
 
 
     //lowtech filtering
-    arrayOfBadThings = ['pant', 'ethernet', 'HDMI','short sleeve', 'wallet','purse', 'sock', 'laces','goggle', 'jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses']
+    arrayOfBadThings = ['insole', 'pant', 'ethernet', 'HDMI','short sleeve', 'wallet','purse', 'sock', 'laces','goggle', 'jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses']
 
-    function cleanData (wrongSex, text) {
+    function cleanData (text) {
+        wrongSex = ''
         isBad = 0
-        wrongSex = wrongSex.toUpperCase()
         text = text.toUpperCase()
+        if (globalSex.length > 0) { //starts as empty string
+            if (globalSex.toUpperCase() === 'MEN') {
+                wrongSex = 'WOMEN'
+            } else if (globalSex.toUpperCase() === 'WOMEN') {
+                wrongSex = 'MEN '
+                if (text.indexOf("men's") !== -1) {
+                    isBad = 1
+                }
+            } else {
+                wrongSex = 'bsldkjs'
+            }
+        }
         if (text.indexOf(wrongSex) !== -1) {
             isBad =  1
         } 
-
         for (n=0; n < arrayOfBadThings.length; n++) {
             if (text.indexOf(arrayOfBadThings[n].toUpperCase()) !== -1) {
                 isBad = 1
             }
         }
-
         return isBad
     }
 
@@ -114,7 +128,7 @@ $(document).ready(function() {
         dat = $.parseJSON(data)
         for(i = 0; i < dat.length; i++) {
                 array = dat[i]
-                isRight = cleanData('women',array[9])
+                isRight = cleanData(array[9])
                 if ( $.inArray(array[7], alreadyShown) == -1 && isRight == 0) {
                     $('#container').append(picHTML(array))
                     $('.row').last().click(function() {
@@ -155,6 +169,7 @@ $(document).ready(function() {
 
     function backToBeginning () { 
         watcher = 1
+        $('#error').hide(100)
         $('#container').hide().empty()
         $('#categories').show(300)
         $('#categories').css({'top': '100%', 'margin-top': '80px'})
@@ -166,7 +181,9 @@ $(document).ready(function() {
         $('#categories').children().each(function () {
             $(this).show()
             $(this).css({'width': '49%', 'margin': '0px'})
+           // $('#menCat').css('margin-left', '')
         })
+        $('.subCat').width('38%')
 
     }
 
@@ -205,7 +222,7 @@ $(document).ready(function() {
                 "<div class='below'>",
                 "<div class='alternates'>.....</div>",
                 "<div class='prodPrice'>"+array[5]+"</div>",
-                
+                //"<a class='prodLink' target='_blank' href='"+array[6]+"'</a>",
                 "</div>",
                 "<div class='action' id='"+array[7]+"'>Discover Items Like This</div>",
 
@@ -221,9 +238,9 @@ alreadyShown = []
 catpage = 1
 
 function catCall (terms, page) {
-
+    searchTerm = terms + ' ' +globalSex
     $.ajax({
-          url : "home/shoes/"+terms+'/'+catpage,
+          url : "home/shoes/"+searchTerm+'/'+catpage,
           dataType : 'html',
           cache : false,
           success : function(data){
@@ -257,7 +274,13 @@ function toFirstCall(call, parent) {
 $('.subCat').click(function() {    
     call = $(this).attr('id')
     parent = $(this).parent()
+    if (parent == 'woCat') {
+        globalSex = 'women'
+    } else if (parent === 'menCat') {
+        globalSex = 'men'
+    }
     toFirstCall(call, parent)
+
 })
 
 function nodeResultsFromExisting(option) {
@@ -369,6 +392,15 @@ function simCall (prod) {
             //$(this).siblings('img').css({'height': '40%'})
             //$(this).siblings().first().css({'max-height': '100%'})
         })
+
+        totalItems = $('.row').length
+
+        if (totalItems === 0) {
+            $('#error').show(200)
+            $('.spoofLink').click(function() {
+                backToBeginning()
+            })
+        }
     }
 
 
@@ -390,6 +422,7 @@ function simCall (prod) {
     })
 
     function sex (which) {
+        globalSex = which
         $('.firstOptions').hide(300)
         $('.actionCall').first().hide(300)
         setTimeout(function() {
@@ -400,8 +433,10 @@ function simCall (prod) {
             $('#categories').animate({'top': '100px', 'margin-top': '3%'},500)
             if (text == 'Men') {
                 $('#woCat').hide(700)
-                $('#menCat').css('border', '0px solid black')
-                centerImgInContainer($('#categories'),2)
+                $('#menCat').css({'border': '0px solid black', 'width': '100%'})
+                $('#menCat').children().css({'width': '25%'})
+
+                //centerImgInContainer($('#categories'),5)
             } else {
                 $('#menCat').hide(700)
                 centerImgInContainer($('#categories'),2)
@@ -444,7 +479,7 @@ function simCall (prod) {
 
     }
 
-    centerImgInContainer($('.firstImageHolder'), 8)
+  //  centerImgInContainer($('.firstImageHolder'), 8)
 
     function updateLoadingPos () {
         h = $(document).height()
@@ -471,7 +506,7 @@ function simCall (prod) {
     }
 
 
-    xloadingColors()
+    //loadingColors()
     flip = 0
     setInterval(function() {
         if ( flip == 0 ){
@@ -511,7 +546,8 @@ function simCall (prod) {
 
     $('.firstImageHolder').hover(function() {
         $(this).siblings().css('opacity',.6)
-        $(this).find('.startLabel').css({'right': '0px', 'top':'45%', 'font-size': '35px'})
+        $(this).find('.startLabel').css({'right': '50px', 'top':'45%', 'font-size': '35px'})
+        console.log('hovered')
     }, function() {
         $(this).siblings().css('opacity',1)
         $(this).find('.startLabel').css({'right': 'auto', 'top':'auto', 'font-size': '22px'})

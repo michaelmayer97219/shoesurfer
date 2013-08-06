@@ -15,11 +15,11 @@
 		<div class='actionCall'>Welcome, Pick One:</div>
 		<div class='firstOptions'>
 			<div id='womenStart' class='firstImageHolder'>
-				<img src="<%=@women.inner_text %>" />
+				<%= image_tag('womenFront.jpeg') %>
 				<div class='startLabel'>Women</div>
 			</div>
 			<div id='menStart' class='firstImageHolder'>
-				<img src="<%=@men.inner_text %>" />
+				<%= image_tag('menFront.jpeg') %>
 				<div class='startLabel'>Men</div>
 			</div>
 		</div>
@@ -29,109 +29,91 @@
 	<div id='categories'>
 
 		<div id='woCat' class='catCont'>
-			<div id='Womens Top' class='subCat'>
+			<div id='Active Shoes' class='subCat'>
 				<div class='subCatImg'>
-					<%= image_tag('wTop.jpg') %>
+					<%= image_tag('wActive.jpeg') %>
+				</div>
+				<div class='subCatLabel'>Active</div>
+			</div>
+			<div id='Sandals' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('wSandal.jpeg') %>
+				</div>
+				<div class='subCatLabel'>Sandals</div>
+			</div>
+			<div id='Flats' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('wFlat.jpeg') %>
+				</div>
+				<div class='subCatLabel'>Flats</div>
+			</div>
+			<div id='Slip On Shoes' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('wSlipOn.jpeg') %>
+				</div>
+				<div class='subCatLabel'>Slip Ons</div>
+			</div>
+			<div id='Pumps' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('wPump.jpeg') %>
+				</div>
+				<div class='subCatLabel'>Pumps</div>
+			</div>
+			<div id='Boots' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('wBoot.jpeg') %>
+				</div>
+				<div class='subCatLabel'>Boots</div>
+			</div>
+			<div id='Outdoor shoes' class='subCat'>
+				<div class='subCatImg'>
+					<%= image_tag('wOutdoor.jpeg') %>
 				</div>
 				<div class='subCatLabel'>Tops</div>
-			</div>
-			<div id='Womens Dress' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('wDress.jpg') %>
-				</div>
-				<div class='subCatLabel'>Dresses</div>
-			</div>
-			<div id='Womens Pants' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('wJeans.jpg') %>
-				</div>
-				<div class='subCatLabel'>Pants</div>
-			</div>
-			<div id='Womens Shorts' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('wShorts.jpg') %>
-				</div>
-				<div class='subCatLabel'>Shorts</div>
-			</div>
-			<div id='Womens Skirts' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('wSkirt.jpg') %>
-				</div>
-				<div class='subCatLabel'>Skirts</div>
-			</div>
-			<div id='Womens Jacket' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('wJacket.jpg') %>
-				</div>
-				<div class='subCatLabel'>Jackets</div>
-			</div>
-			<div id='Womens lingerie' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('wSwim.jpg') %>
-				</div>
-				<div class='subCatLabel'>Tops</div>
-			</div>
-			<div id='Womens Shoes' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('wShoes.jpg') %>
-				</div>
-				<div class='subCatLabel'>Shoes</div>
-			</div>
-			<div id='Womens Accessories' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('wAcc.jpg') %>
-				</div>
-				<div class='subCatLabel'>Accessories</div>
 			</div>
 		</div>
 		<div id='menCat' class='catCont'>
-			<div  id='Men Shirt'  class='subCat'>
+			<div  id='Athletic Shoes'  class='subCat'>
 				<div class='subCatImg'>
-					<%= image_tag('menShirt.jpeg') %>
+					<%= image_tag('mActive.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Shirts</div>
+				<div class='subCatLabel'>Athletic</div>
 			</div>
-			<div id='Mens Pants'  class='subCat'>
+			<div id='Sneakers'  class='subCat'>
 				<div class='subCatImg'>
-					<%= image_tag('menPants.jpeg') %>
+					<%= image_tag('mSneaker.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Pants</div>
+				<div class='subCatLabel'>Sneakers</div>
 			</div>
-			<div id='Mens Shorts' class='subCat'>
+			<div id='Loafers and Slip Ons' class='subCat'>
 				<div class='subCatImg'>
-					<%= image_tag('menShorts.jpeg') %>
+					<%= image_tag('mSlipOn.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Shorts</div>
+				<div class='subCatLabel'>Loafers and Slip-ons</div>
 			</div>
-			<div id='Mens Swim' class='subCat'>
+			<div id='Oxfords' class='subCat'>
 				<div class='subCatImg'>
-					<%= image_tag('menSwim.jpeg') %>
+					<%= image_tag('mOxford.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Swim</div>
+				<div class='subCatLabel'>Oxfords</div>
 			</div>
-			<div id='Mens Jacket' class='subCat'>
+			<div id='Boots' class='subCat'>
 				<div class='subCatImg'>
-					<%= image_tag('menJacket.jpeg') %>
+					<%= image_tag('mBoot.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Jackets</div>
+				<div class='subCatLabel'>Boots</div>
 			</div>
-			<div id='Mens Shoes' class='subCat'>
+			<div id='Sandals' class='subCat'>
 				<div class='subCatImg'>
-					<%= image_tag('menShoes.jpeg') %>
+					<%= image_tag('mSandal.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Shoes</div>
+				<div class='subCatLabel'>Sandals</div>
 			</div>
-			<div id='Mens Sunglasses' class='subCat'>
+			<div id='Outdoor Shoes' class='subCat'>
 				<div class='subCatImg'>
-					<%= image_tag('menShades.jpeg') %>
+					<%= image_tag('mOutdoor.jpeg') %>
 				</div>
-				<div class='subCatLabel'>Shades</div>
-			</div>
-			<div id='Mens Accessories' class='subCat'>
-				<div class='subCatImg'>
-					<%= image_tag('menAcc.jpeg') %>
-				</div>
-				<div class='subCatLabel'>Accessories</div>
+				<div class='subCatLabel'>Outdoor</div>
 			</div>
 
 
@@ -148,4 +130,9 @@
 	<div id='padding'></div>
 	<div id='loading'>Loading More...</div>
 	<div id='loadingBottom'>Loading More</div>
+	<div id='error'>
+		<div>Oh no, we didn't find any results. :(</div>
+		<div class='spoofLink'> Go back to beginning </div>
+	</div>
+
 
