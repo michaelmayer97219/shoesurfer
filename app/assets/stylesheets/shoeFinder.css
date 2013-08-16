@@ -38,7 +38,7 @@ body {
 
 #lgo{
 	font-family: 'Lobster', cursive;
-	height: 65px;
+	height: 61px;
 	width: 100%;
 	font-size: 45px;
 	position: fixed;
@@ -52,7 +52,7 @@ body {
 	width: 30%;
 	text-shadow: 1px 1px #ccc;
 	font-size: 34px;
-	line-height: 65px;
+	line-height: 61px;
 	display: inline;
 	position: absolute;
 	left: 10%;
@@ -111,8 +111,8 @@ body {
 }
 
 #statusBar {
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
 	width: 100%;
 	height: 0px;
 	position: fixed;
@@ -120,21 +120,30 @@ body {
 	padding-left: 10%;
 	left: 0%;
 	background-color: rgba(255,255,255, .9);
-	height: 24px;
+	height: 26px;
 	display: none;
 	z-index: 100;
-	color: #777;
+	color: #9C9C9C;
+}
+
+#homeNav {
+	display: none
+}
+
+#statusBar div {
+	display: inline-block;
 }
 
 #statusBar span {
-	font-family: 'appfont';
-	font-size: 17px;
-	line-height: 24px;
+	font-family: 'Lucida Grande';
+	font-size: 13px;
+	font-weight: 100;
+	line-height: 26px;
 
 }
 
-.navLabel:hover {
-	color: #222;
+#statusBar div:hover {
+	color: #aaaaCE;
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -208,7 +217,7 @@ body {
 
 	margin-left: 5%;
 	position: absolute;
-	top: 100%;
+	top: 110%;
 	margin-top: 80px;
 	background-color: #fefefe;
 	height: 100%;
@@ -223,7 +232,7 @@ body {
 }
 
 #menCat {
-	border-left: 1px solid #CACACA;}
+	border-left: 5px solid #eee;}
 
 .subCat {
 	position: relative;
@@ -231,7 +240,7 @@ body {
 	margin-left: 7%;
 	margin-bottom: 20px;
 	display: inline-block;
-	height: 30%;
+	height: 21%;
 }
 
 .subCat:hover {
@@ -267,11 +276,11 @@ body {
 	padding-bottom: 3%;
 	height: 50%;
 	position: relative;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 5px solid #f5f5f5;
 }
 
 .imgs {
-	height: 77%;
+	height: 71%;
 	width: 85%;
 	position: absolute;
 	top: 0%;
@@ -306,11 +315,28 @@ body {
 	position: absolute;
 	bottom: 0%;
 	color: #333;
-	background-color: #F5F5F5;
-	background-image: -webkit-linear-gradient(top,#f8f8f8 ,#f1f1f1);
+	border-top: 5px solid #f5f5f5;
+	/* background-color: #F5F5F5; */
+	/* background-image: -webkit-linear-gradient(top,#f8f8f8 ,#f1f1f1); */
 }
 
+.prodLink {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	font-size: 12px;
+	color: #ccc;
+	font-weight: 100;
+	font-family: 'Lucida Grande';
+	display:none;
+	z-index: 99;
+	text-decoration: none;
+}
 
+.prodLink:hover {
+	text-decoration: underline;
+	cursor: pointer
+}
 
 .prodDes {
 	font-family: 'Lobster', cursive;
@@ -381,7 +407,7 @@ padding-right: 5px;
 .action {
 	position: absolute;
 	right: 0%;
-	top: 65%;
+	top: 71%;
 	display: none;
 	/* color: rgb(100, 100, 255); */
 	/* text-decoration: underline; */

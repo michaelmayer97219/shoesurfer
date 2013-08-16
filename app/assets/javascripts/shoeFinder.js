@@ -1,8 +1,41 @@
 $(document).ready(function() {
 
+    //store data results so we can go back
+
+    storeResults = []
+
     //global sex setting
 
     globalSex = ''
+
+    function updateNav(newCall) {
+        lastNav = $('#navCall').children('.navCont').html()
+        if (globalSex == '') {
+            $('#navSex').hide()
+        } else {
+            $('#navSex').show()
+            $('#navSex').children('.navCont').html(globalSex)
+        }
+
+        if (newCall === 0) {
+            $('#navCall').hide()
+        } else {
+            $('#navCall').show()
+            $('#navCall').children('.navCont').html(newCall)
+        }
+        
+    }
+
+    $('#navSex').click(function() {
+        backToBeginning()
+        sex(globalSex)
+    })
+
+    //click on 'home' to go to first page.
+
+    $('#navHome').click(function() {
+        backToBeginning()
+    })
 
     //searchbox highlight styling
 
@@ -42,9 +75,11 @@ $(document).ready(function() {
     watcher = 0
     function watchForBottom(type, parameter) {
         $(window).scroll(function() {
+
             scrollPos = $(this).scrollTop()
             bottomPos = $(document).height() - scrollPos - $(window).height()
-            if (bottomPos == 0 && watcher == 0) {
+            
+            if ((bottomPos > -2 && bottomPos < 2) && watcher == 0) {
                 $('#loadingBottom').show(200)
                 watcher = 1
                 if (scrollType == 'sim') {
@@ -65,6 +100,7 @@ $(document).ready(function() {
 
     function containerOut () {
         $('#container').animate({'margin-left': '-100%'}, 300, function() {
+            lastVal = $(this).html() 
             $(this).empty()
             $('#loading').show(100)
         })
@@ -93,7 +129,7 @@ $(document).ready(function() {
 
 
     //lowtech filtering
-    arrayOfBadThings = ['insole', 'pant', 'ethernet', 'HDMI','short sleeve', 'wallet','purse', 'sock', 'laces','goggle', 'jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses']
+    arrayOfBadThings = ['insole', 'pant', 'ethernet', 'HDMI','short sleeve', 'wallet','purse', 'sock', 'laces','goggle', 'jacket', 'smartphone', 'touchscreen', 'sunglasses','backpack','shorts','shirt','kid','toddler', 'belt', 'socks', 'glove', 'briefs', 'glasses', 'dress']
 
     function cleanData (text) {
         wrongSex = ''
@@ -123,6 +159,7 @@ $(document).ready(function() {
     }
 
     function handleSuccess(data, callType, parameter) {
+
         $('#loadingBottom').hide(500)
         numRows = $('.row').length
         dat = $.parseJSON(data)
@@ -152,6 +189,7 @@ $(document).ready(function() {
           dataType : 'html',
           cache : false,
           success : function(data){
+            storeResults.push(data)
             existing = 0
             handleSuccess(data, 'node', asin)
             },
@@ -172,7 +210,7 @@ $(document).ready(function() {
         $('#error').hide(100)
         $('#container').hide().empty()
         $('#categories').show(300)
-        $('#categories').css({'top': '100%', 'margin-top': '80px'})
+        $('#categories').css({'top': '110%', 'margin-top': '80px'})
         $('.actionCall').show(300)
         $('#statusBar').hide()
         $('.firstOptions').show(300) 
@@ -180,7 +218,7 @@ $(document).ready(function() {
         $('body').css('background-color', '#efefef')
         $('#categories').children().each(function () {
             $(this).show()
-            $(this).css({'width': '49%', 'margin': '0px'})
+            $(this).css({'width': '45%', 'margin': '0px'})
            // $('#menCat').css('margin-left', '')
         })
         $('.subCat').width('38%')
@@ -220,9 +258,9 @@ $(document).ready(function() {
                     "<a href='"+array[6]+"' target='_blank'></a>",
                 "</div>",
                 "<div class='below'>",
-                "<div class='alternates'>.....</div>",
-                "<div class='prodPrice'>"+array[5]+"</div>",
-                //"<a class='prodLink' target='_blank' href='"+array[6]+"'</a>",
+                    "<div class='alternates'>.....</div>",
+                    "<div class='prodPrice'>"+array[5]+"</div>",
+                    "<a href='"+array[6]+"' class='prodLink' target='_blank'>More Details</a>",
                 "</div>",
                 "<div class='action' id='"+array[7]+"'>Discover Items Like This</div>",
 
@@ -238,14 +276,16 @@ alreadyShown = []
 catpage = 1
 
 function catCall (terms, page) {
+    scrollType = 'cat'
     searchTerm = terms + ' ' +globalSex
     $.ajax({
           url : "home/shoes/"+searchTerm+'/'+catpage,
           dataType : 'html',
           cache : false,
           success : function(data){
-            handleSuccess(data, 'cat', terms)
 
+            handleSuccess(data, 'cat', terms)
+            storeResults.push(data)
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
             alert('Error!');
@@ -254,12 +294,13 @@ function catCall (terms, page) {
    });
     catpage = catpage + 1
     scrollParam = terms
-    scrollType = 'cat'
+    
 }
 
 function toFirstCall(call, parent) {
     catpage = 1
     containerOut()
+
     $('#categories').hide(500)
     $('.actionCall, .firstOptions').hide(500)
     $('body').css('background-color', 'white')
@@ -267,17 +308,20 @@ function toFirstCall(call, parent) {
     setTimeout(function() {
         catCall(call, 2)
         $('#container').animate({'margin-left':'0%'},1000)
-        $('#statusBar').append("<span class='subCatNav navLabel'> &gt;"+" "+call+"</span>")
+        updateNav(call)
+        $('#statusBar').show()
     }, 500)
 }
 
 $('.subCat').click(function() {    
     call = $(this).attr('id')
-    parent = $(this).parent()
+    parent = $(this).parent().attr('id')
     if (parent == 'woCat') {
-        globalSex = 'women'
+        globalSex = 'Women'
+        //updateNav(call)
     } else if (parent === 'menCat') {
-        globalSex = 'men'
+        globalSex = 'Men'
+       // updateNav(call)
     }
     toFirstCall(call, parent)
 
@@ -291,6 +335,7 @@ function nodeResultsFromExisting(option) {
           }
 
 function simCall (prod) {
+    scrollType = 'sim'
     $.ajax({
           url : "home/sim/"+prod,
           dataType : 'html',
@@ -298,6 +343,7 @@ function simCall (prod) {
           success : function(d){
             watcher = 0
             handleSuccess(d, 'sim', prod)
+            storeResults.push(d)
             if (d.length > 0){
                 (d, 'sim')
                 nodeResultsFromExisting(0)
@@ -334,8 +380,7 @@ function simCall (prod) {
    });
 
     scrollParam = $('.action:eq(2)').attr('id')
-    console.log('scrollparam: ' + scrollParam)
-    scrollType = 'sim'
+    
 }
 
 
@@ -346,23 +391,24 @@ function simCall (prod) {
         searchUnhighlight()
         $('#search input').val('').blur()
 
-        $('.img').click(function() {
-            link = $(this).siblings('a').attr('href')
-            window.open(link, '_blank')
-        })
+        
 
 
         for(i=0; i<neu; i++) {
+            $('.row').eq(i+existing).find('.img').click(function() {
+                link = $(this).siblings('a').attr('href')
+                window.open(link, '_blank')
+            })
             newAction = $('.action').eq(i+existing)
             newAction.click(function() {
                 attr = $(this).attr('id')
                 containerOut()
                 simCall(attr)
+
                 alreadyShown = []
                 name = $(this).siblings('.above').children('.prodDesBig').text()
-                $('.prodNav').hide(50)
-                $('.prodNav').empty()
-                $('#statusBar').append("<span class='prodNav navLabel'> &gt;"+" "+name+"</span>")
+                name = 'Items Similar To '+name
+                updateNav(name)
                 $('.prodNav').show(300)
             })
         }
@@ -373,11 +419,13 @@ function simCall (prod) {
 
         $('.row, .aRow').hover(function () {
             $(this).find('.action, .aAction').show()
+            $(this).find('.prodLink').show()
             $(this).find('.prodDes, .aProdDes').hide(100);
 
             setTimeout($(this).find('.prodDesBig, .aProdDesBig').show(100),100)
         }, function() {
             $(this).find('.action, .aAction').hide()
+            $(this).find('.prodLink').hide()
             $(this).find('.prodDesBig, .aProdDesBig').hide(100);
             setTimeout($(this).find('.prodDes, .aProdDes').show(100),100)
         })
@@ -394,12 +442,33 @@ function simCall (prod) {
         })
 
         totalItems = $('.row').length
+        shouldBeContent = $('#navCall').css('display')
 
-        if (totalItems === 0) {
+        if (totalItems === 0 && shouldBeContent != 'none') {
             $('#error').show(200)
+            setTimeout(function() {
+                shouldBeContent = $('#navCall').css('display')
+                if (shouldBeContent === 'none') {
+                    $('#error').hide()
+                }
+            },250)
             $('.spoofLink').click(function() {
-                backToBeginning()
+
+                if(lastVal.length > 0) {
+                    $('#error').hide()
+                   // $('#container').html(lastVal)
+                    rightSpot = storeResults.length - 3
+                    lastData = storeResults[rightSpot]
+                    handleSuccess(lastData, 'sim', 'node')
+                    updateNav(lastNav)
+                    } else {
+                    backToBeginning()
+                }
+                
+
             })
+        } else {
+            $('#error').hide()
         }
     }
 
@@ -424,11 +493,12 @@ function simCall (prod) {
     function sex (which) {
         globalSex = which
         $('.firstOptions').hide(300)
+
         $('.actionCall').first().hide(300)
         setTimeout(function() {
             text = which
             $('#statusBar').show(300)
-            $('#statusBar').html("<span class='homeLabel navLabel'>Home</span><span id='"+text+"' class='sexLabel navLabel'>  &gt; "+text+"</span>")
+            updateNav(0)
             $('.or').hide()
             $('#categories').animate({'top': '100px', 'margin-top': '3%'},500)
             if (text == 'Men') {
@@ -445,12 +515,12 @@ function simCall (prod) {
     }
 
     $('.firstImageHolder').click(function() {
-      text = $(this).find('.startLabel').text()
-      sex(text)
-       $('.sexLabel').click(function() {
-        text = $(this).attr('id')
-        alert(text)
+        text = $(this).find('.startLabel').text()
         sex(text)
+        $('.sexLabel').click(function() {
+            text = $(this).attr('id')
+            alert(text)
+            sex(text)
         })
     })
 
@@ -547,7 +617,6 @@ function simCall (prod) {
     $('.firstImageHolder').hover(function() {
         $(this).siblings().css('opacity',.6)
         $(this).find('.startLabel').css({'right': '50px', 'top':'45%', 'font-size': '35px'})
-        console.log('hovered')
     }, function() {
         $(this).siblings().css('opacity',1)
         $(this).find('.startLabel').css({'right': 'auto', 'top':'auto', 'font-size': '22px'})
