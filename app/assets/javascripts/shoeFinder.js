@@ -443,7 +443,7 @@ function simCall (prod) {
 
         totalItems = $('.row').length
         shouldBeContent = $('#navCall').css('display')
-
+        
         if (totalItems === 0 && shouldBeContent != 'none') {
             $('#error').show(200)
             setTimeout(function() {
