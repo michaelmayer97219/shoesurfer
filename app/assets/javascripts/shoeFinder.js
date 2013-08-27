@@ -4,6 +4,21 @@ $(document).ready(function() {
 
     storeResults = []
 
+    function pushToEndOfStoreResults (dat) {
+        console.log(storeResults.length)
+        arrlength = storeResults.length
+        arrEnd = arrlength - 1
+        if (storeResults[arrEnd]) {
+            storeResults[arrEnd].push(dat)
+        } else {
+            storeResults.push([])
+            console.log('pushed from store results failure')
+            storeResults[0].push(dat)
+        }
+    }
+
+    console.log(storeResults)
+
     //global sex setting
 
     globalSex = ''
@@ -189,7 +204,7 @@ $(document).ready(function() {
           dataType : 'html',
           cache : false,
           success : function(data){
-            storeResults.push(data)
+            
             existing = 0
             handleSuccess(data, 'node', asin)
             },
@@ -283,9 +298,10 @@ function catCall (terms, page) {
           dataType : 'html',
           cache : false,
           success : function(data){
-
+            pushToEndOfStoreResults(data)
             handleSuccess(data, 'cat', terms)
-            storeResults.push(data)
+
+            
          },
           error : function(XMLHttpRequest, textStatus, errorThrown) {
             alert('Error!');
@@ -343,7 +359,6 @@ function simCall (prod) {
           success : function(d){
             watcher = 0
             handleSuccess(d, 'sim', prod)
-            storeResults.push(d)
             if (d.length > 0){
                 (d, 'sim')
                 nodeResultsFromExisting(0)
@@ -401,6 +416,8 @@ function simCall (prod) {
             })
             newAction = $('.action').eq(i+existing)
             newAction.click(function() {
+                storeResults.push([])
+                console.log(storeResults)
                 attr = $(this).attr('id')
                 containerOut()
                 simCall(attr)
@@ -443,9 +460,17 @@ function simCall (prod) {
 
         totalItems = $('.row').length
         shouldBeContent = $('#navCall').css('display')
-        
+
         if (totalItems === 0 && shouldBeContent != 'none') {
             $('#error').show(200)
+            for (i=0; i<storeResults.length; i++) {
+                spot = storeResults.length - 1
+                
+                res = storeResults[spot][i]
+                console.log(res)
+                //handleSuccess(res, 'sim', 'node')
+            }
+                       
             setTimeout(function() {
                 shouldBeContent = $('#navCall').css('display')
                 if (shouldBeContent === 'none') {
@@ -456,10 +481,7 @@ function simCall (prod) {
 
                 if(lastVal.length > 0) {
                     $('#error').hide()
-                   // $('#container').html(lastVal)
-                    rightSpot = storeResults.length - 3
-                    lastData = storeResults[rightSpot]
-                    handleSuccess(lastData, 'sim', 'node')
+                 
                     updateNav(lastNav)
                     } else {
                     backToBeginning()
