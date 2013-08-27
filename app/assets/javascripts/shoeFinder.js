@@ -17,6 +17,10 @@ $(document).ready(function() {
         }
     }
 
+    // hold last html
+
+    lastVal = ''
+
     console.log(storeResults)
 
     //global sex setting
@@ -298,7 +302,6 @@ function catCall (terms, page) {
           dataType : 'html',
           cache : false,
           success : function(data){
-            pushToEndOfStoreResults(data)
             handleSuccess(data, 'cat', terms)
 
             
@@ -416,8 +419,8 @@ function simCall (prod) {
             })
             newAction = $('.action').eq(i+existing)
             newAction.click(function() {
-                storeResults.push([])
-                console.log(storeResults)
+                lastVal = $('#container').html()
+                 
                 attr = $(this).attr('id')
                 containerOut()
                 simCall(attr)
@@ -463,18 +466,15 @@ function simCall (prod) {
 
         if (totalItems === 0 && shouldBeContent != 'none') {
             $('#error').show(200)
-            for (i=0; i<storeResults.length; i++) {
-                spot = storeResults.length - 1
-                
-                res = storeResults[spot][i]
-                console.log(res)
-                //handleSuccess(res, 'sim', 'node')
-            }
+            
                        
             setTimeout(function() {
                 shouldBeContent = $('#navCall').css('display')
                 if (shouldBeContent === 'none') {
                     $('#error').hide()
+                } else {
+                    $('#container').html(lastVal)
+                    settingsForContent(0, 20)
                 }
             },250)
             $('.spoofLink').click(function() {
