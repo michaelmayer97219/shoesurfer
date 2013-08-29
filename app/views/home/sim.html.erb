@@ -1,0 +1,81 @@
+
+<style type="text/css">
+
+.row {
+	position: relative;
+	width: 64%;
+	padding: 6%;
+	margin-left: 5%;
+	margin: 0 auto;
+	margin-bottom: 30px;
+	padding-bottom: 41px;
+	padding-top: 100px;
+	border-bottom: 1px solid #aaa;
+}
+
+.main {
+	max-height: 300px;
+	max-width: 300px;
+	margin-left: 5%;
+}
+
+.alt {
+	max-height: 15%;
+	max-width: 15%;
+	margin-left: 5%;
+	position: relative;
+	display: inline-block;
+}
+
+.nav {
+	position: absolute;
+right: 0;
+bottom: 10px;
+}
+
+#header {
+	width: 100%;
+	height: 60px;
+	top: 0px;
+	position: fixed;
+	background-color: white;
+	z-index: 100;
+}
+
+#header span {
+	position: absolute;
+	line-height: 200%;
+	padding-left: 12%;
+	font-size: 30px;
+	font-family: helvetica;
+}
+
+</style>
+
+<div id='header'><span>Liana's Shoe Store</span></div>
+
+<% prods = [] %>
+<% @result.each do |array| %>
+
+	<% if prods.include?(array[5]) == false  %>
+	<div class='row'>
+
+		<img class='alt' src='<%= array[1]%>'>
+		<img class='main' src='<%= array[0] %>'>
+		<img class='alt' src='<%= array[2]%>'>
+		<img class='alt' src='<%= array[3]%>'>
+		<div class='nav'>
+			<span><%= array[5] %></span>
+			<a href="<%= array[6] %>">Product Link</a>
+			<a href="<%= array[7] %>">Stumble</a>	
+		</div>
+
+	</div>
+	<% prods.push(array[5]) %>
+	<% end %>
+	<% end %>
+
+
+
+
+

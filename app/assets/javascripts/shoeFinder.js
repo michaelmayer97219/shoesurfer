@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    ref = document.referrer 
+    console.log(ref)
+
     //store data results so we can go back
 
     storeResults = []
@@ -474,7 +477,11 @@ function simCall (prod) {
                     $('#error').hide()
                 } else {
                     $('#container').html(lastVal)
-                    settingsForContent(0, 20)
+                    settingsForContent(0, 40)
+                    setTimeout(function() { 
+
+                        $('#error').show(200)
+                    }, 500)
                 }
             },250)
             $('.spoofLink').click(function() {
